@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+
+    <color name="colorPrimary">#E3E3E3</color>
+    <color name="colorPrimaryDark">#18181A</color>
+    <color name="colorAccent">@color/colorPrimary</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="background_line">#dadada</color>
+
+    <color name="btn_basic">@color/colorPrimary</color>
+
+    <color name="background">#F5F5F5</color>
+    <color name="gray">#8C8C8C</color>
+    <color name="border">#C3C3C3</color>
+
+    <color name="status_good">#00A5FF</color>
+    <color name="status_normal">#4ECB60</color>
+    <color name="status_warning">#ffba00</color>
+    <color name="status_bad">#Ce4001</color>
+    <color name="status_off">#CACACA</color>
+
+    <color name="edit_border">#707070</color>
+
+    <color name="gray_normal">#ADADAD</color>
+
+    <color name="text_title_color">#80000000</color>
+    <color name="text_alarm_value_unit">#C3C3C3</color>
+    <color name="text_gray_color">#606060</color>
+
+    <color name="tab_scroll">#2875BC</color>
+
+    <color name="admin_main_background">#F3F4F6</color>
+    <color name="background_disEnable">#E0E0E1</color>
+    <color name="background_disEnable2">#7FFFFFFF</color>
+    <!-- chart color-->
+    <color name="line_green">#6BBC1A</color>
+    <color name="line_blue">#2F9CCD</color>
+    <color name="line_purple">#5926CA</color>
+    <color name="line_yellow">#D5C514</color>
+    <color name="line_orange">#E68B12</color>
+    <color name="line_red">#9C0321</color>
+    <color name="line_pink">#CA6FC8</color>
+    <color name="line_brown">#B14928</color>
+
+
+    <color name="na_btn">#2875BC</color>
+</resources>

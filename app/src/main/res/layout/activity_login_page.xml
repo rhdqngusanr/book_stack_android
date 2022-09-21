@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_login"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/spring_dots_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+        android:id="@+id/spring_dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="51dp"
+        app:dampingRatio="0.5"
+        app:dotsColor="@color/black"
+        app:dotsCornerRadius="20dp"
+        app:dotsSize="10dp"
+        app:dotsSpacing="6dp"
+        app:dotsStrokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_kakao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:stiffness="300" />
+
+    <ImageButton
+        android:layout_margin="16dp"
+        android:id="@+id/btn_kakao"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/kakao_login_large_wide"
+        app:layout_constraintBottom_toTopOf="@+id/googleLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:text="구글 로그인"
+        android:id="@+id/googleLoginBtn"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

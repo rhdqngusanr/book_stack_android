@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="날짜 선택"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/corners_background"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+        <ToggleButton
+            android:id="@+id/btn_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/coustom_btn_radio"
+            android:checked="true"
+            android:textOff="월"
+            android:textOn="월" />
+
+        <ToggleButton
+            android:id="@+id/btn_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/coustom_btn_radio"
+
+            android:textOff="년"
+            android:textOn="년" />
+
+        <ToggleButton
+            android:id="@+id/btn_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/coustom_btn_radio"
+            android:textOff="기간"
+            android:textOn="기간" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/lay_tag_make_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/btn_group">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="22dp"
+            android:weightSum="2">
+
+            <NumberPicker
+                android:id="@+id/month_picker_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:theme="@style/datePickerCustomSize" />
+
+            <NumberPicker
+                android:id="@+id/month_picker_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:theme="@style/datePickerCustomSize" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_month_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="독서 완료"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/lay_tag_make_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/btn_group">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="22dp">
+
+            <NumberPicker
+                android:id="@+id/year_picker_year"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:theme="@style/datePickerCustomSize" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_year_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="독서 완료"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/lay_tag_make_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/btn_group">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:padding="24dp"
+            android:weightSum="3">
+
+            <NumberPicker
+                android:id="@+id/range_picker_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:theme="@style/datePickerCustomSize" />
+
+            <NumberPicker
+                android:id="@+id/range_picker_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:theme="@style/datePickerCustomSize" />
+
+            <NumberPicker
+                android:id="@+id/range_picker_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:theme="@style/datePickerCustomSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="9">
+
+            <ToggleButton
+                android:id="@+id/toggle_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="4"
+                android:checked="true"
+                android:background="@drawable/toggle_btn_radius"
+                android:textOff="FROM"
+                android:textOn="FROM" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="~"
+                android:textSize="16sp" />
+
+            <ToggleButton
+                android:id="@+id/toggle_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="4"
+                android:checked="false"
+                android:background="@drawable/toggle_btn_radius"
+                android:textOff="TO"
+                android:textOn="TO" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_tag_make_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_date_confirm"
+            style="@android:style/ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/enable_btn"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
