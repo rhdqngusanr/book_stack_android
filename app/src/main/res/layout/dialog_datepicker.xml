@@ -160,6 +160,7 @@
             android:weightSum="3">
 
             <NumberPicker
+                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,6 +168,7 @@
                 android:theme="@style/datePickerCustomSize" />
 
             <NumberPicker
+                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_month"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,6 +176,7 @@
                 android:theme="@style/datePickerCustomSize" />
 
             <NumberPicker
+                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,7 +190,8 @@
             android:orientation="horizontal"
             android:weightSum="9">
 
-            <ToggleButton
+            <CheckBox
+                android:button="@null"
                 android:id="@+id/toggle_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -195,9 +199,10 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="4"
                 android:checked="true"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:background="@drawable/toggle_btn_radius"
-                android:textOff="FROM"
-                android:textOn="FROM" />
+                 />
 
             <TextView
                 android:layout_width="0dp"
@@ -207,7 +212,8 @@
                 android:text="~"
                 android:textSize="16sp" />
 
-            <ToggleButton
+            <CheckBox
+                android:button="@null"
                 android:id="@+id/toggle_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -215,9 +221,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_weight="4"
                 android:checked="false"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:background="@drawable/toggle_btn_radius"
-                android:textOff="TO"
-                android:textOn="TO" />
+
+                 />
 
         </LinearLayout>
     </LinearLayout>

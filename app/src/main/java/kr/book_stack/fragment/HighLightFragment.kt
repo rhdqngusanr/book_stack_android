@@ -4,12 +4,14 @@ package kr.book_stack.fragment
 import KeyboardVisibilityUtils
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -31,6 +33,7 @@ class HighLightFragment : Fragment() {
     private var _binding: FragmentHighlight2Binding? = null;
     private val binding get() = _binding!!
     private var mAdapter: RecyclerViewAdapter? = null
+    private val cal = Calendar.getInstance()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     fun newInstance() : HighLightFragment {
         return HighLightFragment()
@@ -72,11 +75,19 @@ class HighLightFragment : Fragment() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(binding.root)
         dialog.setCancelable(true)
-        val cal = Calendar.getInstance()
+
         val monthStr = ArrayList<String>()
         val yearStr = ArrayList<String>()
+        val day30Str = ArrayList<String>()
+        val day31Str = ArrayList<String>()
         for (i in 1..12){
             monthStr.add("${i}월")
+        }
+        for (i in 1..30){
+            day30Str.add("${i}일")
+        }
+        for (i in 1..31){
+            day31Str.add("${i}일")
         }
         for (i in 1990..2030){
             yearStr.add("${i}년")
@@ -144,9 +155,48 @@ class HighLightFragment : Fragment() {
             binding.layRange.visibility = View.VISIBLE
 
 
+            binding.rangePickerYear.wrapSelectorWheel = false
+            binding.rangePickerYear.minValue = 1990
+            binding.rangePickerYear.maxValue = 2030
+            binding.rangePickerYear.value = cal.get(Calendar.YEAR)
+            binding.rangePickerYear.displayedValues = yearStr.toArray(arrayOfNulls<String>(yearStr.size))
+
+            binding.rangePickerMonth.wrapSelectorWheel = false
+            binding.rangePickerMonth.minValue = 1
+            binding.rangePickerMonth.maxValue = 12
+            binding.rangePickerMonth.value =  cal.get(Calendar.MONTH) + 1
+            binding.rangePickerMonth.displayedValues = monthStr.toArray(arrayOfNulls<String>(monthStr.size))
+
+            binding.rangePickerDay.wrapSelectorWheel = false
+            binding.rangePickerDay.minValue = 1
+
+            binding.rangePickerDay.displayedValues = day31Str.toArray(arrayOfNulls<String>(day31Str.size))
+            binding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+            binding.rangePickerDay.value =  cal.get(Calendar.DATE)
+            binding.toggleFrom.text = "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
+            binding.toggleTo.text = "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
         }
 
+        binding.rangePickerYear.setOnValueChangedListener { _, _, _ ->
 
+            toggleRange(binding)
+
+        }
+        binding.rangePickerMonth.setOnValueChangedListener { _, _, _ ->
+            toggleRange(binding)
+        }
+        binding.rangePickerDay.setOnValueChangedListener { _, _, _ ->
+            toggleRange(binding)
+        }
+
+        binding.toggleFrom.setOnClickListener {
+            binding.toggleFrom.isChecked = true
+            binding.toggleTo.isChecked = false
+        }
+        binding.toggleTo.setOnClickListener {
+            binding.toggleFrom.isChecked = false
+            binding.toggleTo.isChecked = true
+        }
 
         binding.btnDateConfirm.setOnClickListener {
             dialogDateRange()
@@ -156,7 +206,28 @@ class HighLightFragment : Fragment() {
         binding.btnMonth.performClick()
     }
 
+    private fun toggleRange(inBinding:DialogDatepickerBinding){
+        cal.set(inBinding.rangePickerYear.value,inBinding.rangePickerMonth.value-1,cal.get(Calendar.DATE));
+        inBinding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val formatter = SimpleDateFormat("yyyy년 MM월 dd일")
+        val fromDate = formatter.parse( inBinding.toggleFrom.text.toString())
+
+        if (inBinding.toggleFrom.isChecked){
+            inBinding.toggleFrom.text = "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+        }else if (inBinding.toggleTo.isChecked){
+            val toDate = formatter.parse( "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일")
+            val compare = toDate.compareTo(fromDate)
+            if (compare < 0) {
+                Toast.makeText(requireActivity(), "FROM이 TO보다 큽니다.", Toast.LENGTH_SHORT).show()
+            }else{
+                inBinding.toggleTo.text = "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+            }
+                
+        }
+    }
+
     private fun dialogDateRange() {
+
 
         val binding = DialogDatepickerRangeBinding.inflate(requireActivity().layoutInflater)
         val dialog = BottomSheetDialog(requireActivity())
