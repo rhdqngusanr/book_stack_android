@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="sample_image">
-        <item>@drawable/ic_baseline_home_32</item>
+    <string-array name="tag_name">
+        <item>개발자</item>
+        <item>디자인</item>
+    </string-array>
+
+    <string-array name="tag_img_name">
+        <item>스마일</item>
+        <item>슬픔</item>
+    </string-array>
+
+    <array name="tag_images">
+        <item>@drawable/test_svg</item>
+        <item>@drawable/svg_back2</item>
     </array>
 </resources>

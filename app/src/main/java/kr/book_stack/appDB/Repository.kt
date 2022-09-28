@@ -2,6 +2,7 @@ package kr.book_stack.appDB
 
 import androidx.lifecycle.LiveData
 import kr.book_stack.appDB.data.Book
+import kr.book_stack.appDB.data.ResultTag
 import kr.book_stack.appDB.data.Tag
 import kr.book_stack.appDB.data.User
 
@@ -10,6 +11,7 @@ class Repository(mDatabase: AppDatabase) {
     val dao = mDatabase.dao()
     val allBook: LiveData<List<Book>> = dao.getAll()
     val allTag: LiveData<List<Tag>> = dao.getTagAll()
+    val allResultTag: LiveData<List<ResultTag>> = dao.getResultTagAll()
     var getUserInfo: LiveData<User> = dao.getUser("")
 
     companion object {
@@ -37,6 +39,9 @@ class Repository(mDatabase: AppDatabase) {
     }
     suspend fun insertTag(entity: Tag) {
         dao.insertTag(entity)
+    }
+    suspend fun insertResultTag(entity: ResultTag) {
+        dao.insertResultTag(entity)
     }
      fun getUser(inId:String): LiveData<User> {
         getUserInfo = dao.getUser(inId)

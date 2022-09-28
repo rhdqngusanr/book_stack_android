@@ -1,27 +1,38 @@
 package kr.book_stack.fragment_reg
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.book_stack.*
+import kr.book_stack.appDB.AppDatabase
+import kr.book_stack.appDB.DAO
+import kr.book_stack.appDB.Repository
 import kr.book_stack.appDB.data.DefaultTag
+import kr.book_stack.appDB.data.ResultTag
+import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.RegFragmentTag2Binding
+import kr.book_stack.notion.NotionAPI
 
-class TagFragment2  : Fragment() {
+
+class TagFragment2 : Fragment() {
     private var _binding: RegFragmentTag2Binding? = null;
     private val binding get() = _binding!!
     private val viewModel: AppViewModel by viewModels()
 
-    fun newInstance() : TagFragment2 {
+    fun newInstance(): TagFragment2 {
         return TagFragment2()
     }
 
@@ -34,44 +45,107 @@ class TagFragment2  : Fragment() {
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables", "Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val mActivity = activity as RegActivity
+        val stringsTag = resources.getStringArray(R.array.tag_name)
+        val stringsTagImg = resources.getStringArray(R.array.tag_img_name)
+        val images = resources.obtainTypedArray(R.array.tag_images)
+        val tagStringArray = ArrayList<String>()
+        var userInfo = ""
+        viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
+            user?.let { userInfo = user.tagPageId.toString()}
+
+        })
 
         binding.btnTagConfirm.setOnClickListener {
-            mActivity.goHighLightFragment()
+            tagStringArray.clear()
+            CoroutineScope(Dispatchers.Main).launch {
+                val ids = binding.chipGroupTag.checkedChipIds
+                if (ids.size == 0) {
+                    Toast.makeText(requireActivity(), "태그를 선택해주세요.", Toast.LENGTH_LONG).show()
+                } else {
+                    mActivity.progressView(15000)
+                    try {
+
+                        for (id in ids) {
+                            val chip: Chip = binding.chipGroupTag.findViewById(id)
+                            val checkArray = viewModel.getAllTag().value
+                                for (j in checkArray!!.indices) {
+
+                                if (checkArray[j].tag == chip.text) {
+
+                                    val tagDbPageId = NotionAPI.createTagPage(
+                                        "테스트",
+                                        userInfo,
+                                        chip.text.toString(),
+                                        checkArray[j].tagImg.toString()
+                                    )
+                                    NotionAPI.updateTagPageId(tagDbPageId)
+                                    viewModel.insertResultTag(
+                                        ResultTag(chip.text.toString(), checkArray[j].tagImg.toString(),tagDbPageId)
+                                    )
+                                }
+                            }
+
+                        }
+                    } catch (e: Exception) {
+                        Log.e("TagFragment2", "$e")
+                        Toast.makeText(requireActivity(), "태그 API 오류.", Toast.LENGTH_LONG).show()
+                    } finally {
+                        mActivity.progressDismiss()
+                    }
+                }
+            }
+
+
         }
         binding.tvMakeTag.setOnClickListener {
-            mActivity.goTagMakeFragment()
+            //mActivity.goTagMakeFragment()
+            mActivity.goFragment(TagMakeFragment2())
         }
+        val tagArray = Struct.defaultTag()
+        tagArray.add(DefaultTag("슬픔", 2131230909))
 
-        binding.chipGroupTag.addView(Chip(requireActivity()).apply {
-            text = "반갑다"
-            isCloseIconVisible = true
-            chipIcon = ContextCompat.getDrawable(requireActivity(),R.drawable.svg_back2)
 
-        })
-
-        viewModel.getAllTag().observe(requireActivity(), Observer { tag ->
+        viewModel.getAllTag().observe(viewLifecycleOwner, Observer { tag ->
             // Update the cached copy of the users in the adapter.
-            val tagArray = Struct.defaultTag()
-            tagArray.add(DefaultTag("슬픔",2131230909))
+            tag?.let {
+                if (tag.isEmpty()) {
+                    for (i in stringsTag.indices) {
+                        viewModel.insertTag(
+                            Tag(stringsTag[i],stringsTagImg[i])
+                        )
+                    }
+                } else {
+                    for (i in tag.indices) {
+                        binding.chipGroupTag.addView(Chip(requireActivity()).apply {
+                            isCheckable = true
+                            text = "${tag[i].tag}"
+                            isCloseIconVisible = true
+                            setChipBackgroundColorResource(R.color.chip_bg)
+                            setOnCloseIconClickListener {
+                                binding.chipGroupTag.removeView(it)
+                            }
+                            for (j in stringsTagImg.indices) {
+                                if (stringsTagImg[j] == tag[i].tagImg) {
+                                    chipIcon = ContextCompat.getDrawable(
+                                        requireActivity(),
+                                        images.getResourceId(j, -1)
+                                    )
+                                }
+                            }
+                        })
+                    }
+                }
+            }
 
-            val mAdapter = RecyclerTagAdapter(tagArray)
 
-            binding.recyclerViewTag.layoutManager = GridLayoutManager(
-                requireActivity(),
-                6
-            )
-            binding.recyclerViewTag.adapter = mAdapter
-            binding.recyclerViewTag.addItemDecoration(
-                DividerItemDecoration(
-                    requireActivity(),
-                    DividerItemDecoration.VERTICAL
-                )
-            )
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

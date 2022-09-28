@@ -166,7 +166,6 @@ object NotionAPI {
             icon = Emoji("2️⃣"),
             properties = PropertySpecList()
                 .title("id")
-                .text("name")
                 .text("page_id")
                 .text("tag")
                 .text("tag_icon")
@@ -187,6 +186,38 @@ object NotionAPI {
         println(updatedPage)
     }
 
+    suspend fun createTagPage(inId: String,inPageId:String, inTag : String, inTagImg : String): UuidString {
+        println("Created page in database:")
+        val createdPageInDb: Page = Struct.notionClient.pages.createPage(
+            parentDatabase = DatabaseReference(inPageId),
+            properties = PropertyValueList()
+                .title("id", inId)
+                .text(
+                    "page_id", RichTextList()
+                        .text("")
+                )
+                .text(
+                    "tag", RichTextList()
+                        .text(inTag)
+                )
+                .text(
+                    "tag_icon", RichTextList()
+                        .text(inTagImg)
+                )
+        )
+
+        return createdPageInDb.id
+    }
+    suspend fun updateTagPageId(pageId: UuidString) {
+        println("Updated page:")
+        val updatedPage: Page = Struct.notionClient.pages.updatePage(
+            id = pageId,
+            properties = PropertyValueList()
+                .text("page_id", pageId)
+
+        )
+        println(updatedPage)
+    }
     suspend fun queryBookDatabaseFilters(
         inProperty: String,
         inValue: String

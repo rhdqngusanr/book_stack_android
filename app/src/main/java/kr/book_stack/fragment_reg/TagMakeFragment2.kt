@@ -10,9 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.book_stack.AppViewModel
 import kr.book_stack.R
 import kr.book_stack.RegActivity
+import kr.book_stack.appDB.data.Book
+import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.DialogTagMakeBinding
 
 import kr.book_stack.databinding.RegFragmentTagMake2Binding
@@ -23,6 +27,7 @@ import java.util.concurrent.TimeUnit
 class TagMakeFragment2  : Fragment() {
     private var _binding: RegFragmentTagMake2Binding? = null;
     private val binding get() = _binding!!
+    private val viewModel: AppViewModel by viewModels()
     fun newInstance() : TagMakeFragment2 {
         return TagMakeFragment2()
     }
@@ -41,7 +46,10 @@ class TagMakeFragment2  : Fragment() {
         val mActivity = activity as RegActivity
 
         binding.tvTagAdd.setOnClickListener {
-            mActivity.goTagFragment()
+            viewModel.insertTag(
+                Tag(binding.editTagName.text.toString(),"스마일")
+            )
+            mActivity.goFragment(TagFragment2())
         }
         binding.tvTagmakeTest.setOnClickListener {
             dialogTagMake()

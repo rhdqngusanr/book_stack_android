@@ -3,6 +3,7 @@ package kr.book_stack.appDB
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import kr.book_stack.appDB.data.Book
+import kr.book_stack.appDB.data.ResultTag
 import kr.book_stack.appDB.data.Tag
 import kr.book_stack.appDB.data.User
 
@@ -42,4 +43,13 @@ interface DAO {
 
     @Query("SELECT * from tag_table")
     fun getTagAll(): LiveData<List<Tag>>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertResultTag(entity: ResultTag)
+
+
+    @Query("SELECT * from result_tag_table")
+    fun getResultTagAll(): LiveData<List<ResultTag>>
+
 }

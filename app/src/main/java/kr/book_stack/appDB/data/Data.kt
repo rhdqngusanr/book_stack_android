@@ -32,10 +32,18 @@ data class User(
 
 @Entity(tableName = "tag_table")
 data class Tag(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "tag")val tag: String?,
-    @ColumnInfo(name = "tag_info") val tagInfo: String?,
+   // @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    //@ColumnInfo(name = "tag")val tag: String?,
+    @PrimaryKey val tag: String,
     @ColumnInfo(name = "tag_img") val tagImg: String?,
+)
+@Entity(tableName = "result_tag_table")
+data class ResultTag(
+    // @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    //@ColumnInfo(name = "tag")val tag: String?,
+    @PrimaryKey val tag: String,
+    @ColumnInfo(name = "tag_img") val tagImg: String?,
+    @ColumnInfo(name = "page_id") val pageId: String?,
 )
 
 data class DefaultTag(

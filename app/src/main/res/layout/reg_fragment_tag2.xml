@@ -35,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:textSize="16sp"
         android:text="나에게 맞는 태그가 없나요?"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,12 +55,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/recyclerView_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -68,41 +68,44 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_tag"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
 
+
+        app:layout_constraintBottom_toTopOf="@+id/btn_tag_confirm"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/test_chip1"
-            android:text="스마일"
-            app:chipIcon="@drawable/ic_baseline_home_32"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="스마일"
+
+
+            app:checkedIconEnabled="false"
+            app:chipBackgroundColor="@color/chip_bg"
+            app:chipIcon="@drawable/ic_baseline_home_32"
+            app:rippleColor="@color/black" />
+
         <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
             android:text="가나다라마바사아자차카타파하"
+            app:checkedIconEnabled="false"
+            app:chipBackgroundColor="@color/chip_bg"
             app:chipIcon="@drawable/ic_baseline_home_32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.chip.Chip
-            android:text="스마일"
-            app:chipIcon="@drawable/ic_baseline_home_32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.chip.Chip
-            android:text="스마일"
-            app:chipIcon="@drawable/ic_baseline_home_32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.chip.Chip
-            android:text="스마일"
-            app:chipIcon="@drawable/ic_baseline_home_32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:rippleColor="@color/black" />
+
 
     </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

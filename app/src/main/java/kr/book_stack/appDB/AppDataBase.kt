@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kr.book_stack.appDB.data.Book
+import kr.book_stack.appDB.data.ResultTag
 import kr.book_stack.appDB.data.Tag
 import kr.book_stack.appDB.data.User
 
 
-@Database(entities = [Book::class, User::class, Tag::class],   version = 1, exportSchema = false)
+@Database(entities = [Book::class, User::class, Tag::class, ResultTag::class],   version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dao(): DAO

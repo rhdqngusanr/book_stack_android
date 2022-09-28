@@ -1,10 +1,12 @@
 package kr.book_stack
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.SearchEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import kr.book_stack.databinding.ActivityRegBinding
 import kr.book_stack.fragment.HighLightFragment
 import kr.book_stack.fragment.SearchFragment
@@ -25,8 +27,8 @@ class RegActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val profile = intent.getStringExtra("profile")
 
-        goSearchFragment()
-/*        val bundle = Bundle()
+        //goTagFragment()
+        val bundle = Bundle()
         bundle.putString("user_id",id)
         bundle.putString("user_name",name)
         bundle.putString("user_profile",profile)
@@ -35,7 +37,7 @@ class RegActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameLayout_registration, infoFragment1)
-            .commit()*/
+            .commit()
     }
     fun goTagFragment(){
         val fragment: TagFragment2 = TagFragment2().newInstance()
@@ -58,11 +60,31 @@ class RegActivity : AppCompatActivity() {
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
+    @SuppressLint("PrivateResource")
     fun goSearchFragment(){
         val fragment: SearchFragment = SearchFragment().newInstance()
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                com.google.android.material.R.anim.design_bottom_sheet_slide_in,
+                com.google.android.material.R.anim.design_bottom_sheet_slide_in
+            )
+            .addToBackStack(null)
             .replace(R.id.frameLayout_registration, fragment)
+            .commit()
+    }
+
+    @SuppressLint("PrivateResource")
+    fun goFragment(inFragment : Fragment){
+
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                com.google.android.material.R.anim.design_bottom_sheet_slide_in,
+                com.google.android.material.R.anim.design_bottom_sheet_slide_out
+            )
+            .addToBackStack(null)
+            .replace(R.id.frameLayout_registration, inFragment)
             .commit()
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kr.book_stack.RegActivity
 import kr.book_stack.databinding.RegFragmentH3Binding
+import kr.book_stack.fragment.SearchFragment
 
 
 class HFragment3  : Fragment() {
@@ -31,7 +32,9 @@ class HFragment3  : Fragment() {
         val mActivity = activity as RegActivity
 
         binding.btnHighlightAdd.setOnClickListener {
+
             mActivity.goSearchFragment()
+
         }
     }
     override fun onDestroyView() {
