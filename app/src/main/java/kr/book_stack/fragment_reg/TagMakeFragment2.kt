@@ -49,7 +49,7 @@ class TagMakeFragment2  : Fragment() {
             viewModel.insertTag(
                 Tag(binding.editTagName.text.toString(),"스마일")
             )
-            mActivity.goFragment(TagFragment2())
+            mActivity.goFragment(TagFragment2(),null)
         }
         binding.tvTagmakeTest.setOnClickListener {
             dialogTagMake()

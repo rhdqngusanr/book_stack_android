@@ -15,7 +15,7 @@ class SettingFragment : Fragment() {
         return SettingFragment()
     }
 
-    private lateinit var viewModel: AppViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

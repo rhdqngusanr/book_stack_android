@@ -33,11 +33,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/h_add_img_book_cover"
                     android:background="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"/>
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="200dp"/>
 
                 <TextView
+                    android:id="@+id/h_add_tv_book_title"
                     android:text="TEST"
                     android:layout_marginTop="26dp"
                     android:textSize="20sp"
@@ -45,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/h_add_tv_book_info"
                     android:text="TEST"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="32dp"
@@ -82,7 +86,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipsPrograms"
+                        android:id="@+id/chipsHighLightTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -91,35 +95,8 @@
                         android:paddingEnd="8dp"
                         app:chipSpacing="8dp"
                         app:singleLine="true"
-                        >
+                        />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/test_chip1"
-                        android:text="스마일"
-                        app:chipIcon="@drawable/ic_baseline_home_32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <com.google.android.material.chip.Chip
-                        android:text="가나다라마바사아자차카타파하"
-                        app:chipIcon="@drawable/ic_baseline_home_32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <com.google.android.material.chip.Chip
-                        android:text="스마일"
-                        app:chipIcon="@drawable/ic_baseline_home_32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <com.google.android.material.chip.Chip
-                        android:text="스마일"
-                        app:chipIcon="@drawable/ic_baseline_home_32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <com.google.android.material.chip.Chip
-                        android:text="스마일"
-                        app:chipIcon="@drawable/ic_baseline_home_32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    </com.google.android.material.chip.ChipGroup>>
                 </HorizontalScrollView>
             </LinearLayout>
 
@@ -149,6 +126,7 @@
                     android:text="기간테스트" />
 
                 <TextView
+                    android:id="@+id/h_add_tv_range"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -207,6 +185,7 @@
                             android:background="@color/background"
                             android:gravity="center_vertical"
                             android:inputType="textMultiLine"
+                            android:minHeight="150dp"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -229,7 +208,7 @@
 
 
         <Button
-            android:id="@+id/tv_tag_add"
+            android:id="@+id/tv_btn_add_highlight"
             style="@android:style/ButtonBar"
             android:layout_width="match_parent"
             android:layout_height="56dp"

@@ -96,6 +96,8 @@ class TagFragment2 : Fragment() {
                         Toast.makeText(requireActivity(), "태그 API 오류.", Toast.LENGTH_LONG).show()
                     } finally {
                         mActivity.progressDismiss()
+                        //mActivity.goH3Fragment()
+                        mActivity.goFragment(HFragment3(),null)
                     }
                 }
             }
@@ -104,10 +106,8 @@ class TagFragment2 : Fragment() {
         }
         binding.tvMakeTag.setOnClickListener {
             //mActivity.goTagMakeFragment()
-            mActivity.goFragment(TagMakeFragment2())
+            mActivity.goFragment(TagMakeFragment2(),null)
         }
-        val tagArray = Struct.defaultTag()
-        tagArray.add(DefaultTag("슬픔", 2131230909))
 
 
         viewModel.getAllTag().observe(viewLifecycleOwner, Observer { tag ->
@@ -141,9 +141,8 @@ class TagFragment2 : Fragment() {
                     }
                 }
             }
-
-
         })
+
     }
 
     override fun onDestroyView() {

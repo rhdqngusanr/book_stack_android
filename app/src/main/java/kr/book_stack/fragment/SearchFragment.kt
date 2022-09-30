@@ -32,11 +32,11 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var mAdapter: RecyclerViewAdapter? = null
     var mActivity : RegActivity? = null
+
     fun newInstance() : SearchFragment {
         return SearchFragment()
     }
 
-    private lateinit var viewModel: AppViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -188,7 +188,12 @@ class SearchFragment : Fragment() {
         }
         binding.btnSearchAdd.setOnClickListener {
             alertDialog.dismiss()
-            mActivity?.goHighlightFragment()
+            val bundle = Bundle()
+            bundle.putString("bookInfo", binding.tvBookInfo.text.toString())
+            bundle.putString("bookName",binding.tvBookName.text.toString())
+            bundle.putString("bookDes",binding.tvBookDescription.text.toString())
+            bundle.putString("bookCover",Item.cover)
+            mActivity?.goFragment(HighLightFragment(),bundle)
         }
 
 

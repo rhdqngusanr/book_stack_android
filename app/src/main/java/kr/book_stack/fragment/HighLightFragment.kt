@@ -2,30 +2,45 @@ package kr.book_stack.fragment
 
 
 import KeyboardVisibilityUtils
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-
+import android.util.Log
+import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 import kr.book_stack.AppViewModel
+import kr.book_stack.R
 
 import kr.book_stack.RecyclerViewAdapter
 import kr.book_stack.RegActivity
+import kr.book_stack.appDB.data.ResultTag
+import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.DialogDatepickerBinding
 import kr.book_stack.databinding.DialogDatepickerRangeBinding
 
 import kr.book_stack.databinding.FragmentHighlight2Binding
 
 import kr.book_stack.databinding.FragmentHighlightBinding
+import kr.book_stack.fragment_reg.HFragment3
+import kr.book_stack.notion.NotionAPI
 import java.util.*
 
 
@@ -35,12 +50,12 @@ class HighLightFragment : Fragment() {
     private var mAdapter: RecyclerViewAdapter? = null
     private val cal = Calendar.getInstance()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-    fun newInstance() : HighLightFragment {
+    fun newInstance(): HighLightFragment {
         return HighLightFragment()
     }
 
-    private lateinit var viewModel: AppViewModel
 
+    private val viewModel: AppViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,16 +65,119 @@ class HighLightFragment : Fragment() {
 
     }
 
+    @SuppressLint("Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mActivity = activity as RegActivity
-        binding.btnDateRange.setOnClickListener{
-            dialogDate()
+        val info = arguments?.getString("bookInfo")
+        val title = arguments?.getString("bookName")
+        val des = arguments?.getString("bookDes")
+        val cover = arguments?.getString("bookCover")
+        Glide
+            .with(binding.hAddImgBookCover.context)
+            .load(cover)
+            .into(binding.hAddImgBookCover)
+        binding.hAddTvBookTitle.text = title
+        binding.hAddTvBookInfo.text = info
+
+        val stringsTag = resources.getStringArray(R.array.tag_name)
+        val stringsTagImg = resources.getStringArray(R.array.tag_img_name)
+        val images = resources.obtainTypedArray(R.array.tag_images)
+        viewModel.getAllResultTag().observe(viewLifecycleOwner, Observer { tag ->
+            // Update the cached copy of the users in the adapter.
+            tag?.let {
+                if (tag.isEmpty()) {
+
+                } else {
+                    for (i in tag.indices) {
+                        binding.chipsHighLightTag.addView(Chip(requireActivity()).apply {
+                            isCheckable = true
+                            text = "${tag[i].tag}"
+                            isCloseIconVisible = true
+                            setChipBackgroundColorResource(R.color.chip_bg)
+                            setOnCloseIconClickListener {
+                                binding.chipsHighLightTag.removeView(it)
+                            }
+                            for (j in stringsTagImg.indices) {
+                                if (stringsTagImg[j] == tag[i].tagImg) {
+                                    chipIcon = ContextCompat.getDrawable(
+                                        requireActivity(),
+                                        images.getResourceId(j, -1)
+                                    )
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        })
+
+        binding.hAddTvRange.text = "${cal.get(Calendar.YEAR)}년"
+
+        binding.btnDateRange.setOnClickListener {
+            dialogDate(binding.hAddTvRange)
         }
         binding.tilInfoComent.setOnClickListener {
             binding.scrollHighlight.fullScroll(ScrollView.FOCUS_UP)
         }
 
+        var userInfo = ""
+        viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
+            user?.let { userInfo = user.tagPageId.toString() }
+
+        })
+        binding.tvBtnAddHighlight.setOnClickListener {
+
+            var tagString = ""
+            var tagImgString = ""
+            CoroutineScope(Dispatchers.Main).launch {
+
+                val ids = binding.chipsHighLightTag.checkedChipIds
+                if (ids.size == 0) {
+                    Toast.makeText(requireActivity(), "태그를 선택해주세요.", Toast.LENGTH_LONG).show()
+                } else {
+                    mActivity.progressView(15000)
+                    try {
+
+                        for (id in ids) {
+                            val chip: Chip = binding.chipsHighLightTag.findViewById(id)
+                            val checkArray = viewModel.getAllResultTag().value
+                            for (j in checkArray!!.indices) {
+
+                                if (checkArray[j].tag == chip.text) {
+
+                                    tagString += "${chip.text}@"
+                                    tagImgString += "${checkArray[j].tagImg}@"
+                                }
+                            }
+
+                        }
+
+                        //TODO 추후 하이라이트 DB 연결부분
+                        /* val tagDbPageId = NotionAPI.createTagPage(
+                             "테스트",
+                             userInfo,
+                             chip.text.toString(),
+                             checkArray[j].tagImg.toString()
+                         )
+                         NotionAPI.updateTagPageId(tagDbPageId)
+                         viewModel.insertResultTag(
+                             ResultTag(chip.text.toString(), checkArray[j].tagImg.toString(),tagDbPageId)
+                         )*/
+                    } catch (e: Exception) {
+                        Log.e("HighLightFragment", "$e")
+                        Toast.makeText(requireActivity(), "하이라이트 추가 API 오류.", Toast.LENGTH_LONG)
+                            .show()
+                    } finally {
+                        mActivity.progressDismiss()
+                        //mActivity.goH3Fragment()
+                        mActivity.goFragment(HFragment3(), null)
+                    }
+                }
+            }
+
+
+        }
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
             onShowKeyboard = { keyboardHeight ->
                 binding.scrollHighlight.run {
@@ -68,7 +186,8 @@ class HighLightFragment : Fragment() {
             })
     }
 
-    private fun dialogDate() {
+    @SuppressLint("SetTextI18n")
+    private fun dialogDate(inTextView: TextView) {
 
         val binding = DialogDatepickerBinding.inflate(requireActivity().layoutInflater)
         val dialog = BottomSheetDialog(requireActivity())
@@ -80,16 +199,16 @@ class HighLightFragment : Fragment() {
         val yearStr = ArrayList<String>()
         val day30Str = ArrayList<String>()
         val day31Str = ArrayList<String>()
-        for (i in 1..12){
+        for (i in 1..12) {
             monthStr.add("${i}월")
         }
-        for (i in 1..30){
+        for (i in 1..30) {
             day30Str.add("${i}일")
         }
-        for (i in 1..31){
+        for (i in 1..31) {
             day31Str.add("${i}일")
         }
-        for (i in 1990..2030){
+        for (i in 1990..2030) {
             yearStr.add("${i}년")
         }
 
@@ -106,21 +225,26 @@ class HighLightFragment : Fragment() {
             binding.monthPickerYear.minValue = 1990
             binding.monthPickerYear.maxValue = 2030
             binding.monthPickerYear.value = cal.get(Calendar.YEAR)
-            binding.monthPickerYear.displayedValues = yearStr.toArray(arrayOfNulls<String>(yearStr.size))
+            binding.monthPickerYear.displayedValues =
+                yearStr.toArray(arrayOfNulls<String>(yearStr.size))
 
             binding.monthPickerMonth.wrapSelectorWheel = false
             binding.monthPickerMonth.minValue = 1
             binding.monthPickerMonth.maxValue = 12
-            binding.monthPickerMonth.value =  cal.get(Calendar.MONTH) + 1
-            binding.monthPickerMonth.displayedValues = monthStr.toArray(arrayOfNulls<String>(monthStr.size))
+            binding.monthPickerMonth.value = cal.get(Calendar.MONTH) + 1
+            binding.monthPickerMonth.displayedValues =
+                monthStr.toArray(arrayOfNulls<String>(monthStr.size))
 
-            binding.tvMonthPicker.text = "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
+            binding.tvMonthPicker.text =
+                "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
         }
         binding.monthPickerYear.setOnValueChangedListener { _, _, _ ->
-            binding.tvMonthPicker.text = "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
+            binding.tvMonthPicker.text =
+                "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
         }
         binding.monthPickerMonth.setOnValueChangedListener { _, _, _ ->
-            binding.tvMonthPicker.text = "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
+            binding.tvMonthPicker.text =
+                "${binding.monthPickerYear.value}년 ${binding.monthPickerMonth.value}월 독서완료"
         }
 
         binding.btnYear.setOnClickListener {
@@ -136,7 +260,8 @@ class HighLightFragment : Fragment() {
             binding.yearPickerYear.minValue = 1990
             binding.yearPickerYear.maxValue = 2030
             binding.yearPickerYear.value = cal.get(Calendar.YEAR)
-            binding.yearPickerYear.displayedValues = yearStr.toArray(arrayOfNulls<String>(yearStr.size))
+            binding.yearPickerYear.displayedValues =
+                yearStr.toArray(arrayOfNulls<String>(yearStr.size))
 
             binding.tvYearPicker.text = "${binding.yearPickerYear.value}년 독서완료"
         }
@@ -159,22 +284,27 @@ class HighLightFragment : Fragment() {
             binding.rangePickerYear.minValue = 1990
             binding.rangePickerYear.maxValue = 2030
             binding.rangePickerYear.value = cal.get(Calendar.YEAR)
-            binding.rangePickerYear.displayedValues = yearStr.toArray(arrayOfNulls<String>(yearStr.size))
+            binding.rangePickerYear.displayedValues =
+                yearStr.toArray(arrayOfNulls<String>(yearStr.size))
 
             binding.rangePickerMonth.wrapSelectorWheel = false
             binding.rangePickerMonth.minValue = 1
             binding.rangePickerMonth.maxValue = 12
-            binding.rangePickerMonth.value =  cal.get(Calendar.MONTH) + 1
-            binding.rangePickerMonth.displayedValues = monthStr.toArray(arrayOfNulls<String>(monthStr.size))
+            binding.rangePickerMonth.value = cal.get(Calendar.MONTH) + 1
+            binding.rangePickerMonth.displayedValues =
+                monthStr.toArray(arrayOfNulls<String>(monthStr.size))
 
             binding.rangePickerDay.wrapSelectorWheel = false
             binding.rangePickerDay.minValue = 1
 
-            binding.rangePickerDay.displayedValues = day31Str.toArray(arrayOfNulls<String>(day31Str.size))
+            binding.rangePickerDay.displayedValues =
+                day31Str.toArray(arrayOfNulls<String>(day31Str.size))
             binding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-            binding.rangePickerDay.value =  cal.get(Calendar.DATE)
-            binding.toggleFrom.text = "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
-            binding.toggleTo.text = "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
+            binding.rangePickerDay.value = cal.get(Calendar.DATE)
+            binding.toggleFrom.text =
+                "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
+            binding.toggleTo.text =
+                "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
         }
 
         binding.rangePickerYear.setOnValueChangedListener { _, _, _ ->
@@ -199,51 +329,58 @@ class HighLightFragment : Fragment() {
         }
 
         binding.btnDateConfirm.setOnClickListener {
-            dialogDateRange()
+            dialog.dismiss()
+
+            if (binding.btnMonth.isChecked){
+                inTextView.text = binding.tvMonthPicker.text
+            }else if(binding.btnYear.isChecked){
+                inTextView.text = binding.tvYearPicker.text
+            }else if(binding.btnRange.isChecked){
+                inTextView.text =  "${binding.toggleFrom.text}~${binding.toggleTo.text}"
+            }
+
         }
         dialog.show()
 
         binding.btnMonth.performClick()
+
+
     }
 
-    private fun toggleRange(inBinding:DialogDatepickerBinding){
-        cal.set(inBinding.rangePickerYear.value,inBinding.rangePickerMonth.value-1,cal.get(Calendar.DATE));
+    private fun toggleRange(inBinding: DialogDatepickerBinding) {
+        cal.set(
+            inBinding.rangePickerYear.value,
+            inBinding.rangePickerMonth.value - 1,
+            cal.get(Calendar.DATE)
+        );
         inBinding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
         val formatter = SimpleDateFormat("yyyy년 MM월 dd일")
-        val fromDate = formatter.parse( inBinding.toggleFrom.text.toString())
+        val fromDate = formatter.parse(inBinding.toggleFrom.text.toString())
 
-        if (inBinding.toggleFrom.isChecked){
-            inBinding.toggleFrom.text = "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
-        }else if (inBinding.toggleTo.isChecked){
-            val toDate = formatter.parse( "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일")
+        if (inBinding.toggleFrom.isChecked) {
+            inBinding.toggleFrom.text =
+                "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+        } else if (inBinding.toggleTo.isChecked) {
+            val toDate =
+                formatter.parse("${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일")
             val compare = toDate.compareTo(fromDate)
             if (compare < 0) {
                 Toast.makeText(requireActivity(), "FROM이 TO보다 큽니다.", Toast.LENGTH_SHORT).show()
-            }else{
-                inBinding.toggleTo.text = "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+            } else {
+                inBinding.toggleTo.text =
+                    "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
             }
-                
+
         }
     }
 
-    private fun dialogDateRange() {
-
-
-        val binding = DialogDatepickerRangeBinding.inflate(requireActivity().layoutInflater)
-        val dialog = BottomSheetDialog(requireActivity())
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.setContentView(binding.root)
-        dialog.setCancelable(true)
-
-        dialog.show()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         keyboardVisibilityUtils.detachKeyboardListeners()
         _binding = null
     }
 
-    fun scrollDown(){
+    fun scrollDown() {
         binding.scrollHighlight.post(Runnable {
             binding.scrollHighlight.fullScroll(ScrollView.FOCUS_DOWN)
         })

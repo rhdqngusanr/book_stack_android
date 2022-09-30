@@ -149,14 +149,87 @@ object NotionAPI {
                 .text("look_page")
                 .text("look_first")
                 .text("look_last")
-                .url("img")
+                .text("img")
                 .text("tag")
+                .text("tag_img")
                 .text("highlight")
         )
         println(createdDatabase)
         return createdDatabase.id
     }
+    suspend fun createBookPage(inId: String,inPageId:String,
+                               inName : String,inIsbn : String,inBookStatus : String,
+                               inBookPage : String,inLookPage : String,inLookFirst : String,
+                               inLookLast: String,inImg: String,inTag : String,
+                               inTagImg : String, inHighLight : String): UuidString {
+        println("Created page in database:")
+        val createdPageInDb: Page = Struct.notionClient.pages.createPage(
+            parentDatabase = DatabaseReference(inPageId),
+            properties = PropertyValueList()
+                .title("id", inId)
+                .text(
+                    "name", RichTextList()
+                        .text(inName)
+                )
+                .text(
+                    "page_id", RichTextList()
+                        .text("")
+                )
+                .text(
+                    "isbn", RichTextList()
+                        .text(inIsbn)
+                )
+                .text(
+                    "book_status", RichTextList()
+                        .text(inBookStatus)
+                )
+                .text(
+                    "book_page", RichTextList()
+                        .text(inBookPage)
+                )
+                .text(
+                    "look_page", RichTextList()
+                        .text(inLookPage)
+                )
+                .text(
+                    "look_first", RichTextList()
+                        .text(inLookFirst)
+                )
+                .text(
+                    "look_last", RichTextList()
+                        .text(inLookLast)
+                )
+                .text(
+                    "img", RichTextList()
+                        .text(inImg)
+                )
+                .text(
+                    "tag", RichTextList()
+                        .text(inTag)
+                )
+                .text(
+                    "tag_img", RichTextList()
+                        .text(inTagImg)
+                )
+                .text(
+                    "highlight", RichTextList()
+                        .text(inHighLight)
+                )
+        )
 
+        return createdPageInDb.id
+    }
+
+    suspend fun updateBookPageId(pageId: UuidString) {
+        println("Updated page:")
+        val updatedPage: Page = Struct.notionClient.pages.updatePage(
+            id = pageId,
+            properties = PropertyValueList()
+                .text("page_id", pageId)
+
+        )
+        println(updatedPage)
+    }
     suspend fun createTagDatabase(inId: String): UuidString {
         // Create a database
         println("Created database:")

@@ -92,7 +92,7 @@ class InfoFragment1 : Fragment() {
                             )
                         )
                         Struct.loginId = id.toString()
-                        mActivity.goTagFragment()
+                        mActivity.goFragment(TagFragment2(),null)
                     }
                 }catch (e : Exception){
                     Log.e("InfoFragment1", "$e")

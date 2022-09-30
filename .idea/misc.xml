@@ -6,14 +6,17 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_small_radius.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/btn_radio_off.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/btn_radio_on.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/chip_check.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/corners_background.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/coustom_btn_radio.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_off.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_on.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_radius.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_datepicker.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_highlight2.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_info1.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_tag2.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_tag_make2.xml" value="0.1875" />
       </map>
     </option>
   </component>

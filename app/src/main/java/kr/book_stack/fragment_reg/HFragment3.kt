@@ -33,7 +33,12 @@ class HFragment3  : Fragment() {
 
         binding.btnHighlightAdd.setOnClickListener {
 
-            mActivity.goSearchFragment()
+           // mActivity.goSearchFragment()
+            mActivity.goFragment(SearchFragment(),null)
+
+        }
+
+        binding.tvHighlightAddConfirm.setOnClickListener {
 
         }
     }

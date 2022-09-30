@@ -27,17 +27,13 @@ class RegActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val profile = intent.getStringExtra("profile")
 
-        //goTagFragment()
-        val bundle = Bundle()
+        goSearchFragment()
+/*        val bundle = Bundle()
         bundle.putString("user_id",id)
         bundle.putString("user_name",name)
         bundle.putString("user_profile",profile)
-        val infoFragment1: InfoFragment1 = InfoFragment1().newInstance()
-        infoFragment1.arguments = bundle
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayout_registration, infoFragment1)
-            .commit()
+
+        goFragment(InfoFragment1(),bundle)*/
     }
     fun goTagFragment(){
         val fragment: TagFragment2 = TagFragment2().newInstance()
@@ -53,7 +49,7 @@ class RegActivity : AppCompatActivity() {
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
-    fun goHighLightFragment(){
+    fun goH3Fragment(){
         val fragment: HFragment3 = HFragment3().newInstance()
         supportFragmentManager
             .beginTransaction()
@@ -73,10 +69,16 @@ class RegActivity : AppCompatActivity() {
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
-
+    fun goHighlightFragment(){
+        val fragment: HighLightFragment = HighLightFragment().newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frameLayout_registration, fragment)
+            .commit()
+    }
     @SuppressLint("PrivateResource")
-    fun goFragment(inFragment : Fragment){
-
+    fun goFragment(inFragment : Fragment, inBundle: Bundle?){
+        inFragment.arguments = inBundle
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(
@@ -88,13 +90,7 @@ class RegActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun goHighlightFragment(){
-        val fragment: HighLightFragment = HighLightFragment().newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayout_registration, fragment)
-            .commit()
-    }
+
      fun progressView(inDelay: Long) {
         val builder = AlertDialog.Builder(this)
         val dialogView = View.inflate(this, R.layout.layout_progress_bar_trans, null)
