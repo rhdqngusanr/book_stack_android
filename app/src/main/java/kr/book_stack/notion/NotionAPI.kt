@@ -153,6 +153,7 @@ object NotionAPI {
                 .text("tag")
                 .text("tag_img")
                 .text("highlight")
+                .text("comment")
         )
         println(createdDatabase)
         return createdDatabase.id
@@ -161,7 +162,7 @@ object NotionAPI {
                                inName : String,inIsbn : String,inBookStatus : String,
                                inBookPage : String,inLookPage : String,inLookFirst : String,
                                inLookLast: String,inImg: String,inTag : String,
-                               inTagImg : String, inHighLight : String): UuidString {
+                               inTagImg : String, inHighLight : String, inComment:String): UuidString {
         println("Created page in database:")
         val createdPageInDb: Page = Struct.notionClient.pages.createPage(
             parentDatabase = DatabaseReference(inPageId),
@@ -214,6 +215,10 @@ object NotionAPI {
                 .text(
                     "highlight", RichTextList()
                         .text(inHighLight)
+                )
+                .text(
+                    "comment", RichTextList()
+                        .text(inComment)
                 )
         )
 

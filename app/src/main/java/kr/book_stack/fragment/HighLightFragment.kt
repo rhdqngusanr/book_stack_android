@@ -33,6 +33,7 @@ import kr.book_stack.RecyclerViewAdapter
 import kr.book_stack.RegActivity
 import kr.book_stack.appDB.data.ResultTag
 import kr.book_stack.appDB.data.Tag
+import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.DialogDatepickerBinding
 import kr.book_stack.databinding.DialogDatepickerRangeBinding
 
@@ -121,9 +122,9 @@ class HighLightFragment : Fragment() {
             binding.scrollHighlight.fullScroll(ScrollView.FOCUS_UP)
         }
 
-        var userInfo = ""
+        var userInfo : User? = null
         viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
-            user?.let { userInfo = user.tagPageId.toString() }
+            user?.let { userInfo = user }
 
         })
         binding.tvBtnAddHighlight.setOnClickListener {
@@ -153,17 +154,38 @@ class HighLightFragment : Fragment() {
 
                         }
 
-                        //TODO 추후 하이라이트 DB 연결부분
-                        /* val tagDbPageId = NotionAPI.createTagPage(
+                        //123으로 저장된곳 협의후 수정
+                         val bookDbPageId = NotionAPI.createBookPage(
                              "테스트",
-                             userInfo,
-                             chip.text.toString(),
-                             checkArray[j].tagImg.toString()
+                             userInfo?.bookPageId.toString(),
+                             userInfo?.name.toString(),
+                             "123",
+                             "123",
+                             "123",
+                             "123",
+                             "123",
+                             "123",
+                             cover.toString(),
+                             tagString,
+                             tagImgString,
+                             "0",
+                             binding.editInfoComent.text.toString()
+
                          )
-                         NotionAPI.updateTagPageId(tagDbPageId)
-                         viewModel.insertResultTag(
-                             ResultTag(chip.text.toString(), checkArray[j].tagImg.toString(),tagDbPageId)
-                         )*/
+                         NotionAPI.updateBookPageId(bookDbPageId)
+                        //TODO 추후 룸 DB 연결부분 협의후 수정
+/*                      viewModel.insert(
+                        Book(data[i].email,
+                            data[i].page_id,
+                            data[i].isbn,
+                            data[i].book_status,
+                            data[i].book_page,
+                            data[i].look_page,
+                            data[i].look_first,
+                            data[i].look_last,
+                            data[i].img
+                        )
+                    )*/
                     } catch (e: Exception) {
                         Log.e("HighLightFragment", "$e")
                         Toast.makeText(requireActivity(), "하이라이트 추가 API 오류.", Toast.LENGTH_LONG)

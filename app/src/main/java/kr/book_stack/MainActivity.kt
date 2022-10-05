@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.book_stack.databinding.ActivityMainBinding
-import kr.book_stack.fragment.BlankFragment
+import kr.book_stack.fragment.MainFragment
 import kr.book_stack.fragment.SearchFragment
 import kr.book_stack.fragment.SettingFragment
 import org.jraf.klibnotion.client.Authentication
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val authentication = Authentication()
     private var searchFragment: SearchFragment = SearchFragment().newInstance()
     private var settingFragment: SettingFragment = SettingFragment().newInstance()
-    private var blankFragment: BlankFragment = BlankFragment().newInstance()
+    private var mainFragment: MainFragment = MainFragment().newInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                         // Respond to navigation item 2 click
                     }
                     else -> {
-                        blankFragment
+                        mainFragment
                     }
                 }
             )

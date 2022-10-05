@@ -11,16 +11,16 @@ import kotlinx.coroutines.Dispatchers
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kr.book_stack.AppViewModel
-import kr.book_stack.Struct
 import kr.book_stack.appDB.data.Book
-import kr.book_stack.databinding.FragmentBlankBinding
+
+import kr.book_stack.databinding.FragmentMainBinding
 import kr.book_stack.notion.NotionAPI
 
-class BlankFragment : Fragment() {
-    private var _binding: FragmentBlankBinding? = null;
+class MainFragment : Fragment() {
+    private var _binding: FragmentMainBinding? = null;
     private val binding get() = _binding!!
-    fun newInstance() : BlankFragment {
-        return BlankFragment()
+    fun newInstance() : MainFragment {
+        return MainFragment()
     }
 
     private val viewModel: AppViewModel by viewModels()
@@ -29,7 +29,7 @@ class BlankFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBlankBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
 
     }

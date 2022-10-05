@@ -1,5 +1,6 @@
 package kr.book_stack.fragment_reg
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class HFragment3  : Fragment() {
         }
 
         binding.tvHighlightAddConfirm.setOnClickListener {
-
+            mActivity.goMain()
         }
     }
     override fun onDestroyView() {

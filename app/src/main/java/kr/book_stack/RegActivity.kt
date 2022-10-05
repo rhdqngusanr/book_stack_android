@@ -1,6 +1,7 @@
 package kr.book_stack
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.SearchEvent
@@ -90,6 +91,10 @@ class RegActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun goMain(){
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+    }
 
      fun progressView(inDelay: Long) {
         val builder = AlertDialog.Builder(this)
