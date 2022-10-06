@@ -1,16 +1,16 @@
-package kr.book_stack
+package kr.book_stack.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.book_stack.api.ApiData
 import kr.book_stack.databinding.RecyclerItemBinding
+import kr.book_stack.databinding.RecyclerSummaryBinding
 
-class RecyclerViewAdapter(private val dataSet: List<ApiData.Item>) :
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerSummaryAdapter(private val dataSet: ArrayList<String>) :
+    RecyclerView.Adapter<RecyclerSummaryAdapter.ViewHolder>() {
     var itemClick: ItemClick? = null
     interface ItemClick {
         fun onClick(view: View, position: Int)
@@ -21,18 +21,20 @@ class RecyclerViewAdapter(private val dataSet: List<ApiData.Item>) :
         viewType: Int
     ): ViewHolder {
         val binding =
-            RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RecyclerSummaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    class ViewHolder(private val binding: RecyclerItemBinding) :
+    class ViewHolder(private val binding: RecyclerSummaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ApiData.Item) {
+        fun bind(data: String) {
             Glide
                 .with(binding.imageView.context)
-                .load(data.cover)
+                .load(data)
                 .into(binding.imageView)
-            binding.textView.text = data.title
+
+            binding.tvSummaryTitle.text = data
+            binding.tvSummaryCount.text = data
 
         }
     }

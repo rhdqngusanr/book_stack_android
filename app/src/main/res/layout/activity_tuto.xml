@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TutorialActivity">
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
+        android:id="@+id/toolbar_tutorial"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/white"
@@ -18,27 +19,28 @@
         app:contentInsetStart="24dp"
         android:textAlignment="center"
         app:titleMarginStart="36dp"
-        app:title="Main"
+        app:title="test"
         android:theme="?attr/actionBarTheme">
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager_tutorial"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/bnv_main"
+        app:layout_constraintBottom_toTopOf="@+id/btn_tutorial"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnv_main"
-        app:menu="@menu/nevi_menu"
-        android:layout_width="0dp"
-        android:background="#FFFFFF"
-        android:layout_height="?attr/actionBarSize"
-        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_tutorial" />
+    <Button
+        android:text="다음"
+        android:id="@+id/btn_tutorial"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

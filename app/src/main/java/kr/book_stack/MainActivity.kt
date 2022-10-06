@@ -17,7 +17,7 @@ import org.jraf.klibnotion.client.Authentication
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var mAdapter: RecyclerViewAdapter? = null
+
     private val authentication = Authentication()
     private var searchFragment: SearchFragment = SearchFragment().newInstance()
     private var settingFragment: SettingFragment = SettingFragment().newInstance()

@@ -19,6 +19,7 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import kr.book_stack.adapter.LoginViewPagerAdapter
 
 
 import kr.book_stack.databinding.ActivityLoginPageBinding
@@ -104,6 +105,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun getPageList(): ArrayList<String> {
+        return arrayListOf<String>("hello!\nit’s a Splash page.1", "hello!\nit’s a Splash page.2", "hello!\nit’s a Splash page.3")
+    }
+
     private fun signIn(inClient : GoogleSignInClient){
         val signInIntent = inClient.signInIntent
         resultLauncher.launch(signInIntent)
@@ -132,9 +137,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPageList(): ArrayList<String> {
-        return arrayListOf<String>("hello!\nit’s a Splash page.1", "hello!\nit’s a Splash page.2", "hello!\nit’s a Splash page.3")
-    }
+
     private fun kakaoLogin(){
         UserApiClient.instance.me { user, error ->
             if (error != null) {

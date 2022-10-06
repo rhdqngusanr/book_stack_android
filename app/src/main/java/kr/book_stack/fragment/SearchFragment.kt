@@ -1,10 +1,8 @@
 package kr.book_stack.fragment
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kr.book_stack.*
+import kr.book_stack.adapter.RecyclerViewAdapter
 import kr.book_stack.api.ApiData
 import kr.book_stack.api.ApiInterface
 import kr.book_stack.databinding.DialogAddSearchBinding

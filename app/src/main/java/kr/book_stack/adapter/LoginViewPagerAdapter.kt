@@ -1,12 +1,9 @@
-package kr.book_stack
+package kr.book_stack.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import kr.book_stack.api.ApiData
 import kr.book_stack.databinding.PagerLoginListBinding
-import kr.book_stack.databinding.RecyclerItemBinding
 
 class LoginViewPagerAdapter (private val tvList: ArrayList<String>) :
     RecyclerView.Adapter<LoginViewPagerAdapter.ViewHolder>() {

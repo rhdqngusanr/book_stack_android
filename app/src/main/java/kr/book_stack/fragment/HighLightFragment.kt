@@ -29,17 +29,12 @@ import kotlinx.coroutines.launch
 import kr.book_stack.AppViewModel
 import kr.book_stack.R
 
-import kr.book_stack.RecyclerViewAdapter
 import kr.book_stack.RegActivity
-import kr.book_stack.appDB.data.ResultTag
-import kr.book_stack.appDB.data.Tag
 import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.DialogDatepickerBinding
-import kr.book_stack.databinding.DialogDatepickerRangeBinding
 
 import kr.book_stack.databinding.FragmentHighlight2Binding
 
-import kr.book_stack.databinding.FragmentHighlightBinding
 import kr.book_stack.fragment_reg.HFragment3
 import kr.book_stack.notion.NotionAPI
 import java.util.*
@@ -48,7 +43,6 @@ import java.util.*
 class HighLightFragment : Fragment() {
     private var _binding: FragmentHighlight2Binding? = null;
     private val binding get() = _binding!!
-    private var mAdapter: RecyclerViewAdapter? = null
     private val cal = Calendar.getInstance()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     fun newInstance(): HighLightFragment {
