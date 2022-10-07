@@ -9,14 +9,19 @@ import androidx.room.Entity
 data class Book(
     @ColumnInfo(name = "email") val email: String?,
     @PrimaryKey val page_id: String,
+    @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "isbn") val isbn: String?,
     @ColumnInfo(name = "book_status") val bookStatus: String?,
     @ColumnInfo(name = "book_page") val bookPage: String?,
     @ColumnInfo(name = "look_page") val lookPage: String?,
     @ColumnInfo(name = "look_first") val lookFirst: String?,
     @ColumnInfo(name = "look_last") val lookLast: String?,
-    @ColumnInfo(name = "img") val img: String?
-    //@ColumnInfo(name = "tag") val tag: String?
+    @ColumnInfo(name = "img") val img: String?,
+    @ColumnInfo(name = "tag") val tag: String?,
+    @ColumnInfo(name = "tag_img") val tagImg: String?,
+    @ColumnInfo(name = "highlight") val highlight: String?,
+    @ColumnInfo(name = "comment") val comment: String?
+
 )
 
 @Entity(tableName = "user_table")

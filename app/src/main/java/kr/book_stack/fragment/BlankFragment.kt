@@ -38,7 +38,7 @@ class BlankFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.shareBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val data = NotionAPI.queryBookDatabaseFilters("email","test2")
+/*                val data = NotionAPI.queryBookDatabaseFilters("email","test2")
                 for (i in data.indices){
                     viewModel.insert(
                         Book(data[i].email,
@@ -54,7 +54,7 @@ class BlankFragment : Fragment() {
                     )
                 }
 
-            }
+            */}
         }
         viewModel.getUser("2407948260").observe(requireActivity(), Observer { book ->
             // Update the cached copy of the users in the adapter.

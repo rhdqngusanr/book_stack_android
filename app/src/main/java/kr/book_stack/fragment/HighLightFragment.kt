@@ -30,6 +30,8 @@ import kr.book_stack.AppViewModel
 import kr.book_stack.R
 
 import kr.book_stack.RegActivity
+import kr.book_stack.StructData
+import kr.book_stack.appDB.data.Book
 import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.DialogDatepickerBinding
 
@@ -68,6 +70,9 @@ class HighLightFragment : Fragment() {
         val title = arguments?.getString("bookName")
         val des = arguments?.getString("bookDes")
         val cover = arguments?.getString("bookCover")
+        var status : StructData.BookInfo= arguments?.getSerializable("bookStatus") as StructData.BookInfo
+
+
         Glide
             .with(binding.hAddImgBookCover.context)
             .load(cover)
@@ -149,37 +154,48 @@ class HighLightFragment : Fragment() {
                         }
 
                         //123으로 저장된곳 협의후 수정
+                        val arr : List<String> = if (binding.hAddTvRange.text.contains("~")){
+                            binding.hAddTvRange.text.split("~")
+                        }else{
+                            val str = "${binding.hAddTvRange.text}~${binding.hAddTvRange.text}"
+                            str.split("~")
+                        }
                          val bookDbPageId = NotionAPI.createBookPage(
                              "테스트",
-                             userInfo?.bookPageId.toString(),
-                             userInfo?.name.toString(),
-                             "123",
-                             "123",
-                             "123",
-                             "123",
-                             "123",
-                             "123",
+                             "",
+                             title.toString(),
+                             status.inIsbn ,
+                             status.inBookStatus,
+                             status.inBookPage,
+                             status.inLookPage,
+                             arr[0],
+                             arr[1],
                              cover.toString(),
                              tagString,
                              tagImgString,
-                             "0",
+                             "3",
                              binding.editInfoComent.text.toString()
 
                          )
                          NotionAPI.updateBookPageId(bookDbPageId)
                         //TODO 추후 룸 DB 연결부분 협의후 수정
-/*                      viewModel.insert(
-                        Book(data[i].email,
-                            data[i].page_id,
-                            data[i].isbn,
-                            data[i].book_status,
-                            data[i].book_page,
-                            data[i].look_page,
-                            data[i].look_first,
-                            data[i].look_last,
-                            data[i].img
+                      viewModel.insert(
+                        Book("테스트",
+                            bookDbPageId,
+                            title.toString(),
+                            status.inIsbn ,
+                            status.inBookStatus,
+                            status.inBookPage,
+                            status.inLookPage,
+                            arr[0],
+                            arr[1],
+                            cover.toString(),
+                            tagString,
+                            tagImgString,
+                            "3",
+                            binding.editInfoComent.text.toString()
                         )
-                    )*/
+                    )
                     } catch (e: Exception) {
                         Log.e("HighLightFragment", "$e")
                         Toast.makeText(requireActivity(), "하이라이트 추가 API 오류.", Toast.LENGTH_LONG)

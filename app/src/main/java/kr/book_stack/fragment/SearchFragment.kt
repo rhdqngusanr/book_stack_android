@@ -31,7 +31,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private var mAdapter: RecyclerViewAdapter? = null
     var mActivity : RegActivity? = null
-
+    var bookInfo : StructData.BookInfo? = null;
     fun newInstance() : SearchFragment {
         return SearchFragment()
     }
@@ -138,8 +138,10 @@ class SearchFragment : Fragment() {
 
                     when (responseData.code()) {
                         200 -> {
-
+                            val itemPage = responseData.body()!!.ItemDetail[0].BookInfo[0].itemPage
                             dialogAddHighlight(Item)
+                            bookInfo = StructData.BookInfo(Item.isbn,"3",itemPage.toString(),"0","bb","bb")
+
                         }
                     }
                 }
@@ -192,6 +194,7 @@ class SearchFragment : Fragment() {
             bundle.putString("bookName",binding.tvBookName.text.toString())
             bundle.putString("bookDes",binding.tvBookDescription.text.toString())
             bundle.putString("bookCover",Item.cover)
+            bundle.putSerializable("bookStatus", bookInfo!!)
             mActivity?.goFragment(HighLightFragment(),bundle)
         }
 
