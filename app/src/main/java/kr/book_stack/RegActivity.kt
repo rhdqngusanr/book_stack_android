@@ -28,13 +28,13 @@ class RegActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val profile = intent.getStringExtra("profile")
 
-        goSearchFragment()
-/*        val bundle = Bundle()
+       //goSearchFragment()
+        val bundle = Bundle()
         bundle.putString("user_id",id)
         bundle.putString("user_name",name)
         bundle.putString("user_profile",profile)
 
-        goFragment(InfoFragment1(),bundle)*/
+        goFragment(InfoFragment1(),bundle)
     }
     fun goTagFragment(){
         val fragment: TagFragment2 = TagFragment2().newInstance()

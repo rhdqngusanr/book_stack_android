@@ -15,6 +15,7 @@ import org.jraf.klibnotion.model.database.query.DatabaseQuery
 import org.jraf.klibnotion.model.database.query.filter.DatabaseQueryPredicate
 import org.jraf.klibnotion.model.database.query.filter.DatabaseQueryPropertyFilter
 import org.jraf.klibnotion.model.emoji.Emoji
+import org.jraf.klibnotion.model.exceptions.NotionClientRequestException
 import org.jraf.klibnotion.model.page.Page
 import org.jraf.klibnotion.model.pagination.ResultPage
 import org.jraf.klibnotion.model.property.SelectOption
@@ -33,73 +34,87 @@ object NotionAPI {
     suspend fun queryUserID(
         inProperty: String,
         inValue: String
-    ): NotionData.User {
-        val getData: NotionData.User
-        println("Filtered query results:")
-        val filteredQueryResultPage: ResultPage<Page> = Struct.notionClient.databases.queryDatabase(
-            Struct.dbIdUser,
-            query = DatabaseQuery()
-                .any(
-                    DatabaseQueryPropertyFilter.Text(
-                        propertyIdOrName = inProperty,
-                        predicate = DatabaseQueryPredicate.Text.Equals(inValue)
+    ): NotionData.User? {
+        try {
+            val getData: NotionData.User
+            println("Filtered query results:")
+            val filteredQueryResultPage: ResultPage<Page> = Struct.notionClient.databases.queryDatabase(
+                Struct.dbIdUser+11,
+                query = DatabaseQuery()
+                    .any(
+                        DatabaseQueryPropertyFilter.Text(
+                            propertyIdOrName = inProperty,
+                            predicate = DatabaseQueryPredicate.Text.Equals(inValue)
+                        )
                     )
+            )
+            println(filteredQueryResultPage)
+            if (filteredQueryResultPage.results.isEmpty()) {
+                getData = NotionData.User(
+                    "empty",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
                 )
-        )
-        println(filteredQueryResultPage)
-        if (filteredQueryResultPage.results.isEmpty()) {
-            getData = NotionData.User(
-                "empty",
-                "",
-                "",
-                "",
-                ""
-            )
-        } else {
-            var id = ""
-            var name = ""
-            var userPageId = ""
-            var bookPageId = ""
-            var tagPageId = ""
-            for (i in filteredQueryResultPage.results[0].propertyValues.indices) {
-                val property = filteredQueryResultPage.results[0].propertyValues[i]
-                when (property.name) {
-                    "id" -> {
-                        id = property.value.toFormattedString()
+            } else {
+                var id = ""
+                var name = ""
+                var img = ""
+                var userPageId = ""
+                var bookPageId = ""
+                var tagPageId = ""
+                for (i in filteredQueryResultPage.results[0].propertyValues.indices) {
+                    val property = filteredQueryResultPage.results[0].propertyValues[i]
+                    when (property.name) {
+                        "id" -> {
+                            id = property.value.toFormattedString()
+                        }
+                        "name" -> {
+                            name = property.value.toFormattedString()
+                        }
+                        "profile_img" -> {
+                            img = property.value.toFormattedString()
+                        }
+                        "user_page_id" -> {
+                            userPageId = property.value.toFormattedString()
+                        }
+                        "book_page_id" -> {
+                            bookPageId = property.value.toFormattedString()
+                        }
+                        "tag_page_id" -> {
+                            tagPageId = property.value.toFormattedString()
+                        }
                     }
-                    "name" -> {
-                        name = property.value.toFormattedString()
-                    }
-                    "user_page_id" -> {
-                        userPageId = property.value.toFormattedString()
-                    }
-                    "book_page_id" -> {
-                        bookPageId = property.value.toFormattedString()
-                    }
-                    "tag_page_id" -> {
-                        tagPageId = property.value.toFormattedString()
-                    }
-                }
 
-            }
-            getData = NotionData.User(
-                id,
-                name,
-                userPageId,
-                bookPageId,
-                tagPageId
-            )
-            Log.e(
-                "getData", """
+                }
+                getData = NotionData.User(
+                    id,
+                    name,
+                    img,
+                    userPageId,
+                    bookPageId,
+                    tagPageId
+                )
+                Log.e(
+                    "getData", """
                 |id $id
                 |name $name
+                |img $img
                 |userPageId $userPageId
                 |bookPageId $bookPageId
                 |tagPageId $tagPageId
             """.trimMargin()
-            )
+                )
+            }
+            return getData
+        }catch (e:NotionClientRequestException){
+            if (e.status==400){
+                Log.e("notion","400에러")
+            }
         }
-        return getData
+        return null;
     }
 
     suspend fun createUserDB(inId: String, inName: String, inProfile: String): UuidString {
@@ -284,6 +299,7 @@ object NotionAPI {
                 )
         )
 
+
         return createdPageInDb.id
     }
     suspend fun updateTagPageId(pageId: UuidString) {
@@ -294,6 +310,7 @@ object NotionAPI {
                 .text("page_id", pageId)
 
         )
+
         println(updatedPage)
     }
     suspend fun queryBookDatabaseFilters(

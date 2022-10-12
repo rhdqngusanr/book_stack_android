@@ -18,6 +18,7 @@ class NotionData {
     data class User(
         val id: String,
         val name: String,
+        val profileImg : String,
         val user_page_id: String,
         val book_page_id: String,
         val tag_page_id: String

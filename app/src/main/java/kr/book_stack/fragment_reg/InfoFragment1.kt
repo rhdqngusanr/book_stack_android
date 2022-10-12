@@ -10,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kr.book_stack.AppViewModel
 import kr.book_stack.RegActivity
 import kr.book_stack.Struct
@@ -20,6 +18,7 @@ import kr.book_stack.appDB.data.Book
 import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.RegFragmentInfo1Binding
 import kr.book_stack.notion.NotionAPI
+import org.jraf.klibnotion.model.exceptions.NotionClientRequestException
 import java.lang.NumberFormatException
 
 
@@ -68,16 +67,23 @@ class InfoFragment1 : Fragment() {
         })
 
         binding.tvInfoConfirm.setOnClickListener {
+
             CoroutineScope(Dispatchers.Main).launch {
                 mActivity.progressView(15000)
+                val userData = NotionAPI.queryUserID("id", id.toString())
                 try {
-                    val userData = NotionAPI.queryUserID("id", id.toString())
-                    if (userData.id == "empty") {
+
+                    if (userData==null){
+                        return@launch
+                    }
+                    val testt = 1
+                    if (userData!!.id == "empty") {
                         val userDbPageId = NotionAPI.createUserDB(
                             id.toString(),
                             binding.editInfoName.text.toString(),
                             profile.toString()
                         )
+
                         val bookDbPageId = NotionAPI.createBookDatabase(id.toString())
                         val tagDbPageId = NotionAPI.createTagDatabase(id.toString())
                         NotionAPI.updateUserPageId(userDbPageId, bookDbPageId, tagDbPageId)
@@ -95,6 +101,7 @@ class InfoFragment1 : Fragment() {
                         mActivity.goFragment(TagFragment2(),null)
                     }
                 }catch (e : Exception){
+
                     Log.e("InfoFragment1", "$e")
                     Toast.makeText(requireActivity(), "가입 API 오류.", Toast.LENGTH_LONG).show()
                 }finally {
@@ -102,6 +109,7 @@ class InfoFragment1 : Fragment() {
             }
 
             }
+
         }
 
     }

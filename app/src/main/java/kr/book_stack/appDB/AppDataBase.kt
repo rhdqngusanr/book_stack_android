@@ -11,7 +11,7 @@ import kr.book_stack.appDB.data.Tag
 import kr.book_stack.appDB.data.User
 
 
-@Database(entities = [Book::class, User::class, Tag::class, ResultTag::class],   version = 2, exportSchema = false)
+@Database(entities = [Book::class, User::class, Tag::class, ResultTag::class],   version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun dao(): DAO
