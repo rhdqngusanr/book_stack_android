@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.book_stack.databinding.ActivityMainBinding
-import kr.book_stack.fragment.MainFragment
 import kr.book_stack.fragment.SearchFragment
 import kr.book_stack.fragment.SettingFragment
 import org.jraf.klibnotion.client.Authentication

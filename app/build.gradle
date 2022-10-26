@@ -94,5 +94,6 @@ dependencies {
     implementation 'nl.bryanderidder:themed-toggle-button-group:1.4.1'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
+    implementation 'io.github.ahmad-hamwi:tabsync:1.0.1'
 }
 
