@@ -55,4 +55,42 @@
 
     <color name="na_btn">#2875BC</color>
 
+    <!-- BookStack Main color -->
+    <color name="book_stack_black">#1F1A14</color>
+    <color name="book_stack_yellow">#FFBF00</color>
+    <color name="paper_white">#F5F3F0</color>
+
+    <!-- BookStack Paper gray -->
+    <color name="paperGray10">#1C1A17</color>
+    <color name="paperGray15">#2A2722</color>
+    <color name="paperGray20">#38342E</color>
+    <color name="paperGray30">#544E45</color>
+    <color name="paperGray40">#70685C</color>
+    <color name="paperGray50">#8D8273</color>
+    <color name="paperGray60">#A39B8F</color>
+    <color name="paperGray70">#BBB4AB</color>
+    <color name="paperGray80">#D1CDC7</color>
+    <color name="paperGray90">#E8E6E4</color>
+    <color name="paperGray95">#F4F2F1</color>
+    <color name="paperGray98">#FAFAF9</color>
+
+    <!-- BookStack Grayscale -->
+
+    <color name="gray10">#1A1A1A</color>
+    <color name="gray15">#262626</color>
+    <color name="gray20">#333333</color>
+    <color name="gray30">#4D4D4D</color>
+    <color name="gray40">#666666</color>
+    <color name="gray50">#808080</color>
+    <color name="gray60">#999999</color>
+    <color name="gray70">#B3B3B3</color>
+    <color name="gray80">#CCCCCC</color>
+    <color name="gray90">#E6E6E6</color>
+    <color name="gray95">#F2F2F2</color>
+
+    <!-- BookStack Yellow -->
+    <color name="dark_yellow">#E59900</color>
+    <color name="light_yellow">#FFEECD</color>
+
+
 </resources>

@@ -9,15 +9,28 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/chip_check.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/corners_background.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/coustom_btn_radio.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_test111.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/test_svg.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_off.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_on.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_radius.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/font/font.xml" value="0.3953125" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/activity_login_page.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/activity_splash.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/activity_tuto.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_add_search.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_datepicker.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_datepicker_range.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_main_highlight.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_main_summary.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_tag_make.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/font_test.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_blank.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_highlight.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_highlight2.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_main.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_search.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_setting.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/item_category.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/item_item.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_h3.xml" value="0.1875" />

@@ -53,24 +53,24 @@
 
         <TextView
             android:id="@+id/tv_book_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/img_book_cover"
             android:layout_centerHorizontal="true"
             android:text="TESTsadasdsadasdasdasdasddddddddddddddddddddddddddddddddddddddddd"
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_book_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/tv_book_name"
             android:layout_centerHorizontal="true"
             android:text="이준철 · 준철출판사 · 2018년"
             android:textAlignment="center"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="16sp" />
 
 
         <TextView
