@@ -35,4 +35,57 @@
         <!--<item name="android:editTextColor">@color/color_main</item>
         <item name="android:fontFamily">@font/nanum_square_eb</item>-->
     </style>
+
+
+    <style name="heading_1">
+        <item name="android:fontFamily">@font/suit_extra_bold_800</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="heading_2">
+        <item name="android:fontFamily">@font/suit_extra_bold_800</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="title_1">
+        <item name="android:fontFamily">@font/suit_bold_700</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="title_2">
+        <item name="android:fontFamily">@font/suit_bold_700</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="body_1">
+        <item name="android:fontFamily">@font/suit_medium_400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="body_2">
+        <item name="android:fontFamily">@font/suit_medium_400</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="body_3">
+        <item name="android:fontFamily">@font/suit_medium_400</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="label_1">
+        <item name="android:fontFamily">@font/suit_semi_bold_600</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="label_2">
+        <item name="android:fontFamily">@font/suit_semi_bold_600</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="label_3">
+        <item name="android:fontFamily">@font/suit_semi_bold_600</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
 </resources>

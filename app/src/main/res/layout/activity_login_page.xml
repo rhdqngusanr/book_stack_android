@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/paper_white"
     tools:context=".LoginActivity">
 
 
@@ -13,54 +14,95 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/spring_dots_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
 
-    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
         android:id="@+id/spring_dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="51dp"
+        android:layout_marginBottom="32dp"
         app:dampingRatio="0.5"
         app:dotsColor="@color/black"
         app:dotsCornerRadius="20dp"
         app:dotsSize="10dp"
-        app:dotsSpacing="6dp"
-        app:dotsStrokeWidth="1dp"
+        app:dotsSpacing="5dp"
+        app:dotsStrokeWidth="5dp"
+        app:dotsStrokeColor="@color/paperGray80"
         app:layout_constraintBottom_toTopOf="@+id/btn_kakao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:stiffness="300" />
 
-    <ImageButton
-        android:layout_margin="16dp"
+
+
+    <LinearLayout
         android:id="@+id/btn_kakao"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/kakao_login_large_wide"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_kakao_radius"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/googleLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
 
-    <Button
-        android:text="구글 로그인"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_icon_kakao" />
+
+        <TextView
+            style="@style/label_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="카카오로 계속하기"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/googleLoginBtn"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_google_radius"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="구글 로그인"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_icon_google" />
+
+        <TextView
+            style="@style/label_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="구글로 계속하기"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

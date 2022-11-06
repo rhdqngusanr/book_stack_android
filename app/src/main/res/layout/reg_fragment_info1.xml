@@ -25,9 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+
         app:counterEnabled="true"
-        app:counterMaxLength="10"
+        app:counterMaxLength="8"
+        app:errorEnabled="false"
         app:counterTextColor="@color/black"
+        app:counterTextAppearance="@font/suit_extra_bold_800"
+        app:counterOverflowTextAppearance="@font/suit_extra_bold_800"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,9 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/suit_semi_bold_600"
             android:background="@color/background"
             android:gravity="center_vertical"
             android:hint="이름을 입력해주세요"
+
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 

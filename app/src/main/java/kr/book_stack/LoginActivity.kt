@@ -106,7 +106,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getPageList(): ArrayList<String> {
-        return arrayListOf<String>("hello!\nit’s a Splash page.1", "hello!\nit’s a Splash page.2", "hello!\nit’s a Splash page.3")
+        return arrayListOf<String>("독서 포트폴리오로\n당신의 역량을 보여주세요!.1", "독서 포트폴리오로\n당신의 역량을 보여주세요!.2",
+            "독서 포트폴리오로\n당신의 역량을 보여주세요!.3")
     }
 
     private fun signIn(inClient : GoogleSignInClient){
