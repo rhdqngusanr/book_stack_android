@@ -19,7 +19,7 @@
 
     <color name="btn_basic">@color/colorPrimary</color>
 
-    <color name="background">#F5F5F5</color>
+    <color name="background">#F5F3F0</color>
     <color name="gray">#8C8C8C</color>
     <color name="border">#C3C3C3</color>
 

@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/paper_white"
     tools:context=".fragment_reg.InfoFragment1">
 
     <TextView
         android:id="@+id/tv_tagmake_test"
+        style="@style/heading_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/suit_extra_bold_800"
         android:text="이 정보가 맞나요?"
-        android:textColor="#9C9C9C"
-        android:textSize="24sp"
+        android:textColor="@color/gray15"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,54 +28,75 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-
+        android:layout_marginTop="16dp"
+        android:hint="이름"
+        android:paddingStart="8dp"
+        android:paddingEnd="24dp"
+        android:textColorHint="@color/gray60"
         app:counterEnabled="true"
         app:counterMaxLength="8"
-        app:errorEnabled="false"
-        app:counterTextColor="@color/black"
-        app:counterTextAppearance="@font/suit_extra_bold_800"
         app:counterOverflowTextAppearance="@font/suit_extra_bold_800"
-        app:hintAnimationEnabled="false"
-        app:hintEnabled="false"
+        app:counterTextAppearance="@font/suit_extra_bold_800"
+        app:counterTextColor="@color/gray60"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/end_icon"
+        app:endIconTint="#D1CDC7"
+
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:hintTextAppearance="@style/body_2"
+        app:hintTextColor="@color/gray60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tagmake_test">
+        app:layout_constraintTop_toBottomOf="@+id/circleImageView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_info_name"
+            style="@style/body_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/suit_semi_bold_600"
-            android:background="@color/background"
-            android:gravity="center_vertical"
+            android:background="@drawable/border_bottom"
+            android:text="zz"
             android:hint="이름을 입력해주세요"
-
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLength="8"
+            android:paddingEnd="-1dp"
+            android:paddingStart="-1dp"
+            android:paddingTop="24dp"
+            tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_info_confirm"
             style="@android:style/ButtonBar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/enable_btn"
-            android:enabled="true"
             android:gravity="center"
             android:text="확인"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/transparent"
+        android:src="@drawable/login_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tagmake_test" />
 </androidx.constraintlayout.widget.ConstraintLayout>

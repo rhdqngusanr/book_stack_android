@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import kr.book_stack.AppViewModel
 import kr.book_stack.RegActivity
@@ -49,7 +50,7 @@ class InfoFragment1 : Fragment() {
         val name = arguments?.getString("user_name")
         val profile = arguments?.getString("user_profile")
         val mActivity = activity as RegActivity
-        binding.editInfoName.setText(name)
+
         binding.editInfoName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -60,11 +61,17 @@ class InfoFragment1 : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                binding.tvInfoConfirm.isEnabled =
-                    !(s.toString().length > 10 || s.toString().isEmpty())
+
+                binding.tvInfoConfirm.isEnabled = !s.toString().isEmpty()
             }
 
         })
+        binding.editInfoName.setText(name)
+        Glide
+            .with(binding.circleImageView.context)
+            .load(profile)
+            .circleCrop()
+            .into(binding.circleImageView)
 
         binding.tvInfoConfirm.setOnClickListener {
 
