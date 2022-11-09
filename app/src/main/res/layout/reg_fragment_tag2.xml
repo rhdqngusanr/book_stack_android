@@ -4,28 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".fragment_reg.TagFragment2">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        style="@style/heading_2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="어떤 분야의 책을\n주로 읽고 계신가요?"
-        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/suit_extra_bold_800"
+        android:text="관심 독서 분야를\n알려주세요."
+        android:textColor="@color/gray15"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/textView5"
+        style="@style/body_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="5dp"
-        android:text="최소 1개 이상, 최대 5개 까지 선택해주세요."
+        android:layout_marginTop="8dp"
+        android:text="독서 태그 최소 1개 이상 선택"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -34,22 +41,30 @@
         android:id="@+id/tv_make_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="나에게 맞는 태그가 없나요?"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/tag_no"
+        style="@style/label_2"
+        android:textColor="@color/gray60"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_tag_confirm"
-        android:layout_width="0dp"
+        style="@android:style/ButtonBar"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/enable_btn"
-        android:text="Button"
+        android:gravity="center"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_make_tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -74,8 +89,6 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-
-
         app:layout_constraintBottom_toTopOf="@+id/btn_tag_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,28 +96,38 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0">
 
+<!--
         <com.google.android.material.chip.Chip
             android:id="@+id/test_chip1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:checkable="true"
             android:text="스마일"
-
-
             app:checkedIconEnabled="false"
             app:chipBackgroundColor="@color/chip_bg"
+            app:chipEndPadding="16dp"
             app:chipIcon="@drawable/ic_baseline_home_32"
+            app:chipIconSize="18dp"
+            app:chipStartPadding="12dp"
+            app:closeIcon="@drawable/svg_test_tag"
+            app:closeIconEnabled="true"
+            app:closeIconStartPadding="-4dp"
+            app:iconEndPadding="-4dp"
             app:rippleColor="@color/black" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
+            android:checked="true"
             android:text="가나다라마바사아자차카타파하"
             app:checkedIconEnabled="false"
             app:chipBackgroundColor="@color/chip_bg"
             app:chipIcon="@drawable/ic_baseline_home_32"
+            app:closeIcon="@drawable/svg_back"
             app:rippleColor="@color/black" />
+-->
 
 
     </com.google.android.material.chip.ChipGroup>

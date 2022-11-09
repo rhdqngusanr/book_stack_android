@@ -146,7 +146,8 @@ class LoginActivity : AppCompatActivity() {
             } else if (user != null) {
                 Log.e(TAG, "사용자 정보 요청 성공 : ${user.id} ,${user.properties}")
                 val intent = Intent(this,RegActivity::class.java)
-                intent.putExtra("id","${user.id}")
+                //intent.putExtra("id","${user.id}")
+                intent.putExtra("id","test")
                 intent.putExtra("name",user.kakaoAccount?.profile?.nickname.toString())
                 intent.putExtra("profile",user.kakaoAccount?.profile?.profileImageUrl)
                 startActivity(intent)

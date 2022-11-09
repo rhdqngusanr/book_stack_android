@@ -106,6 +106,9 @@ class InfoFragment1 : Fragment() {
                         )
                         Struct.loginId = id.toString()
                         mActivity.goFragment(TagFragment2(),null)
+                        //mActivity.goTagFragment()
+                    }else{
+                        Toast.makeText(requireActivity(), "중복오류.", Toast.LENGTH_LONG).show()
                     }
                 }catch (e : Exception){
 

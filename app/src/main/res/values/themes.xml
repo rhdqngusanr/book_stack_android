@@ -5,13 +5,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="chipCornerRadius">4dp</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="MyActionBarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
-
 
     <style name="popCasterDlgTheme" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -40,41 +40,50 @@
     <style name="heading_1">
         <item name="android:fontFamily">@font/suit_extra_bold_800</item>
         <item name="android:textSize">32sp</item>
+        <item name="android:lineHeight">40dp</item>
     </style>
 
     <style name="heading_2">
         <item name="android:fontFamily">@font/suit_extra_bold_800</item>
         <item name="android:textSize">26sp</item>
+        <item name="android:lineHeight">34dp</item>
     </style>
 
     <style name="title_1">
         <item name="android:fontFamily">@font/suit_bold_700</item>
         <item name="android:textSize">22sp</item>
+        <item name="android:lineHeight">34dp</item>
     </style>
     <style name="title_2">
         <item name="android:fontFamily">@font/suit_bold_700</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">28dp</item>
     </style>
 
     <style name="body_1">
         <item name="android:fontFamily">@font/suit_medium_400</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:lineHeight">30dp</item>
     </style>
 
     <style name="body_2">
         <item name="android:fontFamily">@font/suit_medium_400</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24dp</item>
+        <item name="android:fontWeight">500</item>
     </style>
 
     <style name="body_3">
         <item name="android:fontFamily">@font/suit_medium_400</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">22dp</item>
 
     </style>
 
     <style name="body_4">
         <item name="android:fontFamily">@font/suit_medium_400</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">18dp</item>
     </style>
 
 
@@ -82,16 +91,19 @@
     <style name="label_1">
         <item name="android:fontFamily">@font/suit_semi_bold_600</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">20dp</item>
     </style>
 
     <style name="label_2">
         <item name="android:fontFamily">@font/suit_semi_bold_600</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">18dp</item>
     </style>
 
     <style name="label_3">
         <item name="android:fontFamily">@font/suit_semi_bold_600</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">16dp</item>
     </style>
 
 

@@ -1,13 +1,17 @@
 package kr.book_stack.fragment_reg
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -55,7 +59,7 @@ class TagFragment2 : Fragment() {
         val images = resources.obtainTypedArray(R.array.tag_images)
         val tagStringArray = ArrayList<String>()
         var userInfo = ""
-        viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
+        viewModel.getUser("test").observe(viewLifecycleOwner, Observer { user ->
             user?.let { userInfo = user.tagPageId.toString()}
 
         })
@@ -120,14 +124,33 @@ class TagFragment2 : Fragment() {
                         )
                     }
                 } else {
-                    for (i in tag.indices) {
+                    for (i in tag.indices.reversed() ) {
                         binding.chipGroupTag.addView(Chip(requireActivity()).apply {
+
                             isCheckable = true
                             text = "${tag[i].tag}"
-                            isCloseIconVisible = true
+                            chipMinHeight = dpToPx(requireActivity(),40f)
+                            setTextAppearance(R.style.label_2)
+                            //isCloseIconVisible = true
+                            chipIconSize= dpToPx(requireActivity(),18f)
+                            iconEndPadding = dpToPx(requireActivity(),-4f)
+                            chipStartPadding = dpToPx(requireActivity(),12f)
+                            chipEndPadding = dpToPx(requireActivity(),12f)
+                            isCheckedIconVisible = false
                             setChipBackgroundColorResource(R.color.chip_bg)
-                            setOnCloseIconClickListener {
+/*                            setOnCloseIconClickListener {
                                 binding.chipGroupTag.removeView(it)
+                            }*/
+                            setOnCheckedChangeListener { _, b ->
+                                if (b){
+                                    closeIcon = ContextCompat.getDrawable(requireActivity(),R.drawable.svg_tag_check)
+                                    isCloseIconVisible = true
+                                    closeIconStartPadding = dpToPx(requireActivity(),-4f)
+                                    chipEndPadding = dpToPx(requireActivity(),12f)
+                                }else{
+                                    isCloseIconVisible = false
+                                    chipEndPadding = dpToPx(requireActivity(),12f)
+                                }
                             }
                             for (j in stringsTagImg.indices) {
                                 if (stringsTagImg[j] == tag[i].tagImg) {
@@ -144,7 +167,9 @@ class TagFragment2 : Fragment() {
         })
 
     }
-
+    fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

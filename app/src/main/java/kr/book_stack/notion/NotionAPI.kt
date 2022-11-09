@@ -39,7 +39,7 @@ object NotionAPI {
             val getData: NotionData.User
             println("Filtered query results:")
             val filteredQueryResultPage: ResultPage<Page> = Struct.notionClient.databases.queryDatabase(
-                Struct.dbIdUser+11,
+                Struct.dbIdUser,
                 query = DatabaseQuery()
                     .any(
                         DatabaseQueryPropertyFilter.Text(
@@ -112,7 +112,10 @@ object NotionAPI {
         }catch (e:NotionClientRequestException){
             if (e.status==400){
                 Log.e("notion","400에러")
+            }else{
+                Log.e("notion","에러" + e.status)
             }
+            Log.e("notion","에러" + e.status)
         }
         return null;
     }

@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tag_name">
-        <item>개발자</item>
+        <item>공학</item>
+        <item>과학</item>
+        <item>사회과학</item>
+        <item>인문학</item>
+        <item>자기개발</item>
+        <item>경제경영</item>
+        <item>문학</item>
+        <item>브랜딩</item>
         <item>디자인</item>
+        <item>기획</item>
+        <item>마케팅</item>
+        <item>개발</item>
     </string-array>
 
     <string-array name="tag_img_name">
-        <item>스마일</item>
-        <item>슬픔</item>
+        <item>공학</item>
+        <item>과학</item>
+        <item>사회과학</item>
+        <item>인문학</item>
+        <item>자기개발</item>
+        <item>경제경영</item>
+        <item>문학</item>
+        <item>브랜딩</item>
+        <item>디자인</item>
+        <item>기획</item>
+        <item>마케팅</item>
+        <item>개발</item>
     </string-array>
 
     <array name="tag_images">
         <item>@drawable/test_svg</item>
         <item>@drawable/svg_back2</item>
+        <item>@drawable/svg_test_tag</item>
+        <item>@drawable/test_svg</item>
+        <item>@drawable/svg_back2</item>
+        <item>@drawable/svg_test_tag</item>
+        <item>@drawable/test_svg</item>
+        <item>@drawable/svg_back2</item>
+        <item>@drawable/svg_test_tag</item>
+        <item>@drawable/test_svg</item>
+        <item>@drawable/svg_back2</item>
+        <item>@drawable/svg_test_tag</item>
     </array>
 </resources>
