@@ -131,7 +131,6 @@ class TagFragment2 : Fragment() {
                             text = "${tag[i].tag}"
                             chipMinHeight = dpToPx(requireActivity(),40f)
                             setTextAppearance(R.style.label_2)
-                            //isCloseIconVisible = true
                             chipIconSize= dpToPx(requireActivity(),18f)
                             iconEndPadding = dpToPx(requireActivity(),-4f)
                             chipStartPadding = dpToPx(requireActivity(),12f)

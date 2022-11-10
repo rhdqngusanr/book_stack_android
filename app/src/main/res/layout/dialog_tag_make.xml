@@ -5,6 +5,7 @@
     android:id="@+id/bottomSheetDashBoardLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_top_corner"
     app:behavior_hideable="true"
     app:behavior_draggable="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -14,34 +15,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
+        style="@style/title_2"
         android:text="태그이미지"
-        android:textSize="26dp"
+        android:textColor="@color/gray15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager_tag"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
-    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-        android:id="@+id/spring_dots_indicator"
+    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+        android:id="@+id/spring_dots_indicator_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         app:dampingRatio="0.5"
         app:dotsColor="@color/black"
         app:dotsCornerRadius="20dp"
         app:dotsSize="10dp"
-        app:dotsSpacing="6dp"
-        app:dotsStrokeWidth="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/lay_tag_make_confirm"
+        app:dotsSpacing="5dp"
+        app:dotsStrokeWidth="5dp"
+        app:dotsStrokeColor="@color/paperGray80"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPager_tag"
@@ -52,23 +61,27 @@
         android:id="@+id/lay_tag_make_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spring_dots_indicator_tag">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_tag_make_confirm"
-            style="@android:style/ButtonBar"
+            style="@style/label_1"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/enable_btn"
             android:enabled="true"
             android:gravity="center"
             android:text="확인"
-            android:textColor="@color/black"
+            android:outlineProvider="none"
+            android:shadowRadius="0"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
