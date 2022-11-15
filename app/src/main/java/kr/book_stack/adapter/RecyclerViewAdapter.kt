@@ -33,6 +33,7 @@ class RecyclerViewAdapter(private val dataSet: List<ApiData.Item>) :
                 .into(binding.imageView)
             binding.textView.text = data.title
 
+
         }
     }
 

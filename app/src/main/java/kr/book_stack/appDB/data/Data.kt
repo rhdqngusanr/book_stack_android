@@ -1,6 +1,7 @@
 package kr.book_stack.appDB.data
 
 import android.graphics.drawable.Drawable
+import androidx.annotation.DrawableRes
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import androidx.room.Entity
@@ -53,5 +54,6 @@ data class ResultTag(
 
 data class DefaultTag(
     val name: String,
-    val img: Int
+    val img: Int,
+    val check : Boolean
 )

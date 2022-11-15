@@ -5,51 +5,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".fragment_reg.TagMakeFragment2">
 
     <TextView
         android:id="@+id/tv_tagmake_test"
+        style="@style/heading_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="태그 만들기 TEST \n(이모지추가 여기클릭)"
-        android:textColor="#9C9C9C"
-        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="나만의 태그 만들기"
+        android:textColor="@color/gray15"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:padding="28dp"
+        android:background="@drawable/bg_radius_round"
+        android:backgroundTint="@color/paperGray90"
+        android:src="@drawable/ic_icon_orange_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tagmake_test" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_info_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="18dp"
+        android:hint="이름"
+        android:paddingStart="8dp"
+        android:paddingEnd="24dp"
+        android:textColorHint="@color/gray60"
+
         app:counterEnabled="true"
         app:counterMaxLength="8"
-        app:counterTextColor="@color/black"
-        app:hintAnimationEnabled="false"
-        app:hintEnabled="false"
+        app:counterOverflowTextAppearance="@style/body_3"
+        app:counterTextAppearance="@style/body_3"
+        app:counterTextColor="@color/gray60"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/end_icon"
+        app:endIconTint="#D1CDC7"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:hintTextAppearance="@style/body_3"
+        app:hintTextColor="@color/gray60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tagmake_test">
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_tag_name"
+            style="@style/body_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/background"
-            android:gravity="center_vertical"
-            android:hint="태그 입력 란"
-            android:inputType="text" />
+            android:paddingBottom="8dp"
+            android:background="@drawable/border_bottom"
+            android:inputType="textVisiblePassword|textNoSuggestions"
+            android:maxLength="8"
+            android:paddingEnd="-1dp"
+            android:paddingStart="-1dp"
+            android:paddingTop="24dp"
+            tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
@@ -71,4 +104,16 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_radius_round"
+        android:backgroundTint="@color/paperGray40"
+        android:src="@drawable/ic_icon_pencil_mono"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

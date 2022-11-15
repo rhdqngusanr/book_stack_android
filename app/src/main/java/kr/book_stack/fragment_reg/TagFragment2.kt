@@ -56,6 +56,7 @@ class TagFragment2 : Fragment() {
         val mActivity = activity as RegActivity
         val stringsTag = resources.getStringArray(R.array.tag_name)
         val stringsTagImg = resources.getStringArray(R.array.tag_img_name)
+        val stringsTagMakeImgName = resources.getStringArray(R.array.tag_make_img_name)
         val images = resources.obtainTypedArray(R.array.tag_images)
         val tagStringArray = ArrayList<String>()
         var userInfo = ""
@@ -151,8 +152,9 @@ class TagFragment2 : Fragment() {
                                     chipEndPadding = dpToPx(requireActivity(),12f)
                                 }
                             }
-                            for (j in stringsTagImg.indices) {
-                                if (stringsTagImg[j] == tag[i].tagImg) {
+
+                            for (j in stringsTagMakeImgName.indices) {
+                                if (stringsTagMakeImgName[j] == tag[i].tagImg) {
                                     chipIcon = ContextCompat.getDrawable(
                                         requireActivity(),
                                         images.getResourceId(j, -1)

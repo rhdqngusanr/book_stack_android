@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.viewpager2.widget.ViewPager2
-import kr.book_stack.adapter.LoginViewPagerAdapter
 import kr.book_stack.adapter.TutorialViewPagerAdapter
 
 import kr.book_stack.databinding.ActivityTutoBinding

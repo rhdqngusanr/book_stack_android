@@ -16,32 +16,132 @@
     </string-array>
 
     <string-array name="tag_img_name">
-        <item>공학</item>
-        <item>과학</item>
-        <item>사회과학</item>
-        <item>인문학</item>
-        <item>자기개발</item>
-        <item>경제경영</item>
-        <item>문학</item>
-        <item>브랜딩</item>
-        <item>디자인</item>
-        <item>기획</item>
-        <item>마케팅</item>
-        <item>개발</item>
+        <item>gear_color</item>
+        <item>microscope_color</item>
+        <item>couple_color</item>
+        <item>thinking_face_color</item>
+        <item>rocket_color</item>
+        <item>money_color</item>
+        <item>pen_color</item>
+        <item>present_color</item>
+        <item>palette_color</item>
+        <item>bulb_color</item>
+        <item>speaker_color</item>
+        <item>tool_color</item>
+    </string-array>
+
+
+    <string-array name="tag_make_img_name">
+        <item>smile_face_color</item>
+        <item>thinking_face_color</item>
+        <item>sunglasses_face_color</item>
+        <item>heart_face_color</item>
+        <item>couple_color</item>
+        <item>muscle_color</item>
+        <item>thumbs_up_color</item>
+        <item>eyes_color</item>
+
+        <item>chick_color</item>
+        <item>basketball_color</item>
+        <item>balloon_color</item>
+        <item>rainbow_color</item>
+        <item>star_color</item>
+        <item>volt_color</item>
+        <item>hit_color</item>
+        <item>bomb_color</item>
+
+        <item>chart_color</item>
+        <item>search_color</item>
+        <item>laptop_color</item>
+        <item>movie_color</item>
+        <item>gear_color</item>
+        <item>money_color</item>
+        <item>speech_balloon_color</item>
+        <item>speaker_color</item>
+
+        <item>microscope_color</item>
+        <item>gear_color</item>
+        <item>tool_color</item>
+        <item>link_color</item>
+        <item>clipboard_color</item>
+        <item>note_color</item>
+        <item>books_color</item>
+        <item>file_color</item>
+
+        <item>pen_color</item>
+        <item>pencil_color</item>
+        <item>ruler_color</item>
+        <item>palette_color</item>
+        <item>present_color</item>
+        <item>balloon_color</item>
+        <item>popper_color</item>
+        <item>bulb_color</item>
+
+        <item>apple_color</item>
+        <item>cooking_color</item>
+        <item>fork_knife_color</item>
+        <item>rocket_color</item>
+        <item>airplane_color</item>
+        <item>car_color</item>
+        <item>evergreen_tree_color</item>
+        <item>palm_tree_color</item>
+
     </string-array>
 
     <array name="tag_images">
-        <item>@drawable/test_svg</item>
-        <item>@drawable/svg_back2</item>
-        <item>@drawable/svg_test_tag</item>
-        <item>@drawable/test_svg</item>
-        <item>@drawable/svg_back2</item>
-        <item>@drawable/svg_test_tag</item>
-        <item>@drawable/test_svg</item>
-        <item>@drawable/svg_back2</item>
-        <item>@drawable/svg_test_tag</item>
-        <item>@drawable/test_svg</item>
-        <item>@drawable/svg_back2</item>
-        <item>@drawable/svg_test_tag</item>
+        <item>@drawable/icon_smile_face_color</item>
+        <item>@drawable/icon_thinking_face_color</item>
+        <item>@drawable/icon_sunglasses_face_color</item>
+        <item>@drawable/icon_heart_face_color</item>
+        <item>@drawable/icon_couple_color</item>
+        <item>@drawable/icon_muscle_color</item>
+        <item>@drawable/icon_thumbs_up_color</item>
+        <item>@drawable/icon_eyes_color</item>
+
+        <item>@drawable/icon_chick_color</item>
+        <item>@drawable/icon_basketball_color</item>
+        <item>@drawable/icon_balloon_color</item>
+        <item>@drawable/icon_rainbow_color</item>
+        <item>@drawable/icon_star_color</item>
+        <item>@drawable/icon_volt_color</item>
+        <item>@drawable/icon_hit_color</item>
+        <item>@drawable/icon_bomb_color</item>
+
+        <item>@drawable/icon_chart_color</item>
+        <item>@drawable/icon_search_color</item>
+        <item>@drawable/icon_laptop_color</item>
+        <item>@drawable/icon_movie_color</item>
+        <item>@drawable/icon_gear_color</item>
+        <item>@drawable/icon_money_color</item>
+        <item>@drawable/icon_speech_balloon_color</item>
+        <item>@drawable/icon_speaker_color</item>
+
+        <item>@drawable/icon_microscope_color</item>
+        <item>@drawable/icon_gear_color</item>
+        <item>@drawable/icon_tool_color</item>
+        <item>@drawable/icon_link_color</item>
+        <item>@drawable/icon_clipboard_color</item>
+        <item>@drawable/icon_note_color</item>
+        <item>@drawable/icon_books_color</item>
+        <item>@drawable/icon_file_color</item>
+
+        <item>@drawable/icon_pen_color</item>
+        <item>@drawable/icon_pencil_color</item>
+        <item>@drawable/icon_ruler_color</item>
+        <item>@drawable/icon_palette_color</item>
+        <item>@drawable/icon_present_color</item>
+        <item>@drawable/icon_balloon_color</item>
+        <item>@drawable/icon_popper_color</item>
+        <item>@drawable/icon_bulb_color</item>
+
+        <item>@drawable/icon_apple_color</item>
+        <item>@drawable/icon_cooking_color</item>
+        <item>@drawable/icon_fork_knife_color</item>
+        <item>@drawable/icon_rocket_color</item>
+        <item>@drawable/icon_airplane_color</item>
+        <item>@drawable/icon_car_color</item>
+        <item>@drawable/icon_evergreen_tree_color</item>
+        <item>@drawable/icon_palm_tree_color</item>
+
     </array>
 </resources>

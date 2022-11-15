@@ -13,7 +13,7 @@ class RecyclerTagAdapter(private val dataSet: ArrayList<DefaultTag>) :
     RecyclerView.Adapter<RecyclerTagAdapter.ViewHolder>() {
     private lateinit var context: Context
 
-    private var itemClick: ItemClick? = null
+    var itemClick: ItemClick? = null
     interface ItemClick {
         fun onClick(view: View, position: Int)
     }
@@ -37,8 +37,11 @@ class RecyclerTagAdapter(private val dataSet: ArrayList<DefaultTag>) :
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(data: DefaultTag, context: Context) {
             val test = context.resources.getDrawable(data.img,null)
-            binding.tvTag.setCompoundDrawables(test,null,null,null)
-            binding.tvTag.text = "${data.name}"
+            binding.imgTag.setImageResource(data.img)
+            binding.tagLay.setOnClickListener {
+
+            }
+
         }
     }
 

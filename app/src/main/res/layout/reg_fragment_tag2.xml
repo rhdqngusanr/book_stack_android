@@ -47,7 +47,6 @@
         android:text="@string/tag_no"
         style="@style/label_2"
         android:textColor="@color/gray60"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

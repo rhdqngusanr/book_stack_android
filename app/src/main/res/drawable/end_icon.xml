@@ -2,5 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/svg_clear_text"
+        android:top="15dp"
         android:start="24dp" />
 </layer-list>

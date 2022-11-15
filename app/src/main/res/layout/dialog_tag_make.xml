@@ -82,6 +82,6 @@
             android:outlineProvider="none"
             android:shadowRadius="0"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+             />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

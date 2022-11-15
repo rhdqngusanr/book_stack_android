@@ -6,6 +6,7 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_google_radius.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_kakao_radius.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_radius.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_radius_round.xml" value="0.1955" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_small_radius.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/bg_top_corner.xml" value="0.1955" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/border_bottom.xml" value="0.2365" />
@@ -20,8 +21,11 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_icon_kakao.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_svg_login_1.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_test111.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/icon_books_color.xml" value="0.1955" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/icon_tool_color.xml" value="0.1955" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/svg_back.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/svg_clear_text.xml" value="0.1955" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/svg_tag_check.xml" value="0.1955" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/test_svg.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_off.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/toggle_btn_on.xml" value="0.2365" />
@@ -36,7 +40,7 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_datepicker_range.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_main_highlight.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_main_summary.xml" value="0.358695652173913" />
-        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_tag_make.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/dialog_tag_make.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/font_test.xml" value="0.18" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_blank.xml" value="0.1875" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/fragment_highlight.xml" value="0.358695652173913" />
@@ -51,12 +55,12 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/pager_tuto_list.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_highlight.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_item.xml" value="0.358695652173913" />
-        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_item_tag.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_item_tag.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_h3.xml" value="0.1875" />
-        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_info1.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_info1.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_result4.xml" value="0.23072916666666668" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_tag2.xml" value="0.25" />
-        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_tag_make2.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/reg_fragment_tag_make2.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1955" />
       </map>
     </option>

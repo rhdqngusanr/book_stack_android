@@ -20,6 +20,7 @@ import kr.book_stack.api.ApiData
 import kr.book_stack.api.ApiInterface
 import kr.book_stack.databinding.DialogAddSearchBinding
 import kr.book_stack.databinding.FragmentSearchBinding
+import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -103,9 +104,11 @@ class SearchFragment : Fragment() {
                                     DividerItemDecoration.VERTICAL
                                 )
                             )
+
                             mAdapter?.itemClick = object : RecyclerViewAdapter.ItemClick {
                                 override fun onClick(view: View, position: Int) {
                                     apiAlaBookDetail(items[position].isbn,items[position])
+
                                 }
                             }
 
