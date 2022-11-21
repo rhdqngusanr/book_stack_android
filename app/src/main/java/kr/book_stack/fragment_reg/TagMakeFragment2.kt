@@ -1,16 +1,19 @@
 package kr.book_stack.fragment_reg
 
-import android.app.DatePickerDialog
-import android.app.Dialog
+import KeyboardVisibilityUtils
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getDrawable
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.setPadding
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,23 +21,19 @@ import kr.book_stack.AppViewModel
 import kr.book_stack.R
 import kr.book_stack.RegActivity
 import kr.book_stack.StructData
-import kr.book_stack.adapter.LoginViewPagerAdapter
 import kr.book_stack.adapter.TagMakeViewPagerAdapter
-import kr.book_stack.appDB.data.Book
 import kr.book_stack.appDB.data.DefaultTag
 import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.DialogTagMakeBinding
-
 import kr.book_stack.databinding.RegFragmentTagMake2Binding
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
+
 
 class TagMakeFragment2  : Fragment() {
     private var _binding: RegFragmentTagMake2Binding? = null;
     private val binding get() = _binding!!
     private val viewModel: AppViewModel by viewModels()
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     fun newInstance() : TagMakeFragment2 {
         return TagMakeFragment2()
     }
@@ -58,16 +57,45 @@ class TagMakeFragment2  : Fragment() {
             )
             mActivity.goFragment(TagFragment2(),null)
         }
-        binding.editTagName.setOnFocusChangeListener { _, b ->
-            binding.tilInfoName.isCounterEnabled = b
+
+/*        binding.editTagName.setOnFocusChangeListener { _, b ->
+
             if (b){
                 binding.editTagName.hint = "이름을 입력해주세요."
-            }else{
-                binding.editTagName.hint = ""
+                binding.tilInfoName.isCounterEnabled = true
+                binding.editTagName.isFocusable = true
             }
 
+        }*/
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.editTagName.setOnFocusChangeListener { _, p1 ->
+            if (p1){
+
+
+                imm.showSoftInput(binding.editTagName, 0)
+
+            }
         }
-        binding.tvTagmakeTest.setOnClickListener {
+        binding.layBackgroundInfo2.setOnClickListener{
+            imm.hideSoftInputFromWindow(binding.editTagName.windowToken, 0)
+        }
+
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = {
+                binding.layTagAdd.setPadding(0,0,0,0)
+                binding.tvTagAdd.setBackgroundResource(R.drawable.enable_btn_full)
+                binding.editTagName.hint = "이름을 입력해주세요."
+                binding.tilInfoName.isCounterEnabled = true
+                binding.editTagName.isFocusable = true
+            }, onHideKeyboard = {
+                binding.layTagAdd.setPadding(16,16,16,16)
+                binding.tvTagAdd.setBackgroundResource(R.drawable.enable_btn)
+                binding.editTagName.hint = ""
+                binding.tilInfoName.isCounterEnabled = false
+                binding.editTagName.clearFocus()
+            })
+
+        binding.tvTagMakeTest.setOnClickListener {
             dialogTagMake()
         }
 
@@ -115,5 +143,6 @@ class TagMakeFragment2  : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        keyboardVisibilityUtils.detachKeyboardListeners()
     }
 }

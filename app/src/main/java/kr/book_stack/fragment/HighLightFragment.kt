@@ -215,6 +215,8 @@ class HighLightFragment : Fragment() {
                 binding.scrollHighlight.run {
                     smoothScrollTo(scrollX, scrollY + keyboardHeight)
                 }
+            }, onHideKeyboard = {
+
             })
     }
 

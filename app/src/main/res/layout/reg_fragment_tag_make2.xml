@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:id="@+id/lay_background_info2"
     tools:context=".fragment_reg.TagMakeFragment2">
 
     <TextView
-        android:id="@+id/tv_tagmake_test"
+        android:id="@+id/tv_tag_make_test"
         style="@style/heading_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_tag_select"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="32dp"
@@ -33,7 +34,18 @@
         android:src="@drawable/ic_icon_orange_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tagmake_test" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_tag_make_test" />
+
+    <ImageView
+        android:id="@+id/img_tag_modify"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_radius_round"
+        android:backgroundTint="@color/paperGray40"
+        android:src="@drawable/ic_icon_pencil_mono"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_tag_select"
+        app:layout_constraintEnd_toEndOf="@+id/img_tag_select" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_info_name"
@@ -45,8 +57,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="24dp"
         android:textColorHint="@color/gray60"
-
-        app:counterEnabled="true"
+        app:counterEnabled="false"
         app:counterMaxLength="8"
         app:counterOverflowTextAppearance="@style/body_3"
         app:counterTextAppearance="@style/body_3"
@@ -61,7 +72,7 @@
         app:hintTextColor="@color/gray60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/img_tag_select">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_tag_name"
@@ -77,43 +88,32 @@
             android:paddingEnd="-1dp"
             android:paddingStart="-1dp"
             android:paddingTop="24dp"
+            android:textCursorDrawable="@drawable/cursor"
             tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/lay_tag_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_tag_add"
-            style="@android:style/ButtonBar"
+            style="@style/label_1"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/enable_btn"
             android:enabled="true"
             android:gravity="center"
-            android:text="추가"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:text="확인"
+            android:outlineProvider="none"
+            android:shadowRadius="0"
+            android:textColor="@color/white" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@drawable/bg_radius_round"
-        android:backgroundTint="@color/paperGray40"
-        android:src="@drawable/ic_icon_pencil_mono"
-        android:padding="6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

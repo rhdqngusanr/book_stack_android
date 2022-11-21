@@ -60,7 +60,7 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    apiAlaBookSearch(newText)
+                    //apiAlaBookSearch(newText)
                 }
                 return false
             }
@@ -107,7 +107,7 @@ class SearchFragment : Fragment() {
 
                             mAdapter?.itemClick = object : RecyclerViewAdapter.ItemClick {
                                 override fun onClick(view: View, position: Int) {
-                                    apiAlaBookDetail(items[position].isbn,items[position])
+                                    apiAlaBookDetail(items[position]!!.isbn, items[position]!!)
 
                                 }
                             }
@@ -118,7 +118,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ApiData.BookAlaInfo>, t: Throwable) {
-                Log.i("test", "apiAlaBookSearch onFailure" + t)
+                Log.i("test", "apiAlaBookSearch onFailure$t")
             }
 
 

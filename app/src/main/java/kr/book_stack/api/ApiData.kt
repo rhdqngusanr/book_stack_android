@@ -60,7 +60,7 @@ class ApiData{
         val title: String,
         @field:ElementList(entry = "item", inline = true, required=false)
         @param:ElementList(entry = "item", inline = true, required=false)
-        val item: List<Item>
+        val item: List<Item?>
     )
 
     @Root(strict = false, name = "item")
@@ -82,7 +82,7 @@ class ApiData{
         var description : String,
         @field:Element(name = "author")
         @param:Element(name = "author")
-        var author: String,
+        var author: Any ,
         @field:Element(name = "publisher")
         @param:Element(name = "publisher")
         var publisher: String,

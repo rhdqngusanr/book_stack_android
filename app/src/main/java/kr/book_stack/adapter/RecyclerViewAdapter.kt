@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import kr.book_stack.api.ApiData
 import kr.book_stack.databinding.RecyclerItemBinding
 
-class RecyclerViewAdapter(private val dataSet: List<ApiData.Item>) :
+class RecyclerViewAdapter(private val dataSet: List<ApiData.Item?>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     var itemClick: ItemClick? = null
     interface ItemClick {
@@ -38,7 +38,7 @@ class RecyclerViewAdapter(private val dataSet: List<ApiData.Item>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(dataSet[position]!!)
 
         holder.itemView.setOnClickListener {v->
             itemClick?.onClick(v, position)

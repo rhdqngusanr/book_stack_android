@@ -128,4 +128,26 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/red</item>
     </style>
+    style="@style/label_1"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@drawable/enable_btn"
+    android:enabled="true"
+    android:gravity="center"
+    android:text="확인"
+    android:outlineProvider="none"
+    android:shadowRadius="0"
+    android:textColor="@color/white"
+
+    <style name="button">
+        <item name="android:fontFamily">@font/suit_semi_bold_600</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">20dp</item>
+        <item name="background">@drawable/enable_btn</item>
+        <item name="android:gravity">center</item>
+        <item name="android:outlineProvider">none</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
