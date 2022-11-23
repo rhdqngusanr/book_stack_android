@@ -14,6 +14,27 @@
  
  
   - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View
+
+
+
+- **커스텀 태그** 
+
+
+ ![tag](https://user-images.githubusercontent.com/59686942/203588470-b12c00ee-4fdc-4413-b03e-89b590def44a.gif)
+
  
  
+  - Custom Chip 으로 태그 안에 이모지를 넣을 수 있다
+ 
+ - **커스텀 Date Picker** 
+
+
+
+ ![login](https://user-images.githubusercontent.com/59686942/203588785-b00ac627-c90e-467f-bcb7-97e8a03f6713.gif)
+
+ 
+ 
+  - Date Picker 전부다 Custom 하여 UX적으로 더 접근하기 쉽게 만들었다.
+ 
+ # 🛠 추가중입니다...
  
