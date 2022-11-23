@@ -52,10 +52,10 @@ class TagMakeFragment2  : Fragment() {
         val mActivity = activity as RegActivity
 
         binding.tvTagAdd.setOnClickListener {
-            viewModel.insertTag(
+/*            viewModel.insertTag(
                 Tag(binding.editTagName.text.toString(),"스마일")
             )
-            mActivity.goFragment(TagFragment2(),null)
+            mActivity.goFragment(TagFragment2(),null)*/
         }
 
 /*        binding.editTagName.setOnFocusChangeListener { _, b ->
@@ -70,10 +70,7 @@ class TagMakeFragment2  : Fragment() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         binding.editTagName.setOnFocusChangeListener { _, p1 ->
             if (p1){
-
-
                 imm.showSoftInput(binding.editTagName, 0)
-
             }
         }
         binding.layBackgroundInfo2.setOnClickListener{
@@ -95,7 +92,10 @@ class TagMakeFragment2  : Fragment() {
                 binding.editTagName.clearFocus()
             })
 
-        binding.tvTagMakeTest.setOnClickListener {
+        binding.imgTagModify.setOnClickListener {
+            dialogTagMake()
+        }
+        binding.imgTagSelect.setOnClickListener {
             dialogTagMake()
         }
 

@@ -1,5 +1,7 @@
 package kr.book_stack.fragment_reg
 
+import KeyboardVisibilityUtils
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,11 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import kr.book_stack.AppViewModel
+import kr.book_stack.R
 import kr.book_stack.RegActivity
 import kr.book_stack.Struct
 import kr.book_stack.appDB.data.Book
@@ -27,6 +31,7 @@ class InfoFragment1 : Fragment() {
     private var _binding: RegFragmentInfo1Binding? = null;
     private val binding get() = _binding!!
     private val viewModel: AppViewModel by viewModels()
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     fun newInstance(): InfoFragment1 {
         return InfoFragment1()
     }
@@ -72,6 +77,30 @@ class InfoFragment1 : Fragment() {
             .load(profile)
             .circleCrop()
             .into(binding.circleImageView)
+
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = {
+                binding.layConfirm.setPadding(0,0,0,0)
+                binding.tvInfoConfirm.setBackgroundResource(R.drawable.enable_btn_full)
+                binding.editInfoName.hint = "이름을 입력해주세요."
+                binding.tilInfoName.isCounterEnabled = true
+                binding.editInfoName.isFocusable = true
+            }, onHideKeyboard = {
+                binding.layConfirm.setPadding(16,16,16,16)
+                binding.tvInfoConfirm.setBackgroundResource(R.drawable.enable_btn)
+                binding.editInfoName.hint = ""
+                binding.tilInfoName.isCounterEnabled = false
+                binding.editInfoName.clearFocus()
+            })
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.editInfoName.setOnFocusChangeListener { _, p1 ->
+            if (p1){
+                imm.showSoftInput(binding.editInfoName, 0)
+            }
+        }
+        binding.layBackgroundInfo1.setOnClickListener{
+            imm.hideSoftInputFromWindow(binding.editInfoName.windowToken, 0)
+        }
 
         binding.tvInfoConfirm.setOnClickListener {
 
@@ -127,5 +156,6 @@ class InfoFragment1 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        keyboardVisibilityUtils.detachKeyboardListeners()
     }
 }

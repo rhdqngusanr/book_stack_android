@@ -33,8 +33,8 @@ class RegActivity : AppCompatActivity() {
         bundle.putString("user_id",id)
         bundle.putString("user_name",name)
         bundle.putString("user_profile",profile)
-        goTagFragment()
-        //goFragment(InfoFragment1(),bundle)
+        //goTagFragment()
+        goFragment(InfoFragment1(),bundle)
     }
     fun goTagFragment(){
         val fragment: TagFragment2 = TagFragment2().newInstance()
