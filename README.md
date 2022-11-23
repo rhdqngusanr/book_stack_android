@@ -13,7 +13,7 @@
  ![login](https://user-images.githubusercontent.com/59686942/203585556-a8694384-2385-4202-8972-a7783e225127.gif)
  
  
-  - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View
+        - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View
 
 
 
@@ -24,7 +24,7 @@
 
  
  
-  - Custom Chip 으로 태그 안에 이모지를 넣을 수 있다
+        - Custom Chip 으로 태그 안에 이모지를 넣을 수 있다
  
  - **커스텀 Date Picker** 
 
@@ -34,7 +34,9 @@
 
  
  
-  - Date Picker 전부다 Custom 하여 UX적으로 더 접근하기 쉽게 만들었다.
+       - Date Picker 전부다 Custom 하여 UX적으로 더 접근하기 쉽게 만들었다.
+
+
  
  # 🛠 추가중입니다...
  
