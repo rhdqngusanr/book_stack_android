@@ -6,7 +6,8 @@
 
 ## Developer
 - **특징** 
-  - 이 프로젝트의 DB는 일반적인 DB와 다른 방식으로 Notion 의 Data Table 과 Notion Api만을 사용함
+  - 이 프로젝트의 DB는 일반적인 DB와 다른 방식으로 Notion 의 Data Table 과 Notion Api만을 사용하였다.
+  - 기본적으로 DB 저장시  Notion Api(DB) -> Notion Data Table -> App LiveData -> App View 의 순서를 가지며 <br> Notion 에서 가져온 정보를 안드로이드 RoomDB로 저장하여 LiveData로 보여주는 MVVM 형식을 따르고 있다.
 - **로그인** 
 
 
@@ -24,7 +25,7 @@
 
  
  
-        - Custom Chip 으로 태그 안에 이모지를 넣을 수 있다
+        - Custom Chip 으로 태그 안에 이모지를 넣을 수 있다.
  
  - **커스텀 Date Picker** 
 
@@ -35,7 +36,7 @@
 
  
  
-       - Date Picker 전부다 Custom 하여 UX적으로 더 접근하기 쉽게 만들었다.
+       - Date Picker Pull Custom 하여 UX적으로 더 접근하기 쉽게 만들었다.
 
 
  
