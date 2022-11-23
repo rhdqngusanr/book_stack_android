@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         Log.d("test", "1 = ${R.drawable.ic_baseline_home_32} , 2 = ${R.drawable.test_svg}")
         val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", false)
