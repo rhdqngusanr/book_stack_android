@@ -6,7 +6,7 @@
 
 ## Developer
 - **특징** 
-  - 이 프로젝트의 DB는 일반적인 DB와 Notion 의 Data Table 과 Notion Api만을 사용함
+  - 이 프로젝트의 DB는 일반적인 DB와 다른 방식으로 Notion 의 Data Table 과 Notion Api만을 사용함
 - **로그인** 
 
 
