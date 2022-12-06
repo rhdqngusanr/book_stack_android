@@ -48,12 +48,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        binding.viewPagerLogin.adapter = LoginViewPagerAdapter(getPageList()) // 어댑터 생성
-        binding.viewPagerLogin.orientation = ViewPager2.ORIENTATION_HORIZONTAL // 방향을 가로로
-        binding.springDotsIndicator.attachTo(binding.viewPagerLogin)
-
-
-
         Log.d("test MainActivity", "keyhash : ${Utility.getKeyHash(this)}")
 
        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -106,10 +100,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPageList(): ArrayList<String> {
-        return arrayListOf<String>("독서 포트폴리오로\n당신의 역량을 보여주세요!.1", "독서 포트폴리오로\n당신의 역량을 보여주세요!.2",
-            "독서 포트폴리오로\n당신의 역량을 보여주세요!.3")
-    }
+
 
     private fun signIn(inClient : GoogleSignInClient){
         val signInIntent = inClient.signInIntent

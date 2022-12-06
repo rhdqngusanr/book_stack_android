@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.book_stack.databinding.PagerLoginListBinding
 
-class LoginViewPagerAdapter (private val tvList: ArrayList<String>) :
+class LoginViewPagerAdapter (private val tvBigList: ArrayList<String>, private val tvSmallList: ArrayList<String>) :
     RecyclerView.Adapter<LoginViewPagerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -19,16 +19,16 @@ class LoginViewPagerAdapter (private val tvList: ArrayList<String>) :
 
     class ViewHolder(private val binding: PagerLoginListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: String) {
-            binding.pagerTv.text = data
-
+        fun bind(data: String, data2: String) {
+            binding.tvLayBig.text = data
+            binding.tvLaySmall.text = data2
         }
     }
     override fun getItemCount(): Int {
-        return tvList.size
+        return tvBigList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(tvList[position])
+        holder.bind(tvBigList[position],tvSmallList[position])
     }
 }
