@@ -23,18 +23,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_tag_select"
+    <LinearLayout
+        android:id="@+id/lay_tag_select"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="32dp"
-        android:padding="28dp"
+
+
         android:background="@drawable/bg_radius_round"
         android:backgroundTint="@color/paperGray90"
-        android:src="@drawable/ic_icon_orange_book"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tag_make_test" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_tag_make_test">
+
+        <ImageView
+
+            android:id="@+id/img_tag_select"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/icon_books_color"
+             />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/img_tag_modify"
@@ -44,8 +55,8 @@
         android:backgroundTint="@color/paperGray40"
         android:src="@drawable/ic_icon_pencil_mono"
         android:padding="6dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_tag_select"
-        app:layout_constraintEnd_toEndOf="@+id/img_tag_select" />
+        app:layout_constraintBottom_toBottomOf="@+id/lay_tag_select"
+        app:layout_constraintEnd_toEndOf="@+id/lay_tag_select" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_info_name"
@@ -72,7 +83,7 @@
         app:hintTextColor="@color/gray60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_tag_select">
+        app:layout_constraintTop_toBottomOf="@+id/lay_tag_select">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_tag_name"

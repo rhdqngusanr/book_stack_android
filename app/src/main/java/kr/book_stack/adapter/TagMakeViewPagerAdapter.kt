@@ -2,6 +2,7 @@ package kr.book_stack.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,10 @@ import kr.book_stack.databinding.PagerTagMakeBinding
 
 class TagMakeViewPagerAdapter (private val tagList: ArrayList<ArrayList<DefaultTag>>,val context :Context) :
     RecyclerView.Adapter<TagMakeViewPagerAdapter.ViewHolder>() {
-
+    var change: ChangeListen? = null
+    interface ChangeListen {
+        fun onChange(view: View)
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,17 +31,21 @@ class TagMakeViewPagerAdapter (private val tagList: ArrayList<ArrayList<DefaultT
 
     class ViewHolder(private val binding: PagerTagMakeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ArrayList<DefaultTag>,context: Context) {
+        @SuppressLint("NotifyDataSetChanged")
+        fun bind(data: ArrayList<DefaultTag>, context: Context, listener: ChangeListen?) {
             binding.tagMakeRecycler.layoutManager = GridLayoutManager(
                 context,
                4
             )
             val mAdapter = RecyclerTagAdapter(data)
             binding.tagMakeRecycler.adapter = mAdapter
+            mAdapter.notifyDataSetChanged()
             mAdapter.itemClick = object : RecyclerTagAdapter.ItemClick {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onClick(view: View, position: Int) {
+                    Log.e("TagMakeViewPagerAdapter", "onClick")
                    mAdapter.notifyDataSetChanged()
+                    listener?.onChange(view)
                 }
             }
 /*            binding.tagMakeRecycler.addItemDecoration(
@@ -55,6 +63,6 @@ class TagMakeViewPagerAdapter (private val tagList: ArrayList<ArrayList<DefaultT
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(tagList[position],context)
+        holder.bind(tagList[position],context,change)
     }
 }

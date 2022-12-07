@@ -55,5 +55,5 @@ data class ResultTag(
 data class DefaultTag(
     val name: String,
     val img: Int,
-    val check : Boolean
+    var check : Boolean
 )
