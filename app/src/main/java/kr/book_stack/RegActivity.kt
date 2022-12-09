@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.SearchEvent
-import android.view.View
+import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import kr.book_stack.databinding.ActivityRegBinding
 import kr.book_stack.fragment.HighLightFragment
@@ -23,6 +23,7 @@ class RegActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbarReg)
 
         val id = intent.getStringExtra("id")
         val name = intent.getStringExtra("name")
@@ -35,6 +36,8 @@ class RegActivity : AppCompatActivity() {
         bundle.putString("user_profile",profile)
         goTagFragment()
         //goFragment(InfoFragment1(),bundle)
+
+
     }
     fun goTagFragment(){
         val fragment: TagFragment2 = TagFragment2().newInstance()
