@@ -26,13 +26,15 @@ interface ApiInterface {
     @GET("/ttb/api/ItemSearch.aspx")
     fun getAlaBookInfo(
         @Query("ttbkey") ttbkey: String,
-        @Query("query") query: String
+        @Query("query") query: String,
+        @Query("Version") Version: String
     ): Call<ApiData.BookAlaInfo>
 
     @GET("/ttb/api/ItemLookUp.aspx")
     fun getAlaDetailBookInfo(
         @Query("ttbkey") ttbkey: String,
-        @Query("ItemId") ItemId: String
+        @Query("ItemId") ItemId: String,
+        @Query("Version") Version: String
     ): Call<ApiData.BookAlaDetailInfo>
 
 
@@ -67,6 +69,7 @@ interface ApiInterface {
                 //.addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build()
+
 
             return retrofit.create(ApiInterface::class.java)
         }

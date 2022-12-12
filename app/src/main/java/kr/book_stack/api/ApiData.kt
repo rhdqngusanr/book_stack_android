@@ -42,11 +42,11 @@ class ApiData{
     )
     @Root(strict = false, name = "item")
     data class ItemDetail(
-        @field:ElementList(entry = "bookinfo", inline = true, required=false)
-        @param:ElementList(entry = "bookinfo", inline = true, required=false)
+        @field:ElementList(entry = "subInfo", inline = true, required=false)
+        @param:ElementList(entry = "subInfo", inline = true, required=false)
         val BookInfo: List<ItemDetailPage>
     )
-    @Root(strict = false, name = "bookinfo")
+    @Root(strict = false, name = "subInfo")
     data class ItemDetailPage(
         @field:Element(name = "itemPage")
         @param:Element(name = "itemPage")
@@ -82,7 +82,7 @@ class ApiData{
         var description : String,
         @field:Element(name = "author")
         @param:Element(name = "author")
-        var author: Any ,
+        var author: String? = "".toString() ,
         @field:Element(name = "publisher")
         @param:Element(name = "publisher")
         var publisher: String,
@@ -90,4 +90,7 @@ class ApiData{
         @param:Element(name = "pubDate")
         var pubdate: String
     )
+
+
+
 }

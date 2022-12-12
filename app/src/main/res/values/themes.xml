@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="chipCornerRadius">8dp</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
+        <item name="colorControlActivated">@color/book_stack_black</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -127,16 +129,11 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/red</item>
     </style>
-    style="@style/label_1"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="@drawable/enable_btn"
-    android:enabled="true"
-    android:gravity="center"
-    android:text="확인"
-    android:outlineProvider="none"
-    android:shadowRadius="0"
-    android:textColor="@color/white"
+
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+
+    </style>
 
     <style name="button">
         <item name="android:fontFamily">@font/suit_semi_bold_600</item>

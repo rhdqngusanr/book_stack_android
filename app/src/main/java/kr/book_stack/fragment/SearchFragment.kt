@@ -50,6 +50,9 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mActivity = activity as RegActivity
+        binding.searchView.isIconifiedByDefault = false;
+        binding.searchView.requestFocus();
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -66,6 +69,8 @@ class SearchFragment : Fragment() {
             }
 
         })
+
+
     }
 
 
@@ -77,7 +82,8 @@ class SearchFragment : Fragment() {
     private fun apiAlaBookSearch(Query: String) {
         val apiInterface = ApiInterface.create().getAlaBookInfo(
             Struct.ttbKey,
-            Query
+            Query,
+            "20131101"
         )
 
         apiInterface.enqueue(object : Callback<ApiData.BookAlaInfo> {
@@ -98,12 +104,7 @@ class SearchFragment : Fragment() {
                             )
                             mAdapter = RecyclerViewAdapter(items)
                             binding.recyclerView.adapter = mAdapter
-                            binding.recyclerView.addItemDecoration(
-                                DividerItemDecoration(
-                                    requireActivity(),
-                                    DividerItemDecoration.VERTICAL
-                                )
-                            )
+
 
                             mAdapter?.itemClick = object : RecyclerViewAdapter.ItemClick {
                                 override fun onClick(view: View, position: Int) {
@@ -128,7 +129,8 @@ class SearchFragment : Fragment() {
     private fun apiAlaBookDetail(ItemId: String, Item :ApiData.Item) {
         val apiInterface = ApiInterface.create().getAlaDetailBookInfo(
             Struct.ttbKey,
-            ItemId
+            ItemId,
+            "20131101"
         )
 
         apiInterface.enqueue(object : Callback<ApiData.BookAlaDetailInfo> {
@@ -176,16 +178,16 @@ class SearchFragment : Fragment() {
             .into(binding.imgBookCover)
 
 
-        val formatter = SimpleDateFormat("E, dd MMMM yyyy HH:mm:ss X", Locale.US)
+        val formatter = SimpleDateFormat("yyyy-mm-dd", Locale.US)
         val date = formatter.parse(Item.pubdate)
         val formatter2 = SimpleDateFormat("yyyy년",Locale.getDefault())
         val str: String = formatter2.format(date)
-        val description = Item.description.split("<br/>");
+        val description = Item.description
         binding.tvBookInfo.text = "${Item.author} · ${Item.publisher} · $str"
         binding.tvBookName.text = Item.title
 
 
-        binding.tvBookDescription.text = description[1].parseAsHtml().toString()
+        binding.tvBookDescription.text = description
 
         binding.imgClose.setOnClickListener {
             MyUtil.dialogCloseTypeView(requireActivity(),"종료","종료함?")

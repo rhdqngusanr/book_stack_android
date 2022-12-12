@@ -7,15 +7,26 @@
     android:background="@color/background"
     tools:context=".fragment.SearchFragment">
 
+
+
     <SearchView
         android:id="@+id/searchView"
         android:background="@drawable/bg_radius_search"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="-4dp"
         android:searchIcon="@drawable/ic_search"
+        android:closeIcon="@drawable/ic_icon_x_circle_mono"
+        android:submitBackground="@color/paperGray90"
+        android:queryBackground="@android:color/transparent"
+        android:backgroundTint="@color/paperGray90"
+
+        app:queryBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,9 +35,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

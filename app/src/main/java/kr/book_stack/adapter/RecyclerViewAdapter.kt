@@ -31,7 +31,10 @@ class RecyclerViewAdapter(private val dataSet: List<ApiData.Item?>) :
                 .with(binding.imageView.context)
                 .load(data.cover)
                 .into(binding.imageView)
-            binding.textView.text = data.title
+            binding.tvTitle.text = data.title
+            binding.tvAuthor.text = data.author
+            binding.tvPublisher.text =data.publisher
+
 
 
         }
