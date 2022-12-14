@@ -95,25 +95,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0">
 
-<!--
-        <com.google.android.material.chip.Chip
+<!--        <com.google.android.material.chip.Chip
             android:id="@+id/test_chip1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:checkable="true"
-            android:text="스마일"
-            app:checkedIconEnabled="false"
-            app:chipBackgroundColor="@color/chip_bg"
-            app:chipEndPadding="16dp"
-            app:chipIcon="@drawable/ic_baseline_home_32"
-            app:chipIconSize="18dp"
-            app:chipStartPadding="12dp"
-            app:closeIcon="@drawable/svg_test_tag"
+            android:text="tese"
+            android:checked="true"
             app:closeIconEnabled="true"
-            app:closeIconStartPadding="-4dp"
-            app:iconEndPadding="-4dp"
-            app:rippleColor="@color/black" />
+            />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
@@ -125,8 +114,8 @@
             app:chipBackgroundColor="@color/chip_bg"
             app:chipIcon="@drawable/ic_baseline_home_32"
             app:closeIcon="@drawable/svg_back"
-            app:rippleColor="@color/black" />
--->
+
+            app:rippleColor="@color/black" />-->
 
 
     </com.google.android.material.chip.ChipGroup>

@@ -7,11 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kr.book_stack.*
@@ -20,7 +20,6 @@ import kr.book_stack.api.ApiData
 import kr.book_stack.api.ApiInterface
 import kr.book_stack.databinding.DialogAddSearchBinding
 import kr.book_stack.databinding.FragmentSearchBinding
-import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +32,7 @@ class SearchFragment : Fragment() {
     private var mAdapter: RecyclerViewAdapter? = null
     var mActivity : RegActivity? = null
     var bookInfo : StructData.BookInfo? = null;
+
     fun newInstance() : SearchFragment {
         return SearchFragment()
     }
@@ -49,6 +49,8 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         mActivity = activity as RegActivity
         binding.searchView.isIconifiedByDefault = false;
         binding.searchView.requestFocus();
@@ -83,7 +85,8 @@ class SearchFragment : Fragment() {
         val apiInterface = ApiInterface.create().getAlaBookInfo(
             Struct.ttbKey,
             Query,
-            "20131101"
+            "20131101",
+            "Big"
         )
 
         apiInterface.enqueue(object : Callback<ApiData.BookAlaInfo> {
@@ -183,8 +186,11 @@ class SearchFragment : Fragment() {
         val formatter2 = SimpleDateFormat("yyyy년",Locale.getDefault())
         val str: String = formatter2.format(date)
         val description = Item.description
-        binding.tvBookInfo.text = "${Item.author} · ${Item.publisher} · $str"
+        val bookInfoStr =  "${Item.author} · ${Item.publisher} · $str"
+
         binding.tvBookName.text = Item.title
+        binding.tvBookAuthor.text = Item.author
+        binding.tvBookPublisher.text = Item.publisher
 
 
         binding.tvBookDescription.text = description
@@ -195,7 +201,7 @@ class SearchFragment : Fragment() {
         binding.btnSearchAdd.setOnClickListener {
             alertDialog.dismiss()
             val bundle = Bundle()
-            bundle.putString("bookInfo", binding.tvBookInfo.text.toString())
+            bundle.putString("bookInfo", bookInfoStr)
             bundle.putString("bookName",binding.tvBookName.text.toString())
             bundle.putString("bookDes",binding.tvBookDescription.text.toString())
             bundle.putString("bookCover",Item.cover)

@@ -127,7 +127,6 @@ class TagFragment2 : Fragment() {
                 } else {
                     for (i in tag.indices.reversed() ) {
                         binding.chipGroupTag.addView(Chip(requireActivity()).apply {
-
                             isCheckable = true
                             text = "${tag[i].tag}"
                             chipMinHeight = dpToPx(requireActivity(),40f)
@@ -137,6 +136,7 @@ class TagFragment2 : Fragment() {
                             chipStartPadding = dpToPx(requireActivity(),12f)
                             chipEndPadding = dpToPx(requireActivity(),12f)
                             isCheckedIconVisible = false
+
                             setChipBackgroundColorResource(R.color.chip_bg)
 /*                            setOnCloseIconClickListener {
                                 binding.chipGroupTag.removeView(it)
@@ -152,6 +152,7 @@ class TagFragment2 : Fragment() {
                                     chipEndPadding = dpToPx(requireActivity(),12f)
                                 }
                             }
+
 
                             for (j in stringsTagMakeImgName.indices) {
                                 if (stringsTagMakeImgName[j] == tag[i].tagImg) {

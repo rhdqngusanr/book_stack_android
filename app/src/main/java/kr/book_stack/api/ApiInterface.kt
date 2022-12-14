@@ -27,7 +27,8 @@ interface ApiInterface {
     fun getAlaBookInfo(
         @Query("ttbkey") ttbkey: String,
         @Query("query") query: String,
-        @Query("Version") Version: String
+        @Query("Version") Version: String,
+        @Query("Cover") Cover: String
     ): Call<ApiData.BookAlaInfo>
 
     @GET("/ttb/api/ItemLookUp.aspx")

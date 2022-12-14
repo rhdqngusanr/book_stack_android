@@ -3,15 +3,19 @@ package kr.book_stack.fragment
 
 import KeyboardVisibilityUtils
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
@@ -65,12 +69,16 @@ class HighLightFragment : Fragment() {
     @SuppressLint("Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val animation: Animation = AlphaAnimation(0f, 1f)
+        animation.duration = 1000
+
         val mActivity = activity as RegActivity
         val info = arguments?.getString("bookInfo")
         val title = arguments?.getString("bookName")
         val des = arguments?.getString("bookDes")
         val cover = arguments?.getString("bookCover")
-        var status : StructData.BookInfo= arguments?.getSerializable("bookStatus") as StructData.BookInfo
+        val status: StructData.BookInfo =
+            arguments?.getSerializable("bookStatus") as StructData.BookInfo
 
 
         Glide
@@ -81,7 +89,7 @@ class HighLightFragment : Fragment() {
         binding.hAddTvBookInfo.text = info
 
         val stringsTag = resources.getStringArray(R.array.tag_name)
-        val stringsTagImg = resources.getStringArray(R.array.tag_img_name)
+        val stringsTagImg = resources.getStringArray(R.array.tag_make_img_name)
         val images = resources.obtainTypedArray(R.array.tag_images)
         viewModel.getAllResultTag().observe(viewLifecycleOwner, Observer { tag ->
             // Update the cached copy of the users in the adapter.
@@ -93,11 +101,55 @@ class HighLightFragment : Fragment() {
                         binding.chipsHighLightTag.addView(Chip(requireActivity()).apply {
                             isCheckable = true
                             text = "${tag[i].tag}"
-                            isCloseIconVisible = true
+                            chipMinHeight = dpToPx(requireActivity(), 32f)
+                            setTextAppearance(R.style.label_2)
+                            chipIconSize = dpToPx(requireActivity(), 18f)
+                            iconEndPadding = dpToPx(requireActivity(), -4f)
+                            chipStartPadding = dpToPx(requireActivity(), 12f)
+                            chipEndPadding = dpToPx(requireActivity(), 12f)
+                            isCheckedIconVisible = false
                             setChipBackgroundColorResource(R.color.chip_bg)
-                            setOnCloseIconClickListener {
-                                binding.chipsHighLightTag.removeView(it)
+/*                            setOnCloseIconClickListener {
+                                binding.chipGroupTag.removeView(it)
+                            }*/
+                            setOnCheckedChangeListener { v, b ->
+                                binding.horizontalScrollView.visibility = View.GONE;
+                                binding.horizontalScrollView.animation = animation;
+                                binding.chipsHighLightTagCheck.addView(Chip(requireActivity()).apply {
+                                    isCheckable = true
+                                    isChecked = true
+                                    text = v.text
+                                    chipMinHeight = dpToPx(requireActivity(), 32f)
+                                    setTextAppearance(R.style.label_2)
+                                    chipIconSize = dpToPx(requireActivity(), 18f)
+                                    iconEndPadding = dpToPx(requireActivity(), -4f)
+                                    chipStartPadding = dpToPx(requireActivity(), 12f)
+                                    chipEndPadding = dpToPx(requireActivity(), 12f)
+                                    isCheckedIconVisible = false
+                                    isCloseIconVisible = true
+                                    setChipBackgroundColorResource(R.color.chip_bg_h2)
+
+                                    for (j in tag.indices) {
+                                        if (tag[j].tag == v.text) {
+                                            for (k in stringsTagImg.indices) {
+                                                if (stringsTagImg[k] == tag[j].tagImg) {
+                                                    chipIcon = ContextCompat.getDrawable(
+                                                        requireActivity(),
+                                                        images.getResourceId(k, -1)
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    setOnCloseIconClickListener {
+                                        binding.chipsHighLightTagCheck.removeAllViews()
+                                    }
+
+                                })
                             }
+
+
                             for (j in stringsTagImg.indices) {
                                 if (stringsTagImg[j] == tag[i].tagImg) {
                                     chipIcon = ContextCompat.getDrawable(
@@ -106,13 +158,30 @@ class HighLightFragment : Fragment() {
                                     )
                                 }
                             }
+                            /*isCheckable = true
+                                text = "${tag[i].tag}"
+                                isCloseIconVisible = true
+                                setChipBackgroundColorResource(R.color.chip_bg)
+                                setOnCloseIconClickListener {
+                                    binding.chipsHighLightTag.removeView(it)
+                                }
+                                for (j in stringsTagImg.indices) {
+                                    if (stringsTagImg[j] == tag[i].tagImg) {
+                                        chipIcon = ContextCompat.getDrawable(
+                                            requireActivity(),
+                                            images.getResourceId(j, -1)
+                                        )
+                                    }
+                                }*/
                         })
                     }
                 }
             }
         })
 
-        binding.hAddTvRange.text = "${cal.get(Calendar.YEAR)}년"
+        val strDateRange =
+            "${cal.get(Calendar.YEAR)}. ${cal.get(Calendar.MONTH)}. ${cal.get(Calendar.DATE)}"
+        binding.hAddTvRange.text = "$strDateRange ~ $strDateRange"
 
         binding.btnDateRange.setOnClickListener {
             dialogDate(binding.hAddTvRange)
@@ -121,7 +190,7 @@ class HighLightFragment : Fragment() {
             binding.scrollHighlight.fullScroll(ScrollView.FOCUS_UP)
         }
 
-        var userInfo : User? = null
+        var userInfo: User? = null
         viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
             user?.let { userInfo = user }
 
@@ -154,36 +223,17 @@ class HighLightFragment : Fragment() {
                         }
 
                         //123으로 저장된곳 협의후 수정
-                        val arr : List<String> = if (binding.hAddTvRange.text.contains("~")){
+                        val arr: List<String> = if (binding.hAddTvRange.text.contains("~")) {
                             binding.hAddTvRange.text.split("~")
-                        }else{
+                        } else {
                             val str = "${binding.hAddTvRange.text}~${binding.hAddTvRange.text}"
                             str.split("~")
                         }
-                         val bookDbPageId = NotionAPI.createBookPage(
-                             "테스트",
-                             "",
-                             title.toString(),
-                             status.inIsbn ,
-                             status.inBookStatus,
-                             status.inBookPage,
-                             status.inLookPage,
-                             arr[0],
-                             arr[1],
-                             cover.toString(),
-                             tagString,
-                             tagImgString,
-                             "3",
-                             binding.editInfoComent.text.toString()
-
-                         )
-                         NotionAPI.updateBookPageId(bookDbPageId)
-                        //TODO 추후 룸 DB 연결부분 협의후 수정
-                      viewModel.insert(
-                        Book("테스트",
-                            bookDbPageId,
+                        val bookDbPageId = NotionAPI.createBookPage(
+                            "테스트",
+                            "",
                             title.toString(),
-                            status.inIsbn ,
+                            status.inIsbn,
                             status.inBookStatus,
                             status.inBookPage,
                             status.inLookPage,
@@ -194,8 +244,28 @@ class HighLightFragment : Fragment() {
                             tagImgString,
                             "3",
                             binding.editInfoComent.text.toString()
+
                         )
-                    )
+                        NotionAPI.updateBookPageId(bookDbPageId)
+                        //TODO 추후 룸 DB 연결부분 협의후 수정
+                        viewModel.insert(
+                            Book(
+                                "테스트",
+                                bookDbPageId,
+                                title.toString(),
+                                status.inIsbn,
+                                status.inBookStatus,
+                                status.inBookPage,
+                                status.inLookPage,
+                                arr[0],
+                                arr[1],
+                                cover.toString(),
+                                tagString,
+                                tagImgString,
+                                "3",
+                                binding.editInfoComent.text.toString()
+                            )
+                        )
                     } catch (e: Exception) {
                         Log.e("HighLightFragment", "$e")
                         Toast.makeText(requireActivity(), "하이라이트 추가 API 오류.", Toast.LENGTH_LONG)
@@ -365,12 +435,12 @@ class HighLightFragment : Fragment() {
         binding.btnDateConfirm.setOnClickListener {
             dialog.dismiss()
 
-            if (binding.btnMonth.isChecked){
+            if (binding.btnMonth.isChecked) {
                 inTextView.text = binding.tvMonthPicker.text
-            }else if(binding.btnYear.isChecked){
+            } else if (binding.btnYear.isChecked) {
                 inTextView.text = binding.tvYearPicker.text
-            }else if(binding.btnRange.isChecked){
-                inTextView.text =  "${binding.toggleFrom.text}~${binding.toggleTo.text}"
+            } else if (binding.btnRange.isChecked) {
+                inTextView.text = "${binding.toggleFrom.text}~${binding.toggleTo.text}"
             }
 
         }
@@ -412,6 +482,14 @@ class HighLightFragment : Fragment() {
         super.onDestroyView()
         keyboardVisibilityUtils.detachKeyboardListeners()
         _binding = null
+    }
+
+    fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
 
     fun scrollDown() {
