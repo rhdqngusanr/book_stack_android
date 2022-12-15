@@ -3,6 +3,8 @@ package kr.book_stack.fragment
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -172,7 +174,9 @@ class SearchFragment : Fragment() {
         builder.setView(binding.root)
         builder.setCancelable(false)
         val alertDialog = builder.create()
+        alertDialog.window!!.attributes.windowAnimations = R.style.AnimationPopupStyle
         alertDialog.setCancelable(true)
+
         alertDialog.show()
 
         Glide
@@ -198,8 +202,11 @@ class SearchFragment : Fragment() {
         binding.imgClose.setOnClickListener {
             MyUtil.dialogCloseTypeView(requireActivity(),"종료","종료함?")
         }
+        binding.tvBookInfoClose.setOnClickListener {
+            MyUtil.dialogCloseTypeView(requireActivity(),"종료","종료함?")
+        }
         binding.btnSearchAdd.setOnClickListener {
-            alertDialog.dismiss()
+
             val bundle = Bundle()
             bundle.putString("bookInfo", bookInfoStr)
             bundle.putString("bookName",binding.tvBookName.text.toString())
@@ -207,6 +214,11 @@ class SearchFragment : Fragment() {
             bundle.putString("bookCover",Item.cover)
             bundle.putSerializable("bookStatus", bookInfo!!)
             mActivity?.goFragment(HighLightFragment(),bundle)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                alertDialog.dismiss()
+            }, 500)
+
         }
 
 

@@ -3,26 +3,30 @@ package kr.book_stack.fragment
 
 import KeyboardVisibilityUtils
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.*
 import androidx.lifecycle.Observer
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
@@ -35,9 +39,13 @@ import kr.book_stack.R
 
 import kr.book_stack.RegActivity
 import kr.book_stack.StructData
+import kr.book_stack.adapter.TagMakeViewPagerAdapter
 import kr.book_stack.appDB.data.Book
+import kr.book_stack.appDB.data.DefaultTag
 import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.DialogDatepickerBinding
+import kr.book_stack.databinding.DialogPopupBinding
+import kr.book_stack.databinding.DialogTagMakeBinding
 
 import kr.book_stack.databinding.FragmentHighlight2Binding
 
@@ -71,8 +79,30 @@ class HighLightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val animation: Animation = AlphaAnimation(0f, 1f)
         animation.duration = 1000
-
         val mActivity = activity as RegActivity
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_reg_close, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.menu_close -> {
+
+                        dialogPopUp(mActivity)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.CREATED)
+
+
+
         val info = arguments?.getString("bookInfo")
         val title = arguments?.getString("bookName")
         val des = arguments?.getString("bookDes")
@@ -108,13 +138,14 @@ class HighLightFragment : Fragment() {
                             chipStartPadding = dpToPx(requireActivity(), 12f)
                             chipEndPadding = dpToPx(requireActivity(), 12f)
                             isCheckedIconVisible = false
-                            setChipBackgroundColorResource(R.color.chip_bg)
+                            setChipBackgroundColorResource(R.color.chip_bg_h2)
 /*                            setOnCloseIconClickListener {
                                 binding.chipGroupTag.removeView(it)
                             }*/
                             setOnCheckedChangeListener { v, b ->
-                                binding.horizontalScrollView.visibility = View.GONE;
-                                binding.horizontalScrollView.animation = animation;
+                                binding.horizontalScrollView.visibility = View.GONE
+                                binding.horizontalScrollView.animation = animation
+                                binding.tvBtnAddHighlight.isEnabled = true
                                 binding.chipsHighLightTagCheck.addView(Chip(requireActivity()).apply {
                                     isCheckable = true
                                     isChecked = true
@@ -144,6 +175,9 @@ class HighLightFragment : Fragment() {
 
                                     setOnCloseIconClickListener {
                                         binding.chipsHighLightTagCheck.removeAllViews()
+                                        binding.tvBtnAddHighlight.isEnabled = false
+                                        binding.horizontalScrollView.visibility = View.VISIBLE
+                                        binding.horizontalScrollView.animation = animation
                                     }
 
                                 })
@@ -191,7 +225,7 @@ class HighLightFragment : Fragment() {
         }
 
         var userInfo: User? = null
-        viewModel.getUser("2407948260").observe(viewLifecycleOwner, Observer { user ->
+        viewModel.getUser("test").observe(viewLifecycleOwner, Observer { user ->
             user?.let { userInfo = user }
 
         })
@@ -201,7 +235,7 @@ class HighLightFragment : Fragment() {
             var tagImgString = ""
             CoroutineScope(Dispatchers.Main).launch {
 
-                val ids = binding.chipsHighLightTag.checkedChipIds
+                val ids = binding.chipsHighLightTagCheck.checkedChipIds
                 if (ids.size == 0) {
                     Toast.makeText(requireActivity(), "태그를 선택해주세요.", Toast.LENGTH_LONG).show()
                 } else {
@@ -209,7 +243,7 @@ class HighLightFragment : Fragment() {
                     try {
 
                         for (id in ids) {
-                            val chip: Chip = binding.chipsHighLightTag.findViewById(id)
+                            val chip: Chip = binding.chipsHighLightTagCheck.findViewById(id)
                             val checkArray = viewModel.getAllResultTag().value
                             for (j in checkArray!!.indices) {
 
@@ -231,7 +265,7 @@ class HighLightFragment : Fragment() {
                         }
                         val bookDbPageId = NotionAPI.createBookPage(
                             "테스트",
-                            "",
+                            userInfo!!.bookPageId.toString(),
                             title.toString(),
                             status.inIsbn,
                             status.inBookStatus,
@@ -406,9 +440,9 @@ class HighLightFragment : Fragment() {
             binding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
             binding.rangePickerDay.value = cal.get(Calendar.DATE)
             binding.toggleFrom.text =
-                "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
+                "${binding.rangePickerYear.value}. ${binding.rangePickerMonth.value}. ${binding.rangePickerDay.value}"
             binding.toggleTo.text =
-                "${binding.rangePickerYear.value}년 ${binding.rangePickerMonth.value}월 ${binding.rangePickerDay.value}일"
+                "${binding.rangePickerYear.value}. ${binding.rangePickerMonth.value}. ${binding.rangePickerDay.value}"
         }
 
         binding.rangePickerYear.setOnValueChangedListener { _, _, _ ->
@@ -458,24 +492,44 @@ class HighLightFragment : Fragment() {
             cal.get(Calendar.DATE)
         );
         inBinding.rangePickerDay.maxValue = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-        val formatter = SimpleDateFormat("yyyy년 MM월 dd일")
+        val formatter = SimpleDateFormat("yyyy. MM. dd")
         val fromDate = formatter.parse(inBinding.toggleFrom.text.toString())
 
         if (inBinding.toggleFrom.isChecked) {
             inBinding.toggleFrom.text =
-                "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+                "${inBinding.rangePickerYear.value}. ${inBinding.rangePickerMonth.value}. ${inBinding.rangePickerDay.value}"
         } else if (inBinding.toggleTo.isChecked) {
             val toDate =
-                formatter.parse("${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일")
+                formatter.parse("${inBinding.rangePickerYear.value}. ${inBinding.rangePickerMonth.value}. ${inBinding.rangePickerDay.value}")
             val compare = toDate.compareTo(fromDate)
             if (compare < 0) {
                 Toast.makeText(requireActivity(), "FROM이 TO보다 큽니다.", Toast.LENGTH_SHORT).show()
             } else {
                 inBinding.toggleTo.text =
-                    "${inBinding.rangePickerYear.value}년 ${inBinding.rangePickerMonth.value}월 ${inBinding.rangePickerDay.value}일"
+                    "${inBinding.rangePickerYear.value}. ${inBinding.rangePickerMonth.value}. ${inBinding.rangePickerDay.value}"
             }
 
         }
+    }
+
+    private fun dialogPopUp(inActivity: RegActivity) {
+
+        val bindingPopup = DialogPopupBinding.inflate(requireActivity().layoutInflater)
+
+        val dialog = Dialog(requireActivity())
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(bindingPopup.root)
+        dialog.setCancelable(true)
+
+
+        bindingPopup.btnClose.setOnClickListener {
+            inActivity.goFragment(HFragment3(), null)
+            dialog.dismiss()
+        }
+        bindingPopup.btnIng.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     override fun onDestroyView() {

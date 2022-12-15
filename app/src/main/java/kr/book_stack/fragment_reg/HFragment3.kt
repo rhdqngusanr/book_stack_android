@@ -40,8 +40,15 @@ class HFragment3  : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return true
+                return when (menuItem.itemId) {
+                    R.id.menu_reg_skip -> {
+                        // clearCompletedTasks()
+                        true
+                    }
+
+                    else -> false
+                }
+
             }
         }, viewLifecycleOwner, Lifecycle.State.CREATED)
 

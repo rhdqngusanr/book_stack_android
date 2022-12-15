@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/textView9"
+        style="@style/title_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="날짜 선택"
-        android:textSize="20sp"
+        android:textColor="@color/gray15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +22,9 @@
         android:id="@+id/btn_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/corners_background"
         android:orientation="horizontal"
         android:weightSum="3"
@@ -93,16 +95,18 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_weight="1"
+
                 android:theme="@style/datePickerCustomSize" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_month_picker"
+            style="@style/body_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="독서 완료"
-            android:textSize="16sp" />
+            android:textColor="@color/gray40" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,11 +137,12 @@
 
         <TextView
             android:id="@+id/tv_year_picker"
+            style="@style/body_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="독서 완료"
-            android:textSize="16sp" />
+            android:textColor="@color/gray40" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,27 +165,27 @@
             android:weightSum="3">
 
             <NumberPicker
-                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
                 android:theme="@style/datePickerCustomSize" />
 
             <NumberPicker
-                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_month"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
                 android:theme="@style/datePickerCustomSize" />
 
             <NumberPicker
-                android:descendantFocusability="blocksDescendants"
                 android:id="@+id/range_picker_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
                 android:theme="@style/datePickerCustomSize" />
         </LinearLayout>
 
@@ -191,67 +196,81 @@
             android:weightSum="9">
 
             <CheckBox
-                android:button="@null"
+
                 android:id="@+id/toggle_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="4"
-                android:checked="true"
-                android:layout_gravity="center"
-                android:textAlignment="center"
                 android:background="@drawable/toggle_btn_radius"
-                 />
+                android:button="@null"
+                android:checked="true"
+                android:drawableStart="@drawable/toggle_btn_drawble"
+                android:fontFamily="@font/suit_semi_bold_600"
+                android:paddingStart="12dp"
+                android:paddingEnd="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/gray40"
+                android:textSize="16sp" />
 
             <TextView
+                style="@style/heading_2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="~"
+                android:textColor="@color/gray60"
                 android:textSize="16sp" />
 
             <CheckBox
-                android:button="@null"
                 android:id="@+id/toggle_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="4"
-                android:checked="false"
-                android:layout_gravity="center"
-                android:textAlignment="center"
                 android:background="@drawable/toggle_btn_radius"
-
-                 />
+                android:button="@null"
+                android:checked="false"
+                android:drawableStart="@drawable/toggle_btn_drawble"
+                android:fontFamily="@font/suit_semi_bold_600"
+                android:paddingStart="12dp"
+                android:paddingEnd="6dp"
+                android:textAlignment="center"
+                android:textColor="@color/gray40"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/lay_tag_make_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
-
+        android:background="@color/background"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_date_confirm"
-            style="@android:style/ButtonBar"
+            style="@style/label_1"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/enable_btn"
             android:enabled="true"
             android:gravity="center"
-            android:text="확인"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:outlineProvider="none"
+            android:shadowRadius="0"
+            android:text="다음"
+            android:textColor="@color/white" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

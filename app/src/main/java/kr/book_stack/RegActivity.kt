@@ -26,6 +26,7 @@ class RegActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarReg)
         supportActionBar?.title =""
 
+
         val id = intent.getStringExtra("id")
         val name = intent.getStringExtra("name")
         val profile = intent.getStringExtra("profile")

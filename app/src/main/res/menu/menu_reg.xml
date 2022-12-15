@@ -4,5 +4,6 @@
     <item android:id="@+id/menu_reg_skip"
         app:showAsAction="always"
         android:iconTint="@color/white"
+        app:itemTextAppearance="@style/label_1"
         android:title="건너뛰기"/>
 </menu>
