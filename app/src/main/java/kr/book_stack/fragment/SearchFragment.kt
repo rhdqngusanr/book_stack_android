@@ -1,6 +1,7 @@
 package kr.book_stack.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -52,10 +54,17 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         mActivity = activity as RegActivity
         binding.searchView.isIconifiedByDefault = false;
         binding.searchView.requestFocus();
+
+
+        binding.searchView.findFocus().setOnFocusChangeListener { _, p1 ->
+            if (p1){
+                imm.showSoftInput(binding.searchView.findFocus(), 0)
+            }
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -102,20 +111,29 @@ class SearchFragment : Fragment() {
                     when (responseData.code()) {
                         200 -> {
                             val items = responseData.body()!!.item
-                            binding.recyclerView.layoutManager = LinearLayoutManager(
-                                requireActivity(),
-                                LinearLayoutManager.VERTICAL,
-                                false
-                            )
-                            mAdapter = RecyclerViewAdapter(items)
-                            binding.recyclerView.adapter = mAdapter
+
+                            if (responseData.body()!!.totalResults == 0){
+                                binding.layNoSearch.visibility = View.VISIBLE
+                                binding.recyclerView.visibility = View.GONE
+                            }else{
+                                binding.layNoSearch.visibility = View.GONE
+                                binding.recyclerView.visibility = View.VISIBLE
+                                binding.recyclerView.layoutManager = LinearLayoutManager(
+                                    requireActivity(),
+                                    LinearLayoutManager.VERTICAL,
+                                    false
+                                )
+                                mAdapter = RecyclerViewAdapter(items)
+                                binding.recyclerView.adapter = mAdapter
 
 
-                            mAdapter?.itemClick = object : RecyclerViewAdapter.ItemClick {
-                                override fun onClick(view: View, position: Int) {
-                                    apiAlaBookDetail(items[position]!!.isbn, items[position]!!)
+                                mAdapter?.itemClick = object : RecyclerViewAdapter.ItemClick {
+                                    override fun onClick(view: View, position: Int) {
+                                        apiAlaBookDetail(items[position]!!.isbn, items[position]!!)
 
+                                    }
                                 }
+
                             }
 
                         }
@@ -125,6 +143,9 @@ class SearchFragment : Fragment() {
 
             override fun onFailure(call: Call<ApiData.BookAlaInfo>, t: Throwable) {
                 Log.i("test", "apiAlaBookSearch onFailure$t")
+                binding.layNoSearch.visibility = View.VISIBLE
+                binding.tvNo.text = "‘$Query’에 대한 검색 결과가 없습니다."
+                binding.recyclerView.visibility = View.GONE
             }
 
 

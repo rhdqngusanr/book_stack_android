@@ -58,9 +58,13 @@ class ApiData{
         @field:Element(name = "title")
         @param:Element(name = "title")
         val title: String,
+        @field:Element(name = "totalResults")
+        @param:Element(name = "totalResults")
+        val totalResults: Int,
         @field:ElementList(entry = "item", inline = true, required=false)
         @param:ElementList(entry = "item", inline = true, required=false)
-        val item: List<Item?>
+        val item: List<Item?>,
+
     )
 
     @Root(strict = false, name = "item")

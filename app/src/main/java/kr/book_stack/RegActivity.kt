@@ -2,6 +2,8 @@ package kr.book_stack
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -9,6 +11,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import kr.book_stack.databinding.ActivityRegBinding
+import kr.book_stack.databinding.DialogTagMakeBinding
+import kr.book_stack.databinding.LayoutProgressBarTransBinding
 import kr.book_stack.fragment.HighLightFragment
 import kr.book_stack.fragment.SearchFragment
 import kr.book_stack.fragment_reg.HFragment3
@@ -103,10 +107,13 @@ class RegActivity : AppCompatActivity() {
 
      fun progressView(inDelay: Long) {
         val builder = AlertDialog.Builder(this)
-        val dialogView = View.inflate(this, R.layout.layout_progress_bar_trans, null)
-        builder.setView(dialogView)
+         val dialogView = LayoutProgressBarTransBinding.inflate(this.layoutInflater)
+        builder.setView(dialogView.root)
         builder.setCancelable(false)
+
+
         progressDialogView = builder.create()
+        progressDialogView!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         progressDialogView!!.show()
     }
      fun progressDismiss(){

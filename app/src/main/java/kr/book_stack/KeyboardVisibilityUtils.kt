@@ -13,7 +13,12 @@ class KeyboardVisibilityUtils(
     private val windowVisibleDisplayFrame = Rect()
     private var lastVisibleDecorViewHeight: Int = 0
 
-
+    //선언
+    // val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    //키보드 올리기
+    //imm.showSoftInput(binding.editInfoName, 0)
+    //키보드 내리기
+    //imm.hideSoftInputFromWindow(binding.editInfoName.windowToken, 0)
     private val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         window.decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
         val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
