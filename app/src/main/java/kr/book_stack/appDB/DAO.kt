@@ -15,7 +15,7 @@ interface DAO {
     fun getAll(): LiveData<List<Book>>
 
     // 데이터 추가
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: Book)
 
     // 데이터 전체 삭제

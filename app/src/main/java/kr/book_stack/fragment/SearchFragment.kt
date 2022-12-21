@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -111,11 +112,11 @@ class SearchFragment : Fragment() {
                     when (responseData.code()) {
                         200 -> {
                             val items = responseData.body()!!.item
-
+/*
                             if (responseData.body()!!.totalResults == 0){
                                 binding.layNoSearch.visibility = View.VISIBLE
                                 binding.recyclerView.visibility = View.GONE
-                            }else{
+                            }else{*/
                                 binding.layNoSearch.visibility = View.GONE
                                 binding.recyclerView.visibility = View.VISIBLE
                                 binding.recyclerView.layoutManager = LinearLayoutManager(
@@ -134,7 +135,7 @@ class SearchFragment : Fragment() {
                                     }
                                 }
 
-                            }
+
 
                         }
                     }
@@ -210,7 +211,13 @@ class SearchFragment : Fragment() {
         val date = formatter.parse(Item.pubdate)
         val formatter2 = SimpleDateFormat("yyyy년",Locale.getDefault())
         val str: String = formatter2.format(date)
-        val description = Item.description
+        var description = ""
+        description = if (Item.description == null){
+            "책에 대한 정보가 없습니다"
+        }else{
+            Html.fromHtml(Item.description, Html.FROM_HTML_MODE_LEGACY).toString()
+        }
+
         val bookInfoStr =  "${Item.author} · ${Item.publisher} · $str"
 
         binding.tvBookName.text = Item.title

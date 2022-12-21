@@ -1,5 +1,6 @@
 package kr.book_stack.api
 
+import android.text.TextUtils.isEmpty
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -7,6 +8,7 @@ import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 import java.util.*
+import java.util.Map.entry
 
 
 class ApiData{
@@ -58,12 +60,12 @@ class ApiData{
         @field:Element(name = "title")
         @param:Element(name = "title")
         val title: String,
-        @field:Element(name = "totalResults")
+/*        @field:Element(name = "totalResults")
         @param:Element(name = "totalResults")
-        val totalResults: Int,
+        val totalResults: Int,*/
         @field:ElementList(entry = "item", inline = true, required=false)
         @param:ElementList(entry = "item", inline = true, required=false)
-        val item: List<Item?>,
+        val item: List<Item?>
 
     )
 
@@ -81,9 +83,9 @@ class ApiData{
         @field:Element(name = "link")
         @param:Element(name = "link")
         var link: String,
-        @field:Element(name = "description")
-        @param:Element(name = "description")
-        var description : String,
+        @field:Element(name = "description", required = false)
+        @param:Element(name = "description", required = false)
+        var description  : String? = "책 정보가 없습니다.",
         @field:Element(name = "author")
         @param:Element(name = "author")
         var author: String? = "".toString() ,
@@ -94,6 +96,7 @@ class ApiData{
         @param:Element(name = "pubDate")
         var pubdate: String
     )
+
 
 
 

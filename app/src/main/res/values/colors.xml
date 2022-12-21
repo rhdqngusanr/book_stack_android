@@ -15,6 +15,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="dark_red">#E53900</color>
     <color name="background_line">#dadada</color>
 
     <color name="btn_basic">@color/colorPrimary</color>
