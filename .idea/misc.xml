@@ -32,6 +32,7 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_icon_kakao.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_icon_orange_book.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_icon_pencil_mono.xml" value="0.2365" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_icon_pencil_mono_h.xml" value="0.211" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_splash_logo.xml" value="0.2365" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/drawable/ic_svg_login_1.xml" value="0.2365" />
@@ -84,7 +85,7 @@
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/pager_login_list.xml" value="0.18" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/pager_tag_make.xml" value="0.12" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/pager_tuto_list.xml" value="0.358695652173913" />
-        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_highlight.xml" value="0.358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_highlight.xml" value="0.9" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_item.xml" value="0.358695652173913" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_item_tag.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/book_stack/app/src/main/res/layout/recycler_summary.xml" value="0.5" />
