@@ -160,6 +160,7 @@ object NotionAPI {
             properties = PropertySpecList()
                 .title("id")
                 .text("name")
+                .text("author")
                 .text("page_id")
                 .text("isbn")
                 .text("book_status")
@@ -177,7 +178,7 @@ object NotionAPI {
         return createdDatabase.id
     }
     suspend fun createBookPage(inId: String,inPageId:String,
-                               inName : String,inIsbn : String,inBookStatus : String,
+                               inName : String,inAuthor: String,inIsbn : String,inBookStatus : String,
                                inBookPage : String,inLookPage : String,inLookFirst : String,
                                inLookLast: String,inImg: String,inTag : String,
                                inTagImg : String, inHighLight : String, inComment:String): UuidString {
@@ -189,6 +190,10 @@ object NotionAPI {
                 .text(
                     "name", RichTextList()
                         .text(inName)
+                )
+                .text(
+                    "author", RichTextList()
+                        .text(inAuthor)
                 )
                 .text(
                     "page_id", RichTextList()

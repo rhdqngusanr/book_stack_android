@@ -106,6 +106,7 @@ class HighLightFragment : Fragment() {
         val info = arguments?.getString("bookInfo")
         val title = arguments?.getString("bookName")
         val des = arguments?.getString("bookDes")
+        val author = arguments?.getString("bookAuthor")
         val cover = arguments?.getString("bookCover")
         val status: StructData.BookInfo =
             arguments?.getSerializable("bookStatus") as StructData.BookInfo
@@ -267,6 +268,7 @@ class HighLightFragment : Fragment() {
                             "테스트",
                             userInfo!!.bookPageId.toString(),
                             title.toString(),
+                            author.toString(),
                             status.inIsbn,
                             status.inBookStatus,
                             status.inBookPage,
@@ -287,6 +289,7 @@ class HighLightFragment : Fragment() {
                                 "테스트",
                                 bookDbPageId,
                                 title.toString(),
+                                author.toString(),
                                 status.inIsbn,
                                 status.inBookStatus,
                                 status.inBookPage,

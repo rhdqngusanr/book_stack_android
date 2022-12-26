@@ -15,9 +15,11 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:contentInsetStart="8dp"
         app:theme="@style/MyActionBarTheme">
 
         <ImageView
+            android:padding="8dp"
             android:id="@+id/img_Close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

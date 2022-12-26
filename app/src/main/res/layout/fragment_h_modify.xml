@@ -10,8 +10,8 @@
         android:id="@+id/toolbar_monitor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
         android:layout_alignParentTop="true"
+        android:background="@color/background"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/MyActionBarTheme">
 
@@ -40,11 +40,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_below="@id/toolbar_monitor"
         android:id="@+id/scroll_highlight"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout3"
+        android:layout_below="@id/toolbar_monitor"
         android:layout_marginTop="16dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"

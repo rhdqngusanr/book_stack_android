@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.book_stack.api.ApiData
+import kr.book_stack.appDB.data.Book
 import kr.book_stack.databinding.RecyclerHighlightBinding
 import kr.book_stack.databinding.RecyclerItemBinding
 
-class RecyclerHighlightAdapter(private val dataSet: ArrayList<String>) :
+class RecyclerHighlightAdapter(private val dataSet: List<Book>) :
     RecyclerView.Adapter<RecyclerHighlightAdapter.ViewHolder>() {
     var itemClick: ItemClick? = null
     interface ItemClick {
@@ -27,13 +28,13 @@ class RecyclerHighlightAdapter(private val dataSet: ArrayList<String>) :
 
     class ViewHolder(private val binding: RecyclerHighlightBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: String) {
+        fun bind(data: Book) {
             Glide
                 .with(binding.imageView.context)
-                .load(data)
+                .load(data.img)
                 .into(binding.imageView)
-            binding.tvHighlightTitle.text = data
-            binding.tvHighlightRange.text = data
+            binding.tvHighlightTitle.text = data.name
+            binding.tvHighlightRange.text = data.author
 
         }
     }

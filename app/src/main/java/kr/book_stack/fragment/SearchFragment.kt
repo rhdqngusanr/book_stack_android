@@ -240,6 +240,7 @@ class SearchFragment : Fragment() {
             bundle.putString("bookName",binding.tvBookName.text.toString())
             bundle.putString("bookDes",binding.tvBookDescription.text.toString())
             bundle.putString("bookCover",Item.cover)
+            bundle.putString("bookAuthor",Item.author)
             bundle.putSerializable("bookStatus", bookInfo!!)
             mActivity?.goFragment(HighLightFragment(),bundle)
 
