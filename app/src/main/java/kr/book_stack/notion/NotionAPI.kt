@@ -173,6 +173,7 @@ object NotionAPI {
                 .text("tag_img")
                 .text("highlight")
                 .text("comment")
+                .text("bookInfo")
         )
         println(createdDatabase)
         return createdDatabase.id
@@ -181,7 +182,7 @@ object NotionAPI {
                                inName : String,inAuthor: String,inIsbn : String,inBookStatus : String,
                                inBookPage : String,inLookPage : String,inLookFirst : String,
                                inLookLast: String,inImg: String,inTag : String,
-                               inTagImg : String, inHighLight : String, inComment:String): UuidString {
+                               inTagImg : String, inHighLight : String, inComment:String,inBookInfo : String): UuidString {
         println("Created page in database:")
         val createdPageInDb: Page = Struct.notionClient.pages.createPage(
             parentDatabase = DatabaseReference(inPageId),
@@ -243,11 +244,44 @@ object NotionAPI {
                     "comment", RichTextList()
                         .text(inComment)
                 )
+                .text(
+                    "bookInfo", RichTextList()
+                        .text(inBookInfo)
+                )
         )
 
         return createdPageInDb.id
     }
+    suspend fun updateBook(pageId: UuidString,inBookStatus : String,
+                           inBookPage : String,inLookPage : String,inLookFirst : String,
+                           inLookLast: String,inImg: String,inTag : String,
+                           inTagImg : String, inHighLight : String, inComment:String) {
+        println("Updated page:")
+        val updatedPage: Page = Struct.notionClient.pages.updatePage(
+            id = pageId,
+            properties = PropertyValueList()
+                .text("book_status", inBookStatus)
+                .text("book_page", inBookPage)
+                .text("look_page", inLookPage)
+                .text("look_first", inLookFirst)
+                .text("look_last", inLookLast)
+                .text("img", inImg)
+                .text("tag", inTag)
+                .text("tag_img", inTagImg)
+                .text("highlight", inHighLight)
+                .text("comment", inComment)
 
+        )
+        println(updatedPage)
+    }
+
+    suspend fun deletePage(pageId: UuidString) {
+        println("Updated page:")
+        val updatedPage: Page = Struct.notionClient.pages.setPageArchived(
+            id = pageId,true
+        )
+        println(updatedPage)
+    }
     suspend fun updateBookPageId(pageId: UuidString) {
         println("Updated page:")
         val updatedPage: Page = Struct.notionClient.pages.updatePage(

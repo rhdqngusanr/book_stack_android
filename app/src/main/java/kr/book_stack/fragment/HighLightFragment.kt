@@ -279,7 +279,8 @@ class HighLightFragment : Fragment() {
                             tagString,
                             tagImgString,
                             "3",
-                            binding.editInfoComent.text.toString()
+                            binding.editInfoComent.text.toString(),
+                            info.toString()
 
                         )
                         NotionAPI.updateBookPageId(bookDbPageId)
@@ -300,7 +301,8 @@ class HighLightFragment : Fragment() {
                                 tagString,
                                 tagImgString,
                                 "3",
-                                binding.editInfoComent.text.toString()
+                                binding.editInfoComent.text.toString(),
+                                info
                             )
                         )
                     } catch (e: Exception) {

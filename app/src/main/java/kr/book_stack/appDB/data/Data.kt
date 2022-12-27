@@ -22,7 +22,8 @@ data class Book(
     @ColumnInfo(name = "tag") val tag: String?,
     @ColumnInfo(name = "tag_img") val tagImg: String?,
     @ColumnInfo(name = "highlight") val highlight: String?,
-    @ColumnInfo(name = "comment") val comment: String?
+    @ColumnInfo(name = "comment") val comment: String?,
+    @ColumnInfo(name = "book_info") val bookInfo: String?
 
 )
 

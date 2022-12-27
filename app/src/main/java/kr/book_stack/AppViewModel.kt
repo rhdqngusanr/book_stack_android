@@ -27,7 +27,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun deleteAll(entity: Book) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteBook(entity: Book) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(entity)
     }
 
