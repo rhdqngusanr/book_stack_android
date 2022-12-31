@@ -34,7 +34,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="24dp"
         android:textColorHint="@color/gray60"
-        app:counterEnabled="true"
+        app:counterEnabled="false"
         app:counterMaxLength="8"
         app:counterOverflowTextAppearance="@style/body_3"
         app:counterTextAppearance="@style/body_3"
@@ -67,6 +67,7 @@
             android:paddingEnd="-1dp"
             android:paddingStart="-1dp"
             android:paddingTop="24dp"
+            android:textColor="@color/gray60"
             android:textCursorDrawable="@drawable/cursor"
             tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>

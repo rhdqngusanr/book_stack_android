@@ -28,46 +28,56 @@ class RegActivity : AppCompatActivity() {
         binding = ActivityRegBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarReg)
-        supportActionBar?.title =""
-
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
 
         val id = intent.getStringExtra("id")
         val name = intent.getStringExtra("name")
         val profile = intent.getStringExtra("profile")
 
-       //goSearchFragment()
+        //goSearchFragment()
         val bundle = Bundle()
-        bundle.putString("user_id",id)
-        bundle.putString("user_name",name)
-        bundle.putString("user_profile",profile)
-        goTagFragment()
-        //goFragment(InfoFragment1(),bundle)
+        bundle.putString("user_id", id)
+        bundle.putString("user_name", name)
+        bundle.putString("user_profile", profile)
+        //goTagFragment()
+        goFragment(InfoFragment1(), bundle)
 
-
+        overridePendingTransition(
+            com.google.android.material.R.anim.design_bottom_sheet_slide_in,
+            com.google.android.material.R.anim.design_bottom_sheet_slide_in
+        )
     }
-    fun goTagFragment(){
+
+
+    fun goTagFragment() {
         val fragment: TagFragment2 = TagFragment2().newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
-    fun goTagMakeFragment(){
+
+    fun goTagMakeFragment() {
         val fragment: TagMakeFragment2 = TagMakeFragment2().newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
-    fun goH3Fragment(){
+
+    fun goH3Fragment() {
         val fragment: HFragment3 = HFragment3().newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
+
     @SuppressLint("PrivateResource")
-    fun goSearchFragment(){
+    fun goSearchFragment() {
         val fragment: SearchFragment = SearchFragment().newInstance()
         supportFragmentManager
             .beginTransaction()
@@ -79,15 +89,17 @@ class RegActivity : AppCompatActivity() {
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
-    fun goHighlightFragment(){
+
+    fun goHighlightFragment() {
         val fragment: HighLightFragment = HighLightFragment().newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frameLayout_registration, fragment)
             .commit()
     }
+
     @SuppressLint("PrivateResource")
-    fun goFragment(inFragment : Fragment, inBundle: Bundle?){
+    fun goFragment(inFragment: Fragment, inBundle: Bundle?) {
         inFragment.arguments = inBundle
         supportFragmentManager
             .beginTransaction()
@@ -100,14 +112,14 @@ class RegActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun goMain(){
-        val intent = Intent(this,MainActivity::class.java)
+    fun goMain() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-     fun progressView(inDelay: Long) {
+    fun progressView(inDelay: Long) {
         val builder = AlertDialog.Builder(this)
-         val dialogView = LayoutProgressBarTransBinding.inflate(this.layoutInflater)
+        val dialogView = LayoutProgressBarTransBinding.inflate(this.layoutInflater)
         builder.setView(dialogView.root)
         builder.setCancelable(false)
 
@@ -116,12 +128,17 @@ class RegActivity : AppCompatActivity() {
         progressDialogView!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         progressDialogView!!.show()
     }
-     fun progressDismiss(){
+
+    fun progressDismiss() {
         progressDialogView?.let {
-            if(it.isShowing){
+            if (it.isShowing) {
                 it.dismiss()
             }
             progressDialogView = null
         }
+    }
+
+    fun regFinish() {
+        finish()
     }
 }

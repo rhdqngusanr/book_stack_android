@@ -6,14 +6,16 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.chip.Chip
@@ -60,7 +62,28 @@ class TagFragment2 : Fragment() {
         val images = resources.obtainTypedArray(R.array.tag_images)
         val tagStringArray = ArrayList<String>()
         var userInfo = ""
-        viewModel.getUser("test").observe(viewLifecycleOwner, Observer { user ->
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        mActivity.onBackPressed()
+                        //mActivity.goFragment(InfoFragment1(),null)
+                        true
+                    }
+
+                    else -> false
+                }
+
+            }
+        }, viewLifecycleOwner, Lifecycle.State.CREATED)
+
+        viewModel.getUser(Struct.loginId).observe(viewLifecycleOwner, Observer { user ->
             user?.let { userInfo = user.tagPageId.toString()}
 
         })
@@ -83,7 +106,7 @@ class TagFragment2 : Fragment() {
                                 if (checkArray[j].tag == chip.text) {
 
                                     val tagDbPageId = NotionAPI.createTagPage(
-                                        "테스트",
+                                        Struct.loginId,
                                         userInfo,
                                         chip.text.toString(),
                                         checkArray[j].tagImg.toString()
@@ -130,12 +153,14 @@ class TagFragment2 : Fragment() {
                             isCheckable = true
                             text = "${tag[i].tag}"
                             chipMinHeight = dpToPx(requireActivity(),40f)
+                            marginTop
                             setTextAppearance(R.style.label_2)
                             chipIconSize= dpToPx(requireActivity(),18f)
                             iconEndPadding = dpToPx(requireActivity(),-4f)
                             chipStartPadding = dpToPx(requireActivity(),12f)
                             chipEndPadding = dpToPx(requireActivity(),12f)
                             isCheckedIconVisible = false
+
 
                             setChipBackgroundColorResource(R.color.chip_bg)
 /*                            setOnCloseIconClickListener {
@@ -151,6 +176,9 @@ class TagFragment2 : Fragment() {
                                     isCloseIconVisible = false
                                     chipEndPadding = dpToPx(requireActivity(),12f)
                                 }
+
+                                val ids = binding.chipGroupTag.checkedChipIds
+                                binding.btnTagConfirm.isEnabled = ids.size != 0
                             }
 
 

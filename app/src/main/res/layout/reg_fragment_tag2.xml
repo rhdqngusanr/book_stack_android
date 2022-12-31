@@ -34,6 +34,7 @@
         android:layout_marginTop="8dp"
         android:text="독서 태그 최소 1개 이상 선택"
         android:textSize="16sp"
+        android:textColor="@color/gray60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -62,6 +63,7 @@
         android:background="@drawable/enable_btn"
         android:gravity="center"
         android:text="다음"
+        android:enabled="false"
         android:textColor="@color/white"
         android:outlineProvider="none"
         app:layout_constraintBottom_toTopOf="@+id/tv_make_tag"
@@ -84,10 +86,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
+        app:chipSpacingVertical="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_tag_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -95,27 +98,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0">
 
-<!--        <com.google.android.material.chip.Chip
+<!--&lt;!&ndash;        <com.google.android.material.chip.Chip
             android:id="@+id/test_chip1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tese"
             android:checked="true"
             app:closeIconEnabled="true"
-            />
+            />-->
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="true"
-            android:text="가나다라마바사아자차카타파하"
-            app:checkedIconEnabled="false"
-            app:chipBackgroundColor="@color/chip_bg"
-            app:chipIcon="@drawable/ic_baseline_home_32"
-            app:closeIcon="@drawable/svg_back"
 
-            app:rippleColor="@color/black" />-->
 
 
     </com.google.android.material.chip.ChipGroup>

@@ -33,12 +33,8 @@ import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kr.book_stack.*
 
-import kr.book_stack.AppViewModel
-import kr.book_stack.R
-
-import kr.book_stack.RegActivity
-import kr.book_stack.StructData
 import kr.book_stack.adapter.TagMakeViewPagerAdapter
 import kr.book_stack.appDB.data.Book
 import kr.book_stack.appDB.data.DefaultTag
@@ -95,7 +91,11 @@ class HighLightFragment : Fragment() {
                         dialogPopUp(mActivity)
                         true
                     }
-
+                    android.R.id.home -> {
+                        mActivity.onBackPressed()
+                        //mActivity.goFragment(InfoFragment1(),null)
+                        true
+                    }
                     else -> false
                 }
             }
@@ -226,7 +226,7 @@ class HighLightFragment : Fragment() {
         }
 
         var userInfo: User? = null
-        viewModel.getUser("test").observe(viewLifecycleOwner, Observer { user ->
+        viewModel.getUser(Struct.loginId).observe(viewLifecycleOwner, Observer { user ->
             user?.let { userInfo = user }
 
         })
@@ -265,7 +265,7 @@ class HighLightFragment : Fragment() {
                             str.split("~")
                         }
                         val bookDbPageId = NotionAPI.createBookPage(
-                            "테스트",
+                            Struct.loginId,
                             userInfo!!.bookPageId.toString(),
                             title.toString(),
                             author.toString(),
@@ -287,7 +287,7 @@ class HighLightFragment : Fragment() {
                         //TODO 추후 룸 DB 연결부분 협의후 수정
                         viewModel.insert(
                             Book(
-                                "테스트",
+                                Struct.loginId,
                                 bookDbPageId,
                                 title.toString(),
                                 author.toString(),

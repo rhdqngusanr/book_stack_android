@@ -1,17 +1,18 @@
 package kr.book_stack
 
+
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.viewpager2.widget.ViewPager2
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -19,9 +20,6 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
-import kr.book_stack.adapter.LoginViewPagerAdapter
-
-
 import kr.book_stack.databinding.ActivityLoginPageBinding
 
 
@@ -50,12 +48,14 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d("test MainActivity", "keyhash : ${Utility.getKeyHash(this)}")
 
-       val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        MyUtil.dialogCloseTypeView(this, "해쉬값", Utility.getKeyHash(this))
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
 
-        val mGoogleSignInClient : GoogleSignInClient = this.let { GoogleSignIn.getClient(it, gso) }
+        val mGoogleSignInClient: GoogleSignInClient = this.let { GoogleSignIn.getClient(it, gso) }
 
+        signOut(mGoogleSignInClient)
         binding.googleLoginBtn.setOnClickListener {
             signIn(mGoogleSignInClient)
         }
@@ -101,23 +101,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
-    private fun signIn(inClient : GoogleSignInClient){
+    private fun signIn(inClient: GoogleSignInClient) {
         val signInIntent = inClient.signInIntent
         resultLauncher.launch(signInIntent)
     }
 
-    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        Log.i("resultLauncher", "result $result")
-        if (result.resultCode == RESULT_OK) {
-            val data: Intent? = result.data
-            val task: Task<GoogleSignInAccount> =
-                GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.i("resultLauncher", "result $result")
+            if (result.resultCode == RESULT_OK) {
+                val data: Intent? = result.data
+                val task: Task<GoogleSignInAccount> =
+                    GoogleSignIn.getSignedInAccountFromIntent(data)
+                handleSignInResult(task)
+            }
         }
-    }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
 
             val account = completedTask.getResult(ApiException::class.java)
@@ -125,25 +125,39 @@ class LoginActivity : AppCompatActivity() {
             Log.i("handleSignInResult", "test ${account.displayName}")
             val email = account?.email.toString()
             val familyName = account?.familyName.toString()
-        } catch (e: ApiException){
+
+            val intent = Intent(this, RegActivity::class.java)
+            //intent.putExtra("id","${user.id}")
+            intent.putExtra("id", email)
+            intent.putExtra("name", familyName)
+            intent.putExtra("profile", account?.photoUrl.toString())
+            startActivity(intent)
+        } catch (e: ApiException) {
             Log.w("failed", "signInResult:failed code=" + e.statusCode)
         }
     }
 
 
-    private fun kakaoLogin(){
+    private fun kakaoLogin() {
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(TAG, "사용자 정보 요청 실패 $error")
             } else if (user != null) {
                 Log.e(TAG, "사용자 정보 요청 성공 : ${user.id} ,${user.properties}")
-                val intent = Intent(this,RegActivity::class.java)
+                val intent = Intent(this, RegActivity::class.java)
                 //intent.putExtra("id","${user.id}")
-                intent.putExtra("id","test")
-                intent.putExtra("name",user.kakaoAccount?.profile?.nickname.toString())
-                intent.putExtra("profile",user.kakaoAccount?.profile?.profileImageUrl)
+                intent.putExtra("id", user.id.toString())
+                intent.putExtra("name", user.kakaoAccount?.profile?.nickname.toString())
+                intent.putExtra("profile", user.kakaoAccount?.profile?.profileImageUrl.toString())
                 startActivity(intent)
             }
         }
+    }
+
+    private fun signOut(inGoogle: GoogleSignInClient) {
+        inGoogle.signOut()
+            .addOnCompleteListener(this, OnCompleteListener<Void?> {
+                // ...
+            })
     }
 }

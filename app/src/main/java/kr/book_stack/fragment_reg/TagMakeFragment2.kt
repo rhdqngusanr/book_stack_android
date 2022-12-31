@@ -6,12 +6,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.book_stack.AppViewModel
@@ -46,7 +47,25 @@ class TagMakeFragment2  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mActivity = activity as RegActivity
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+            }
 
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        mActivity.onBackPressed()
+                        //mActivity.goFragment(InfoFragment1(),null)
+                        true
+                    }
+
+                    else -> false
+                }
+
+            }
+        }, viewLifecycleOwner, Lifecycle.State.CREATED)
         binding.tvTagAdd.setOnClickListener {
 /*            viewModel.insertTag(
                 Tag(binding.editTagName.text.toString(),"스마일")

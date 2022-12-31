@@ -1,22 +1,24 @@
 package kr.book_stack.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Html
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kr.book_stack.*
@@ -24,7 +26,9 @@ import kr.book_stack.adapter.RecyclerViewAdapter
 import kr.book_stack.api.ApiData
 import kr.book_stack.api.ApiInterface
 import kr.book_stack.databinding.DialogAddSearchBinding
+import kr.book_stack.databinding.DialogPopupBinding
 import kr.book_stack.databinding.FragmentSearchBinding
+import kr.book_stack.fragment_reg.HFragment3
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,6 +64,25 @@ class SearchFragment : Fragment() {
         binding.searchView.isIconifiedByDefault = false;
         binding.searchView.requestFocus();
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        mActivity!!.onBackPressed()
+                        //mActivity.goFragment(InfoFragment1(),null)
+                        true
+                    }
+
+                    else -> false
+                }
+
+            }
+        }, viewLifecycleOwner, Lifecycle.State.CREATED)
 
         binding.searchView.findFocus().setOnFocusChangeListener { _, p1 ->
             if (p1){
@@ -191,9 +214,9 @@ class SearchFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun dialogAddHighlight(Item :ApiData.Item) {
         //val view = View.inflate(this@ActivityAdminMain, R.layout.dialog_add_customer, null)
-        val binding = DialogAddSearchBinding.inflate(requireActivity().layoutInflater)
+        val bindingDialog = DialogAddSearchBinding.inflate(requireActivity().layoutInflater)
         val builder = AlertDialog.Builder(requireActivity(), R.style.popCasterDlgTheme)
-        builder.setView(binding.root)
+        builder.setView(bindingDialog.root)
         builder.setCancelable(false)
         val alertDialog = builder.create()
         alertDialog.window!!.attributes.windowAnimations = R.style.AnimationPopupStyle
@@ -202,9 +225,9 @@ class SearchFragment : Fragment() {
         alertDialog.show()
 
         Glide
-            .with(binding.imgBookCover.context)
+            .with(bindingDialog.imgBookCover.context)
             .load(Item.cover)
-            .into(binding.imgBookCover)
+            .into(bindingDialog.imgBookCover)
 
 
         val formatter = SimpleDateFormat("yyyy-mm-dd", Locale.US)
@@ -220,25 +243,26 @@ class SearchFragment : Fragment() {
 
         val bookInfoStr =  "${Item.author} · ${Item.publisher} · $str"
 
-        binding.tvBookName.text = Item.title
-        binding.tvBookAuthor.text = Item.author
-        binding.tvBookPublisher.text = Item.publisher
+        bindingDialog.tvBookName.text = Item.title
+        bindingDialog.tvBookAuthor.text = Item.author
+        bindingDialog.tvBookPublisher.text = Item.publisher
 
 
-        binding.tvBookDescription.text = description
+        bindingDialog.tvBookDescription.text = description
 
-        binding.imgClose.setOnClickListener {
-            MyUtil.dialogCloseTypeView(requireActivity(),"종료","종료함?")
+        bindingDialog.imgClose.setOnClickListener {
+            alertDialog.dismiss()
         }
-        binding.tvBookInfoClose.setOnClickListener {
-            MyUtil.dialogCloseTypeView(requireActivity(),"종료","종료함?")
+        bindingDialog.tvBookInfoClose.setOnClickListener {
+            dialogPopUp(mActivity!!)
         }
-        binding.btnSearchAdd.setOnClickListener {
+        bindingDialog.btnSearchAdd.setOnClickListener {
+
 
             val bundle = Bundle()
             bundle.putString("bookInfo", bookInfoStr)
-            bundle.putString("bookName",binding.tvBookName.text.toString())
-            bundle.putString("bookDes",binding.tvBookDescription.text.toString())
+            bundle.putString("bookName",bindingDialog.tvBookName.text.toString())
+            bundle.putString("bookDes",bindingDialog.tvBookDescription.text.toString())
             bundle.putString("bookCover",Item.cover)
             bundle.putString("bookAuthor",Item.author)
             bundle.putSerializable("bookStatus", bookInfo!!)
@@ -251,6 +275,26 @@ class SearchFragment : Fragment() {
         }
 
 
+    }
+
+    private fun dialogPopUp(inActivity: RegActivity) {
+
+        val bindingPopup = DialogPopupBinding.inflate(requireActivity().layoutInflater)
+
+        val dialog = Dialog(requireActivity())
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(bindingPopup.root)
+        dialog.setCancelable(true)
+
+
+        bindingPopup.btnClose.setOnClickListener {
+            inActivity.goFragment(HFragment3(), null)
+            dialog.dismiss()
+        }
+        bindingPopup.btnIng.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
 }

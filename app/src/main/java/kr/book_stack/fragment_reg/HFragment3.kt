@@ -30,9 +30,7 @@ import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kr.book_stack.AppViewModel
-import kr.book_stack.R
-import kr.book_stack.RegActivity
+import kr.book_stack.*
 import kr.book_stack.adapter.RecyclerHighlightAdapter
 import kr.book_stack.adapter.RecyclerViewAdapter
 import kr.book_stack.api.ApiData
@@ -77,10 +75,14 @@ class HFragment3 : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menu_reg_skip -> {
-                        // clearCompletedTasks()
+                        MyUtil.dialogCloseTypeView(requireActivity(),"가입완료페이지","굿")
                         true
                     }
-
+                    android.R.id.home -> {
+                        mActivity!!.onBackPressed()
+                        //mActivity.goFragment(InfoFragment1(),null)
+                        true
+                    }
                     else -> false
                 }
 
@@ -303,7 +305,7 @@ class HFragment3 : Fragment() {
                         //TODO 추후 룸 DB 연결부분 협의후 수정
                         viewModel.insert(
                             Book(
-                                "테스트",
+                                Struct.loginId,
                                 inBook.page_id,
                                 inBook.name.toString(),
                                 inBook.author.toString(),
