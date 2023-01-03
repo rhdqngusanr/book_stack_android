@@ -4,7 +4,7 @@
 
 - **회원가입** 
 
-![process1](https://user-images.githubusercontent.com/59686942/210375603-dc802c93-0fb5-4b30-aac7-0a4a5ea9aed4.gif)
+![process_reg](https://user-images.githubusercontent.com/59686942/210385611-8b1f1300-75ee-47aa-815d-439fa07c4a2f.gif)
 
 (클릭하여 봐주시면 감사하겠습니다.)
 
@@ -70,7 +70,7 @@
 
 
        - 알라딘 API를 사용하여 책검색을 구현하였다. 
-       - 알라딘 API가 가끔식 책의정보,작가가 공란이여서 공란일경우 따로 처리하였다.
+       - 알라딘 API가 가끔식 책의정보,작가가 공란일경우 따로 처리하였다.
  
 
  
