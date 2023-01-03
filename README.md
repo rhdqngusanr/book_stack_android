@@ -1,5 +1,9 @@
 # 🛠 제작중
 
+[![Video Label](http://img.youtube.com/vi/wO9a9TOJqWM/0.jpg)]
+(https://youtu.be/wO9a9TOJqWM)
+
+
 
 ## 설계
 
