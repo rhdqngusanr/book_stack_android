@@ -42,7 +42,7 @@
  
  
         - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View 형식을 가지고 있다
-        - EditText 이벤트에따라 , 키보드에 따라 변하는 버튼과 Text 기능들을 커스텀하였다.
+        - EditText 이벤트 , 키보드에 따라 변하는 버튼과 Text 기능들을 커스텀하였다.
 
 
 
