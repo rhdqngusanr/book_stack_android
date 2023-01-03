@@ -1,8 +1,15 @@
 # 🛠 제작중
 
 
+## 설계
+
+![image](https://user-images.githubusercontent.com/59686942/210356296-afa59ad6-23a6-42ed-8ccc-77103d81aaf5.png)
+
+![image](https://user-images.githubusercontent.com/59686942/210356370-52500a21-5aa7-4e0c-b03d-4accc792b663.png)
+
+
 ## UI/UX
- [UI/UX to figma 링크](https://www.figma.com/file/lncMBXq1YnEChiikLfVk3x/%EC%95%88%EB%8F%84%EA%B2%BD's-team-library?t=JoJb2M3bSG0Ybj6e-0) design by JunChul LEE
+ [UI/UX to figma 링크](https://www.figma.com/file/lncMBXq1YnEChiikLfVk3x/%EC%95%88%EB%8F%84%EA%B2%BD's-team-library?t=JoJb2M3bSG0Ybj6e-0) helpful ,design by JunChul LEE
 
 ## Developer
 - **특징** 
