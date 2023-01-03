@@ -38,7 +38,7 @@
 - **로그인** 
 
 
- ![login](https://user-images.githubusercontent.com/59686942/203585556-a8694384-2385-4202-8972-a7783e225127.gif)
+![login](https://user-images.githubusercontent.com/59686942/210377590-4c9a7e75-097f-4281-91e6-ecdbc7b44f63.gif)
  
  
         - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View
