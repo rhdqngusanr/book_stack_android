@@ -6,6 +6,9 @@
 
 ![process1](https://user-images.githubusercontent.com/59686942/210375603-dc802c93-0fb5-4b30-aac7-0a4a5ea9aed4.gif)
 
+(클릭하여 봐주시면 감사하겠습니다.)
+
+
         - 북스택 회원가입 프로세스 이며 자세한 설명은 아래에 있습니다.
 ## 설계
 
