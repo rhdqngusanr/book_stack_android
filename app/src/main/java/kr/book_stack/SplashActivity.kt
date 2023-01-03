@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import kr.book_stack.adapter.LoginViewPagerAdapter
+import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.ActivityLoginPageBinding
 import kr.book_stack.databinding.ActivitySplashBinding
 
@@ -16,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val viewModel: AppViewModel by viewModels()
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -27,7 +32,13 @@ class SplashActivity : AppCompatActivity() {
         val pref = getSharedPreferences("isFirst", MODE_PRIVATE)
         val first = pref.getBoolean("isFirst", false)
         if (!first) {
-
+            val stringsTag = resources.getStringArray(R.array.tag_name)
+            val stringsTagImg = resources.getStringArray(R.array.tag_img_name)
+            for (i in stringsTag.indices) {
+                viewModel.insertTag(
+                    Tag(stringsTag[i],stringsTagImg[i])
+                )
+            }
             val editor = pref.edit()
             editor.putBoolean("isFirst", true)
             editor.apply()

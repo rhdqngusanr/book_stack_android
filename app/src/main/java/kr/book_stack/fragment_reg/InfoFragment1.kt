@@ -210,7 +210,7 @@ class InfoFragment1 : Fragment() {
                                 userData.tag_page_id
                             )
                         )
-                        Toast.makeText(requireActivity(), "이미 가입되어있는상태.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireActivity(), "QA1. 가입완료상태.", Toast.LENGTH_SHORT).show()
                         mActivity.goFragment(TagFragment2(),null)
                     }
                 } catch (e: Exception) {

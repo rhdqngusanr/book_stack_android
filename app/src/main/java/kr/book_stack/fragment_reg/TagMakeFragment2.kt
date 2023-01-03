@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.MenuHost
@@ -21,6 +23,7 @@ import kr.book_stack.RegActivity
 import kr.book_stack.StructData
 import kr.book_stack.adapter.TagMakeViewPagerAdapter
 import kr.book_stack.appDB.data.DefaultTag
+import kr.book_stack.appDB.data.Tag
 import kr.book_stack.databinding.DialogTagMakeBinding
 import kr.book_stack.databinding.RegFragmentTagMake2Binding
 import java.util.*
@@ -31,6 +34,7 @@ class TagMakeFragment2  : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: AppViewModel by viewModels()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
+    private var selectTag :DefaultTag? = null;
     fun newInstance() : TagMakeFragment2 {
         return TagMakeFragment2()
     }
@@ -67,12 +71,27 @@ class TagMakeFragment2  : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.CREATED)
         binding.tvTagAdd.setOnClickListener {
-/*            viewModel.insertTag(
-                Tag(binding.editTagName.text.toString(),"스마일")
+            viewModel.insertTag(
+                Tag(binding.editTagName.text.toString(),selectTag!!.name)
             )
-            mActivity.goFragment(TagFragment2(),null)*/
+            mActivity.goFragment(TagFragment2(),null)
         }
+        binding.editTagName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+
+                binding.tvTagAdd.isEnabled = s.toString().isNotEmpty()
+            }
+
+        })
 /*        binding.editTagName.setOnFocusChangeListener { _, b ->
 
             if (b){
@@ -167,6 +186,7 @@ class TagMakeFragment2  : Fragment() {
             for (i in StructData.arrayTag.indices) {
                 if (StructData.arrayTag[i].check ) {
                    binding.imgTagSelect.setImageResource(StructData.arrayTag[i].img)
+                    selectTag =StructData.arrayTag[i]
                     break
                 }
 

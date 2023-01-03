@@ -21,6 +21,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.book_stack.*
 import kr.book_stack.appDB.AppDatabase
@@ -84,7 +85,7 @@ class TagFragment2 : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.CREATED)
 
         viewModel.getUser(Struct.loginId).observe(viewLifecycleOwner, Observer { user ->
-            user?.let { userInfo = user.tagPageId.toString()}
+            user?.let { userInfo = user.tagPageId.toString() }
 
         })
 
@@ -101,7 +102,7 @@ class TagFragment2 : Fragment() {
                         for (id in ids) {
                             val chip: Chip = binding.chipGroupTag.findViewById(id)
                             val checkArray = viewModel.getAllTag().value
-                                for (j in checkArray!!.indices) {
+                            for (j in checkArray!!.indices) {
 
                                 if (checkArray[j].tag == chip.text) {
 
@@ -113,7 +114,11 @@ class TagFragment2 : Fragment() {
                                     )
                                     NotionAPI.updateTagPageId(tagDbPageId)
                                     viewModel.insertResultTag(
-                                        ResultTag(chip.text.toString(), checkArray[j].tagImg.toString(),tagDbPageId)
+                                        ResultTag(
+                                            chip.text.toString(),
+                                            checkArray[j].tagImg.toString(),
+                                            tagDbPageId
+                                        )
                                     )
                                 }
                             }
@@ -125,7 +130,7 @@ class TagFragment2 : Fragment() {
                     } finally {
                         mActivity.progressDismiss()
                         //mActivity.goH3Fragment()
-                        mActivity.goFragment(HFragment3(),null)
+                        mActivity.goFragment(HFragment3(), null)
                     }
                 }
             }
@@ -134,72 +139,75 @@ class TagFragment2 : Fragment() {
         }
         binding.tvMakeTag.setOnClickListener {
             //mActivity.goTagMakeFragment()
-            mActivity.goFragment(TagMakeFragment2(),null)
+            mActivity.goFragment(TagMakeFragment2(), null)
         }
 
 
         viewModel.getAllTag().observe(viewLifecycleOwner, Observer { tag ->
             // Update the cached copy of the users in the adapter.
             tag?.let {
-                if (tag.isEmpty()) {
-                    for (i in stringsTag.indices) {
-                        viewModel.insertTag(
-                            Tag(stringsTag[i],stringsTagImg[i])
-                        )
-                    }
-                } else {
-                    for (i in tag.indices.reversed() ) {
-                        binding.chipGroupTag.addView(Chip(requireActivity()).apply {
-                            isCheckable = true
-                            text = "${tag[i].tag}"
-                            chipMinHeight = dpToPx(requireActivity(),40f)
-                            marginTop
-                            setTextAppearance(R.style.label_2)
-                            chipIconSize= dpToPx(requireActivity(),18f)
-                            iconEndPadding = dpToPx(requireActivity(),-4f)
-                            chipStartPadding = dpToPx(requireActivity(),12f)
-                            chipEndPadding = dpToPx(requireActivity(),12f)
-                            isCheckedIconVisible = false
+                for (i in tag.indices.reversed()) {
+                    binding.chipGroupTag.addView(Chip(requireActivity()).apply {
+                        isCheckable = true
+                        text = "${tag[i].tag}"
+                        chipMinHeight = dpToPx(requireActivity(), 40f)
+                        marginTop
+                        setTextAppearance(R.style.label_2)
+                        chipIconSize = dpToPx(requireActivity(), 18f)
+                        iconEndPadding = dpToPx(requireActivity(), -4f)
+                        chipStartPadding = dpToPx(requireActivity(), 12f)
+                        chipEndPadding = dpToPx(requireActivity(), 12f)
+                        isCheckedIconVisible = false
 
 
-                            setChipBackgroundColorResource(R.color.chip_bg)
+                        setChipBackgroundColorResource(R.color.chip_bg)
 /*                            setOnCloseIconClickListener {
                                 binding.chipGroupTag.removeView(it)
                             }*/
-                            setOnCheckedChangeListener { _, b ->
-                                if (b){
-                                    closeIcon = ContextCompat.getDrawable(requireActivity(),R.drawable.svg_tag_check)
-                                    isCloseIconVisible = true
-                                    closeIconStartPadding = dpToPx(requireActivity(),-4f)
-                                    chipEndPadding = dpToPx(requireActivity(),12f)
-                                }else{
-                                    isCloseIconVisible = false
-                                    chipEndPadding = dpToPx(requireActivity(),12f)
-                                }
-
-                                val ids = binding.chipGroupTag.checkedChipIds
-                                binding.btnTagConfirm.isEnabled = ids.size != 0
+                        setOnCheckedChangeListener { _, b ->
+                            if (b) {
+                                closeIcon = ContextCompat.getDrawable(
+                                    requireActivity(),
+                                    R.drawable.svg_tag_check
+                                )
+                                isCloseIconVisible = true
+                                closeIconStartPadding = dpToPx(requireActivity(), -4f)
+                                chipEndPadding = dpToPx(requireActivity(), 12f)
+                            } else {
+                                isCloseIconVisible = false
+                                chipEndPadding = dpToPx(requireActivity(), 12f)
                             }
 
+                            val ids = binding.chipGroupTag.checkedChipIds
+                            binding.btnTagConfirm.isEnabled = ids.size != 0
+                        }
 
-                            for (j in stringsTagMakeImgName.indices) {
-                                if (stringsTagMakeImgName[j] == tag[i].tagImg) {
-                                    chipIcon = ContextCompat.getDrawable(
-                                        requireActivity(),
-                                        images.getResourceId(j, -1)
-                                    )
-                                }
+
+                        for (j in stringsTagMakeImgName.indices) {
+                            if (stringsTagMakeImgName[j] == tag[i].tagImg) {
+                                chipIcon = ContextCompat.getDrawable(
+                                    requireActivity(),
+                                    images.getResourceId(j, -1)
+                                )
                             }
-                        })
-                    }
+                        }
+                    })
                 }
+
+
             }
         })
 
     }
+
     fun dpToPx(context: Context, dp: Float): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -12,6 +12,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-
     <string name="tag_no"><u>나에게 맞는 분야가 없나요?</u></string>
 </resources>
