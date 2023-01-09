@@ -233,7 +233,12 @@ class HFragment3 : Fragment() {
             }
         })
 
-        binding.hAddTvRange.text = "${inBook.lookFirst} ~ ${inBook.lookLast}"
+        if (inBook.lookFirst != inBook.lookLast ){
+            binding.hAddTvRange.text = "${inBook.lookFirst} ~ ${inBook.lookLast}"
+        }else{
+            binding.hAddTvRange.text = "${inBook.lookFirst}"
+        }
+
         binding.editInfoComent.setText("${inBook.comment}")
 
         binding.btnDateRange.setOnClickListener {
