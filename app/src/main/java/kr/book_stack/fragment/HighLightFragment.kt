@@ -16,6 +16,7 @@ import android.view.*
 import androidx.lifecycle.Observer
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
@@ -54,6 +55,8 @@ class HighLightFragment : Fragment() {
     private var _binding: FragmentHighlight2Binding? = null;
     private val binding get() = _binding!!
     private val cal = Calendar.getInstance()
+
+    var keyboardflag = false
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     fun newInstance(): HighLightFragment {
         return HighLightFragment()
@@ -70,13 +73,14 @@ class HighLightFragment : Fragment() {
 
     }
 
-    @SuppressLint("Recycle")
+    @SuppressLint("Recycle", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val animation: Animation = AlphaAnimation(0f, 1f)
         animation.duration = 1000
         val mActivity = activity as RegActivity
-
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -100,7 +104,6 @@ class HighLightFragment : Fragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.CREATED)
-
 
 
         val info = arguments?.getString("bookInfo")
@@ -160,6 +163,10 @@ class HighLightFragment : Fragment() {
                                     isCheckedIconVisible = false
                                     isCloseIconVisible = true
                                     setChipBackgroundColorResource(R.color.chip_bg_h2)
+                                    closeIcon = ContextCompat.getDrawable(
+                                        requireActivity(),
+                                        R.drawable.ic_icon_x_mono
+                                    )
 
                                     for (j in tag.indices) {
                                         if (tag[j].tag == v.text) {
@@ -215,7 +222,7 @@ class HighLightFragment : Fragment() {
         })
 
         val strDateRange =
-            "${cal.get(Calendar.YEAR)}. ${cal.get(Calendar.MONTH)+1}. ${cal.get(Calendar.DATE)}"
+            "${cal.get(Calendar.YEAR)}. ${cal.get(Calendar.MONTH) + 1}. ${cal.get(Calendar.DATE)}"
         binding.hAddTvRange.text = "$strDateRange ~ $strDateRange"
 
         binding.btnDateRange.setOnClickListener {
@@ -230,6 +237,11 @@ class HighLightFragment : Fragment() {
             user?.let { userInfo = user }
 
         })
+
+        binding.scrollHighlight.setOnTouchListener { _, _ ->
+            imm.hideSoftInputFromWindow(binding.editInfoComent.windowToken, 0)
+        }
+
         binding.tvBtnAddHighlight.setOnClickListener {
 
             var tagString = ""
@@ -321,11 +333,12 @@ class HighLightFragment : Fragment() {
         }
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
             onShowKeyboard = { keyboardHeight ->
+                keyboardflag = true
                 binding.scrollHighlight.run {
                     smoothScrollTo(scrollX, scrollY + keyboardHeight)
                 }
             }, onHideKeyboard = {
-
+                keyboardflag = false
             })
     }
 

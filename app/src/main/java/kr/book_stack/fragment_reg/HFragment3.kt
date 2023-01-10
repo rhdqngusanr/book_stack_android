@@ -7,10 +7,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
@@ -130,8 +134,10 @@ class HFragment3 : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun dialogModifyHighlight(inBook: Book) {
         //val view = View.inflate(this@ActivityAdminMain, R.layout.dialog_add_customer, null)
+
         val binding = FragmentHModifyBinding.inflate(requireActivity().layoutInflater)
         val builder = AlertDialog.Builder(requireActivity(), R.style.popCasterDlgTheme)
         builder.setView(binding.root)
@@ -149,6 +155,15 @@ class HFragment3 : Fragment() {
         val stringsTagImg = resources.getStringArray(R.array.tag_make_img_name)
         val images = resources.obtainTypedArray(R.array.tag_images)
 
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(alertDialog.window!!,
+            onShowKeyboard = { keyboardHeight ->
+                    binding.scrollHighlight.run {
+                        smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                    } //실행할 코드
+
+            }, onHideKeyboard = {
+
+            })
 
         viewModel.getAllResultTag().observe(viewLifecycleOwner, Observer { tag ->
             // Update the cached copy of the users in the adapter.
@@ -233,6 +248,11 @@ class HFragment3 : Fragment() {
             }
         })
 
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        binding.scrollHighlight.setOnTouchListener { _, _ ->
+            imm.hideSoftInputFromWindow(binding.editInfoComent.windowToken, 0)
+        }
         if (inBook.lookFirst != inBook.lookLast ){
             binding.hAddTvRange.text = "${inBook.lookFirst} ~ ${inBook.lookLast}"
         }else{
@@ -240,21 +260,19 @@ class HFragment3 : Fragment() {
         }
 
         binding.editInfoComent.setText("${inBook.comment}")
+        binding.tilInfoComent.setOnClickListener {
+            binding.scrollHighlight.fullScroll(ScrollView.FOCUS_DOWN)
+        }
 
         binding.btnDateRange.setOnClickListener {
             dialogDate(binding.hAddTvRange)
-        }
-        binding.tilInfoComent.setOnClickListener {
-            binding.scrollHighlight.fullScroll(ScrollView.FOCUS_UP)
         }
 
 
         binding.tvBookHDelete.setOnClickListener {
             dialogPopUpDelete(alertDialog, inBook)
         }
-        binding.tilInfoComent.setOnClickListener {
-            binding.scrollHighlight.fullScroll(ScrollView.FOCUS_UP)
-        }
+
         binding.imgClose.setOnClickListener {
             alertDialog.dismiss()
         }
@@ -341,14 +359,7 @@ class HFragment3 : Fragment() {
             }
         }
         alertDialog.show()
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
-            onShowKeyboard = { keyboardHeight ->
-                binding.scrollHighlight.run {
-                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
-                }
-            }, onHideKeyboard = {
 
-            })
     }
 
     @SuppressLint("SetTextI18n")

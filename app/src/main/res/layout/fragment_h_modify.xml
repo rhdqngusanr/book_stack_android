@@ -46,9 +46,7 @@
         android:layout_above="@+id/linearLayout3"
         android:layout_below="@id/toolbar_monitor"
         android:layout_marginTop="16dp"
-
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_monitor">
@@ -239,7 +237,7 @@
                     android:layout_marginStart="22dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="64dp"
+                    android:layout_marginBottom="80dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -275,14 +273,23 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_above="@+id/linearLayout3"
+        android:background="@drawable/bg_gradient" />
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/background"
-        android:padding="16dp">
-
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        >
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_btn_add_highlight"
@@ -294,7 +301,7 @@
             android:gravity="center"
             android:outlineProvider="none"
             android:shadowRadius="0"
-            android:text="다음"
+            android:text="저장"
             android:textColor="@color/white" />
     </LinearLayout>
 

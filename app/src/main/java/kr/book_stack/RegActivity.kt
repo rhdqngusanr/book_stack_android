@@ -1,12 +1,14 @@
 package kr.book_stack
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -100,6 +102,8 @@ class RegActivity : AppCompatActivity() {
 
     @SuppressLint("PrivateResource")
     fun goFragment(inFragment: Fragment, inBundle: Bundle?) {
+        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.toolbarReg.windowToken, 0)
         inFragment.arguments = inBundle
         supportFragmentManager
             .beginTransaction()
