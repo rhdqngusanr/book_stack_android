@@ -7,10 +7,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
@@ -18,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
@@ -36,10 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.book_stack.*
 import kr.book_stack.adapter.RecyclerHighlightAdapter
-import kr.book_stack.adapter.RecyclerViewAdapter
-import kr.book_stack.api.ApiData
 import kr.book_stack.appDB.data.Book
-import kr.book_stack.appDB.data.User
 import kr.book_stack.databinding.*
 import kr.book_stack.fragment.SearchFragment
 import kr.book_stack.notion.NotionAPI
@@ -50,8 +47,14 @@ class HFragment3 : Fragment() {
     private var _binding: RegFragmentH3Binding? = null
     private val binding get() = _binding!!
     private val cal = Calendar.getInstance()
+    private lateinit var callback: OnBackPressedCallback
+    var waitTime = 0L
     private  var keyboardVisibilityUtils: KeyboardVisibilityUtils? = null
     var mActivity : RegActivity? = null
+    var bindingModifyAll : FragmentHModifyBinding? = null
+    var modifyFlag = false
+    var flagChange = false
+    var flagEditChange = false
     fun newInstance(): HFragment3 {
         return HFragment3()
     }
@@ -134,30 +137,35 @@ class HFragment3 : Fragment() {
         }
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     private fun dialogModifyHighlight(inBook: Book) {
+        modifyFlag = true
+        flagChange = false
         //val view = View.inflate(this@ActivityAdminMain, R.layout.dialog_add_customer, null)
 
-        val binding = FragmentHModifyBinding.inflate(requireActivity().layoutInflater)
+
+        val bindingModify = FragmentHModifyBinding.inflate(requireActivity().layoutInflater)
+        bindingModifyAll = bindingModify
         val builder = AlertDialog.Builder(requireActivity(), R.style.popCasterDlgTheme)
-        builder.setView(binding.root)
+        builder.setView(bindingModify.root)
         builder.setCancelable(false)
         val alertDialog = builder.create()
         alertDialog.window!!.attributes.windowAnimations = R.style.AnimationPopupStyle
         alertDialog.setCancelable(true)
         Glide
-            .with(binding.hAddImgBookCover.context)
+            .with(bindingModify.hAddImgBookCover.context)
             .load(inBook.img)
-            .into(binding.hAddImgBookCover)
-        binding.hAddTvBookTitle.text = inBook.name
-        binding.hAddTvBookInfo.text = inBook.bookInfo
+            .into(bindingModify.hAddImgBookCover)
+        bindingModify.hAddTvBookTitle.text = inBook.name
+        bindingModify.hAddTvBookInfo.text = inBook.bookInfo
 
         val stringsTagImg = resources.getStringArray(R.array.tag_make_img_name)
         val images = resources.obtainTypedArray(R.array.tag_images)
 
         keyboardVisibilityUtils = KeyboardVisibilityUtils(alertDialog.window!!,
             onShowKeyboard = { keyboardHeight ->
-                    binding.scrollHighlight.run {
+                    bindingModify.scrollHighlight.run {
                         smoothScrollTo(scrollX, scrollY + keyboardHeight)
                     } //실행할 코드
 
@@ -173,7 +181,7 @@ class HFragment3 : Fragment() {
                 } else {
                     var  thisChip :Chip
                     for (i in tag.indices) {
-                        binding.chipsHighLightTag.addView(Chip(requireActivity()).apply {
+                        bindingModify.chipsHighLightTag.addView(Chip(requireActivity()).apply {
                             isCheckable = true
                             text = "${tag[i].tag}"
                             chipMinHeight = dpToPx(requireActivity(), 32f)
@@ -189,10 +197,19 @@ class HFragment3 : Fragment() {
                             }*/
 
                             setOnCheckedChangeListener { v, b ->
-                                binding.horizontalScrollView.visibility = View.GONE
-                                binding.horizontalScrollView.animation = animation
-                                binding.tvBtnAddHighlight.isEnabled = true
-                                binding.chipsHighLightTagCheck.addView(Chip(requireActivity()).apply {
+                                if ("$text@" != inBook.tag) {
+                                    flagChange = true
+                                    bindingModify.linearLayout3.visibility = View.VISIBLE
+                                }else{
+                                    flagChange = false
+                                    if (!flagEditChange){
+                                        bindingModify.linearLayout3.visibility = View.GONE
+                                    }
+                                }
+                                bindingModify.horizontalScrollView.visibility = View.GONE
+                                bindingModify.horizontalScrollView.animation = animation
+                                bindingModify.tvBtnAddHighlight.isEnabled = true
+                                bindingModify.chipsHighLightTagCheck.addView(Chip(requireActivity()).apply {
                                     isCheckable = true
                                     isChecked = true
                                     text = v.text
@@ -205,8 +222,12 @@ class HFragment3 : Fragment() {
                                     isCheckedIconVisible = false
                                     isCloseIconVisible = true
                                     setChipBackgroundColorResource(R.color.chip_bg_h2)
+                                    closeIcon = ContextCompat.getDrawable(
+                                        requireActivity(),
+                                        R.drawable.ic_icon_x_mono
+                                    )
 
-                                    for (j in tag.indices) {
+                                        for (j in tag.indices) {
                                         if (tag[j].tag == v.text) {
                                             for (k in stringsTagImg.indices) {
                                                 if (stringsTagImg[k] == tag[j].tagImg) {
@@ -220,10 +241,11 @@ class HFragment3 : Fragment() {
                                     }
 
                                     setOnCloseIconClickListener {
-                                        binding.chipsHighLightTagCheck.removeAllViews()
-                                        binding.tvBtnAddHighlight.isEnabled = false
-                                        binding.horizontalScrollView.visibility = View.VISIBLE
-                                        binding.horizontalScrollView.animation = animation
+                                        bindingModify.chipsHighLightTagCheck.removeAllViews()
+                                        bindingModify.tvBtnAddHighlight.isEnabled = false
+                                        //bindingModify.linearLayout3.visibility = View.GONE
+                                        bindingModify.horizontalScrollView.visibility = View.VISIBLE
+                                        bindingModify.horizontalScrollView.animation = animation
                                     }
 
                                 })
@@ -250,39 +272,86 @@ class HFragment3 : Fragment() {
 
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        binding.scrollHighlight.setOnTouchListener { _, _ ->
-            imm.hideSoftInputFromWindow(binding.editInfoComent.windowToken, 0)
+        bindingModify.scrollHighlight.setOnTouchListener { _, _ ->
+            imm.hideSoftInputFromWindow(bindingModify.editInfoComent.windowToken, 0)
         }
         if (inBook.lookFirst != inBook.lookLast ){
-            binding.hAddTvRange.text = "${inBook.lookFirst} ~ ${inBook.lookLast}"
+            bindingModify.hAddTvRange.text = "${inBook.lookFirst} ~ ${inBook.lookLast}"
         }else{
-            binding.hAddTvRange.text = "${inBook.lookFirst}"
+            bindingModify.hAddTvRange.text = "${inBook.lookFirst}"
         }
 
-        binding.editInfoComent.setText("${inBook.comment}")
-        binding.tilInfoComent.setOnClickListener {
-            binding.scrollHighlight.fullScroll(ScrollView.FOCUS_DOWN)
+        bindingModify.hAddTvRange.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString() != inBook.tag) {
+                    flagChange = true
+                    flagEditChange = true
+                    bindingModify.linearLayout3.visibility = View.VISIBLE
+                }else{
+                    flagChange = false
+                    flagEditChange = false
+                    bindingModify.linearLayout3.visibility = View.GONE
+                }
+            }
+        })
+        bindingModify.editInfoComent.setText("${inBook.comment}")
+        bindingModify.editInfoComent.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString() != inBook.tag) {
+                    flagEditChange = true
+                    flagChange = true
+                    bindingModify.linearLayout3.visibility = View.VISIBLE
+                }else{
+                    flagChange = false
+                    flagEditChange = false
+                    bindingModify.linearLayout3.visibility = View.GONE
+                }
+            }
+        })
+        bindingModify.tilInfoComent.setOnClickListener {
+            bindingModify.scrollHighlight.fullScroll(ScrollView.FOCUS_DOWN)
         }
 
-        binding.btnDateRange.setOnClickListener {
-            dialogDate(binding.hAddTvRange)
+        bindingModify.btnDateRange.setOnClickListener {
+            dialogDate(bindingModify.hAddTvRange)
         }
 
 
-        binding.tvBookHDelete.setOnClickListener {
+        bindingModify.tvBookHDelete.setOnClickListener {
             dialogPopUpDelete(alertDialog, inBook)
         }
 
-        binding.imgClose.setOnClickListener {
-            alertDialog.dismiss()
+        bindingModify.imgClose.setOnClickListener {
+            if (flagChange && bindingModify.tvBtnAddHighlight.isEnabled){
+                dialogPopUp(mActivity!!,bindingModifyAll!!,alertDialog)
+            }else{
+                alertDialog.dismiss()
+            }
+
         }
-        binding.tvBtnAddHighlight.setOnClickListener {
+        bindingModify.tvBtnAddHighlight.setOnClickListener {
 
             var tagString = ""
             var tagImgString = ""
             CoroutineScope(Dispatchers.Main).launch {
 
-                val ids = binding.chipsHighLightTagCheck.checkedChipIds
+                val ids = bindingModify.chipsHighLightTagCheck.checkedChipIds
                 if (ids.size == 0) {
                     Toast.makeText(requireActivity(), "태그를 선택해주세요.", Toast.LENGTH_LONG).show()
                 } else {
@@ -290,7 +359,7 @@ class HFragment3 : Fragment() {
                     try {
 
                         for (id in ids) {
-                            val chip: Chip = binding.chipsHighLightTagCheck.findViewById(id)
+                            val chip: Chip = bindingModify.chipsHighLightTagCheck.findViewById(id)
                             val checkArray = viewModel.getAllResultTag().value
                             for (j in checkArray!!.indices) {
 
@@ -304,10 +373,10 @@ class HFragment3 : Fragment() {
                         }
 
                         //123으로 저장된곳 협의후 수정
-                        val arr: List<String> = if (binding.hAddTvRange.text.contains("~")) {
-                            binding.hAddTvRange.text.split("~")
+                        val arr: List<String> = if (bindingModify.hAddTvRange.text.contains("~")) {
+                            bindingModify.hAddTvRange.text.split("~")
                         } else {
-                            val str = "${binding.hAddTvRange.text}~${binding.hAddTvRange.text}"
+                            val str = "${bindingModify.hAddTvRange.text}~${bindingModify.hAddTvRange.text}"
                             str.split("~")
                         }
 
@@ -322,7 +391,7 @@ class HFragment3 : Fragment() {
                             tagString,
                             tagImgString,
                             inBook.highlight.toString(),
-                            binding.editInfoComent.text.toString()
+                            bindingModify.editInfoComent.text.toString()
 
                         )
                         //TODO 추후 룸 DB 연결부분 협의후 수정
@@ -342,7 +411,7 @@ class HFragment3 : Fragment() {
                                 tagString,
                                 tagImgString,
                                 inBook.highlight,
-                                binding.editInfoComent.text.toString(),
+                                bindingModify.editInfoComent.text.toString(),
                                 inBook.bookInfo
                             )
                         )
@@ -358,6 +427,25 @@ class HFragment3 : Fragment() {
                 }
             }
         }
+
+        alertDialog.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if(System.currentTimeMillis() - waitTime >=1500 ) {
+                    waitTime = System.currentTimeMillis()
+
+                }else{
+                    if (flagChange && bindingModify.tvBtnAddHighlight.isEnabled) {
+                        dialogPopUp(mActivity!!, bindingModifyAll!!, alertDialog)
+
+                    } else {
+                        alertDialog.dismiss()
+                    }
+                }
+                //do to task here
+            }
+            true
+        }
+
         alertDialog.show()
 
     }
@@ -588,6 +676,32 @@ class HFragment3 : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    private fun dialogPopUp(inActivity: RegActivity, inBinding : FragmentHModifyBinding, inAlertDialog: AlertDialog) {
+
+        val bindingPopup = DialogPopupBinding.inflate(requireActivity().layoutInflater)
+
+        val dialog = Dialog(requireActivity())
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(bindingPopup.root)
+        dialog.setCancelable(true)
+        bindingPopup.tvTitle.text = "변경사항을 저장할까요?"
+        bindingPopup.tvSub.visibility = View.GONE
+        bindingPopup.btnIng.text = "나중에"
+        bindingPopup.btnClose.text = "저장하기"
+
+        bindingPopup.btnClose.setOnClickListener {
+            dialog.dismiss()
+            inBinding.tvBtnAddHighlight.performClick()
+
+        }
+        bindingPopup.btnIng.setOnClickListener {
+            inAlertDialog.dismiss()
+            dialog.dismiss()
+        }
+        dialog.show()
+
     }
 
 }

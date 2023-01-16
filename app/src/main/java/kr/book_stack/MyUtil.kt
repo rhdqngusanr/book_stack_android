@@ -1,8 +1,13 @@
 package kr.book_stack
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AlertDialog
+import kr.book_stack.databinding.DialogPopupBinding
+import kr.book_stack.fragment_reg.HFragment3
 import org.jraf.klibnotion.model.property.SelectOption
 import org.jraf.klibnotion.model.richtext.RichTextList
 import java.nio.ByteBuffer
@@ -25,6 +30,7 @@ object MyUtil{
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
 
 
 }
