@@ -32,8 +32,8 @@
 ## Developer
 - **특징** 
   - 이 프로젝트의 DB는 일반적인 DB와 다른 방식으로 Notion 의 Data Table 과 Notion Api만을 사용하였다.
-  - 기본적으로 DB 저장시  Notion Api(DB) -> Notion Data Table -> App LiveData -> App View 의 순서를 가지며 <br> Notion 에서 가져온 정보를 안드로이드 RoomDB로 저장하여 LiveData로 보여주는 MVVM 형식을 따르고 있다.
-  - 아래의 모든 기능들은 DB와 통신을 한다.
+  - Architecture Component - LiveData, Databinding, Room, ViewModel 를 사용하였다.
+  - 아래의 모든 기능들은 Notion과 통신을 한다.
 
 - **Splash** 
 
@@ -48,7 +48,7 @@
 ![login](https://user-images.githubusercontent.com/59686942/210377590-4c9a7e75-097f-4281-91e6-ecdbc7b44f63.gif)
  
  
-        - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table -> App LiveData -> App View 형식을 가지고 있다
+        - 카카오 로그인 -> Notion Api(DB) -> Notion Data Table ->  App LiveData -> App View 형식을 가지고 있다
         - EditText 이벤트 , 키보드에 따라 변하는 버튼과 Text 기능들을 커스텀하였다.
         - 구글/카카오 로그인 모두 디버그키 릴리즈키를 등록하여 테스트하였다.
 
