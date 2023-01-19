@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -151,7 +152,7 @@ class TagFragment2 : Fragment() {
                         isCheckable = true
                         text = "${tag[i].tag}"
                         chipMinHeight = dpToPx(requireActivity(), 40f)
-                        marginTop
+                        height = 40
                         setTextAppearance(R.style.label_2)
                         chipIconSize = dpToPx(requireActivity(), 18f)
                         iconEndPadding = dpToPx(requireActivity(), -4f)

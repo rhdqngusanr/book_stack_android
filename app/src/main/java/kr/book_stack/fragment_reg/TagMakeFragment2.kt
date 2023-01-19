@@ -35,6 +35,7 @@ class TagMakeFragment2  : Fragment() {
     private val viewModel: AppViewModel by viewModels()
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
     private var selectTag :DefaultTag? = null;
+
     fun newInstance() : TagMakeFragment2 {
         return TagMakeFragment2()
     }
@@ -48,10 +49,13 @@ class TagMakeFragment2  : Fragment() {
 
     }
 
+    @SuppressLint("Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mActivity = activity as RegActivity
         val menuHost: MenuHost = requireActivity()
+
+
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
@@ -70,6 +74,8 @@ class TagMakeFragment2  : Fragment() {
 
             }
         }, viewLifecycleOwner, Lifecycle.State.CREATED)
+
+        selectTag = DefaultTag("books_color",0,true)
         binding.tvTagAdd.setOnClickListener {
             viewModel.insertTag(
                 Tag(binding.editTagName.text.toString(),selectTag!!.name)
@@ -137,10 +143,12 @@ class TagMakeFragment2  : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun dialogTagMake() {
+
+
+        StructData.arrayTag.clear()
         val stringsTagMakeImg = resources.getStringArray(R.array.tag_make_img_name)
         val images = resources.obtainTypedArray(R.array.tag_images)
 
-        StructData.arrayTag.clear()
         for (j in stringsTagMakeImg.indices) {
             if(j==30){
                 StructData.arrayTag.add(DefaultTag(stringsTagMakeImg[j],images.getResourceId(j, -1),true))

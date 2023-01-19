@@ -662,11 +662,11 @@ class HFragment3 : Fragment() {
         dialog.setCancelable(true)
 
 
-        bindingPopup.btnClose.setOnClickListener {
+        bindingPopup.btnIng.setOnClickListener {
             inDialog.dismiss()
             dialog.dismiss()
         }
-        bindingPopup.btnIng.setOnClickListener {
+        bindingPopup.btnClose.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 NotionAPI.deletePage(inBook.page_id)
             }

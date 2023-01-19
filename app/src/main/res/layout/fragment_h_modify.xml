@@ -251,6 +251,7 @@
                         android:layout_height="wrap_content"
                         app:counterTextColor="@color/black"
                         app:endIconMode="clear_text"
+                        app:endIconTint="@color/paperGray70"
                         app:hintAnimationEnabled="false"
                         app:hintEnabled="false">
 

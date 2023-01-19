@@ -60,7 +60,7 @@ class InfoFragment1 : Fragment() {
 
         val id = arguments?.getString("user_id")
         val name = arguments?.getString("user_name")
-        val profile = arguments?.getString("user_profile")
+        var profile = arguments?.getString("user_profile")?:"https://lh3.googleusercontent.com/a/AEdFTp7HN1zbDvPdIkboP0P6JfH4pFrWmsBT_DY0LxYR3g"
         val mActivity = activity as RegActivity
         val menuHost: MenuHost = requireActivity()
 
@@ -105,6 +105,8 @@ class InfoFragment1 : Fragment() {
                 .load(R.drawable.login_1)
                 .circleCrop()
                 .into(binding.circleImageView)
+
+            profile = "https://lh3.googleusercontent.com/a/AEdFTp7HN1zbDvPdIkboP0P6JfH4pFrWmsBT_DY0LxYR3g"
         } else {
             Glide
                 .with(binding.circleImageView.context)
@@ -174,7 +176,7 @@ class InfoFragment1 : Fragment() {
                     if (userData == null) {
                         return@launch
                     }
-                    val testt = 1
+
                     if (userData.id == "empty") {
                         val userDbPageId = NotionAPI.createUserDB(
                             id.toString(),

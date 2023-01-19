@@ -133,7 +133,8 @@ class LoginActivity : AppCompatActivity() {
 
             Log.i("handleSignInResult", "test ${account.displayName}")
             val email = account?.email.toString()
-            val familyName = account?.familyName.toString()
+            val familyName = account?.displayName.toString()
+
 
             val intent = Intent(this, RegActivity::class.java)
             //intent.putExtra("id","${user.id}")
