@@ -44,7 +44,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_ing"
-        style="@style/label_1"
+        style="@style/label_2"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -62,7 +62,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_close"
-        style="@style/label_1"
+        style="@style/label_2"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"

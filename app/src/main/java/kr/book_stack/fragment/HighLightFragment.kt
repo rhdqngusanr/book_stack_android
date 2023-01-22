@@ -167,6 +167,8 @@ class HighLightFragment : Fragment() {
                                         requireActivity(),
                                         R.drawable.ic_icon_x_mono
                                     )
+                                    setCloseIconTintResource(R.color.paperGray70)
+
 
                                     for (j in tag.indices) {
                                         if (tag[j].tag == v.text) {
